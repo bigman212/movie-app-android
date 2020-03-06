@@ -1,0 +1,2 @@
+rootProject.name='internship_android_levinkov'
+include ':app'
