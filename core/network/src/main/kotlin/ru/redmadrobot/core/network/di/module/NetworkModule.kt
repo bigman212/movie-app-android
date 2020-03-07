@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 @Module
-class NetworkModule(val baseUrl: String) {
+class NetworkModule(private val baseUrl: String) {
 
     @Provides
     @Singleton
@@ -35,8 +35,8 @@ class NetworkModule(val baseUrl: String) {
 
     @Provides
     @Singleton
-    fun provideLoggingInterceptor(): HttpLoggingInterceptor = HttpLoggingInterceptor()
-        .apply {
+    fun provideLoggingInterceptor(): HttpLoggingInterceptor =
+        HttpLoggingInterceptor().apply {
             level = HttpLoggingInterceptor.Level.HEADERS
         }
 
@@ -55,11 +55,9 @@ class NetworkModule(val baseUrl: String) {
 
     @Provides
     @Singleton
-    fun provideGsonConverterFactoryFactory(): GsonConverterFactory =
-        GsonConverterFactory.create()
+    fun provideGsonConverterFactoryFactory(): GsonConverterFactory = GsonConverterFactory.create()
 
     @Provides
     @Singleton
-    fun provideRxJava2CallAdapterFactory(): RxJava2CallAdapterFactory =
-        RxJava2CallAdapterFactory.create()
+    fun provideRxJava2CallAdapterFactory(): RxJava2CallAdapterFactory = RxJava2CallAdapterFactory.create()
 }

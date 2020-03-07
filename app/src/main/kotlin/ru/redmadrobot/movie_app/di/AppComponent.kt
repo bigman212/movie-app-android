@@ -1,8 +1,6 @@
 package ru.redmadrobot.movie_app.di
 
 import dagger.Component
-import ru.redmadrobot.core.network.MoviesService
-import ru.redmadrobot.core.network.di.AppProvider
 import ru.redmadrobot.core.network.di.NetworkProvider
 import ru.redmadrobot.core.network.di.component.NetworkComponent
 import ru.redmadrobot.movie_app.App
@@ -10,22 +8,23 @@ import ru.redmadrobot.movie_app.MainActivity
 import javax.inject.Singleton
 
 
-
 @Singleton
 @Component(
-    dependencies = [NetworkProvider::class]
+    dependencies = [NetworkProvider::class],
+    modules = [AppModule::class]
 )
 interface AppComponent : AppProvider {
     fun inject(activity: MainActivity)
-    fun moviesApi(): MoviesService
 
     class Builder private constructor() {
 
         companion object {
-            fun build(application: App): AppComponent {
+            fun build(application: App, baseUrl: String): AppComponent {
+                val networkComponent = NetworkComponent.Builder.build(baseUrl)
+                val appModule = AppModule(application)
 
-                val networkComponent = NetworkComponent.Builder.build("github")
                 return DaggerAppComponent.builder()
+                    .appModule(appModule)
                     .networkProvider(networkComponent)
                     .build()
             }
