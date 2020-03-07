@@ -7,6 +7,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
+import ru.redmadrobot.core.network.MoviesService
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
@@ -27,6 +28,10 @@ class NetworkModule(val baseUrl: String) {
             .addCallAdapterFactory(rxJava2Adapter)
             .build()
     }
+
+    @Provides
+    @Singleton
+    fun provideMoviesService(retrofit: Retrofit) = retrofit.create(MoviesService::class.java)
 
     @Provides
     @Singleton
