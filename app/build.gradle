@@ -7,6 +7,8 @@ apply from: rootProject.file('dependencies.gradle')
 apply from: rootProject.file('common-android-library.gradle')
 
 dependencies {
+    implementation project(":core:network")
+
     implementation(
             deps.kotlin.stdlib,
 
@@ -21,6 +23,15 @@ dependencies {
 
             deps.tools.timber,
     )
+
+    // ducktape for fixing "cannot access OkHttpClient"
+    implementation 'com.squareup.retrofit2:retrofit:2.7.1'
+    implementation 'com.squareup.retrofit2:converter-gson:2.7.1'
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.4.0'
+
+    implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.15'
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.7.1'
 
     kapt(
             deps.dagger.processor,
