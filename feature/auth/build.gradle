@@ -1,12 +1,9 @@
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
-apply plugin: 'kotlin-kapt'
-
-apply from: rootProject.file('dependencies.gradle')
 apply from: rootProject.file('common-android-library.gradle')
+apply from: rootProject.file('dependencies.gradle')
 
 dependencies {
+//    implementation project(":core")
+
     implementation(
             deps.kotlin.stdlib,
 
@@ -19,6 +16,9 @@ dependencies {
 
             deps.dagger.dagger,
 
+            deps.lifecycle.view_model,
+            deps.lifecycle.extensions,
+
             deps.tools.timber,
     )
 
@@ -26,7 +26,4 @@ dependencies {
             deps.dagger.processor,
     )
 
-//    testImplementation(testDependencies)
-//
-//    androidTestImplementation(androidTestDependencies)
 }
