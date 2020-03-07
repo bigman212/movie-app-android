@@ -1,0 +1,65 @@
+ext.deps = [:]
+
+def versions = [:]
+
+versions.kotlin = "1.3.70"
+
+versions.material = "1.1.0"
+versions.lifecycle = "2.2.0"
+versions.constraint_layout = "1.1.3"
+
+versions.dagger = "2.26"
+
+versions.timber = "4.7.1"
+
+def test_runner_version = '1.0.2'
+def espresso_core_version = '3.0.2'
+def junit_version = '4.12'
+def mockito_core_version = '2.18.0'
+def kotlin_mockito_version = '2.1.0'
+def android_arch_core_testing_version = '2.0.1'
+
+
+ext {
+    testDependencies = [
+            junit =  "junit:junit:$junit_version",
+
+            mockito_core = "org.mockito:mockito-core:$mockito_core_version",
+
+            android_arch_core_testing = "androidx.arch.core:core-testing:$android_arch_core_testing_version",
+
+            kotlin_mockito = "com.nhaarman.mockitokotlin2:mockito-kotlin:$kotlin_mockito_version",
+    ]
+
+    androidTestDependencies = [
+            test_runner =  "com.android.support.test:runner:$test_runner_version",
+
+            espresso_core =  "com.android.support.test.espresso:espresso-core:$espresso_core_version"
+    ]
+}
+
+def kotlin = [:]
+kotlin.stdlib = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.kotlin"
+deps.kotlin = kotlin
+
+def lifecycle = [:]
+lifecycle.view_model = "androidx.lifecycle:lifecycle-viewmodel-ktx:$versions.lifecycle"
+lifecycle.extensions = "androidx.lifecycle:lifecycle-extensions:$versions.lifecycle"
+deps.lifecycle = lifecycle
+
+def material = [:]
+material.material = "com.google.android.material:material:$versions.material"
+deps.material = material
+
+def constraint = [:]
+constraint.constraint = "androidx.constraintlayout:constraintlayout:$versions.constraint_layout"
+deps.constraint = constraint
+
+def dagger = [:]
+dagger.dagger = "com.google.dagger:dagger:$versions.dagger"
+dagger.processor = "com.google.dagger:dagger-compiler:$versions.dagger"
+deps.dagger = dagger
+
+def tools = [:]
+tools.timber = "com.jakewharton.timber:timber:$versions.timber"
+deps.tools = tools
