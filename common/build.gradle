@@ -1,0 +1,29 @@
+apply plugin: 'com.android.library'
+
+apply from: rootProject.file('dependencies.gradle')
+apply from: rootProject.file('common-android-library.gradle')
+
+dependencies {
+    implementation project(path: ':core:network')
+    implementation(
+            deps.kotlin.stdlib,
+
+            deps.lifecycle.view_model,
+            deps.lifecycle.extensions,
+
+            deps.material.material,
+
+            deps.constraint.constraint,
+
+            deps.dagger.dagger,
+
+            deps.tools.timber,
+    )
+
+    kapt(
+            deps.dagger.processor,
+    )
+
+    testImplementation(testDependencies)
+    androidTestImplementation(androidTestDependencies)
+}
