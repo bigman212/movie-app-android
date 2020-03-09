@@ -1,10 +1,35 @@
 apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
-apply plugin: 'kotlin-kapt'
 
 apply from: rootProject.file('dependencies.gradle')
 apply from: rootProject.file('common-android-library.gradle')
+
+android {
+    defaultConfig {
+        applicationId versions.appId
+        minSdkVersion versions.minSdk
+        targetSdkVersion versions.targetSdk
+        versionCode versions.code
+        versionName versions.name
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        debug {
+            minifyEnabled false
+            applicationIdSuffix '.debug'
+            versionNameSuffix '-DEBUG'
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+
+        release {
+            shrinkResources true
+            debuggable false
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
 
 dependencies {
     implementation project(":core:network")
@@ -37,7 +62,6 @@ dependencies {
             deps.dagger.processor,
     )
 
-//    testImplementation(testDependencies)
-//
-//    androidTestImplementation(androidTestDependencies)
+    testImplementation(testDependencies)
+    androidTestImplementation(androidTestDependencies)
 }

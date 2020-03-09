@@ -1,8 +1,10 @@
-apply from: rootProject.file('common-android-library.gradle')
+apply plugin: 'com.android.library'
+
 apply from: rootProject.file('dependencies.gradle')
+apply from: rootProject.file('common-android-library.gradle')
 
 dependencies {
-//    implementation project(":core")
+    implementation project(":core:network")
 
     implementation(
             deps.kotlin.stdlib,
@@ -25,5 +27,8 @@ dependencies {
     kapt(
             deps.dagger.processor,
     )
+
+    testImplementation(testDependencies)
+    androidTestImplementation(androidTestDependencies)
 
 }
