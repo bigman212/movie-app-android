@@ -10,7 +10,7 @@ class App : Application(), DaggerApplication {
 
     override fun onCreate() {
         super.onCreate()
-        appComponent = AppComponent.Builder.build(this, "example.com")
+        appComponent = AppComponent.Builder.build(this, "http://example.com")
     }
 
     override fun getApplicationProvider(): AppProvider = appComponent
