@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="info_welcome_title">Добро пожаловать!</string>
+    <string name="info_welcome_body">Укажите логин и пароль который вы использовали для входа</string>
+
+    <string name="text_input_hint_login">Логин</string>
+    <string name="text_input_hint_password">Пароль</string>
+
+    <string name="error_unknown">Что-то пошло не так, попробуйте войти позже</string>
+
+    <string name="btn_enter">Войти</string>
+</resources>

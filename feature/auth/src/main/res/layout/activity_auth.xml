@@ -10,7 +10,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="116dp"
-        android:text="Добро пожаловать!"
+        android:text="@string/info_welcome_title"
         android:textSize="32sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline"
@@ -21,7 +21,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
-        android:text="Укажите логин и пароль который вы использовали для входа"
+        android:text="@string/info_welcome_body"
         android:textSize="16sp"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintStart_toStartOf="@+id/guideline"
@@ -37,9 +37,10 @@
         app:layout_constraintTop_toBottomOf="@+id/textView2">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Логин"
+            android:hint="@string/text_input_hint_login"
             android:inputType="text"
             android:textColor="#ffffff"
             android:textSize="16sp" />
@@ -56,33 +57,34 @@
         app:layout_constraintTop_toBottomOf="@+id/textInput">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Пароль"
+            android:hint="@string/text_input_hint_password"
             android:inputType="textPassword"
             android:textColor="#ffffff"
             android:textSize="16sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/tv_error"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
         android:visibility="invisible"
-        android:text="Что-то пошло не так, попробуйте войти позже"
+        android:text="@string/error_unknown"
         android:textColor="@color/colorError"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btn_submit"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:enabled="true"
-        android:text="Войти"
+        android:text="@string/btn_enter"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintStart_toStartOf="@+id/guideline" />
