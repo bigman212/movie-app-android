@@ -35,6 +35,8 @@ dependencies {
     implementation project(":core:network")
     implementation project(":common")
 
+    implementation project(":feature:auth")
+
     implementation(
             deps.kotlin.stdlib,
 
