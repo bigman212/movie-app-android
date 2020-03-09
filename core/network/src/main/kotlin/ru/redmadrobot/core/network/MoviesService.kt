@@ -1,11 +1,12 @@
 package ru.redmadrobot.core.network
 
 import io.reactivex.Observable
-import retrofit2.http.GET
+import retrofit2.http.Body
+import retrofit2.http.POST
 import ru.redmadrobot.core.network.entities.AuthRequest
 import ru.redmadrobot.core.network.entities.AuthResponse
 
 interface MoviesService {
-    @GET("/")
-    fun login(body: AuthRequest): Observable<AuthResponse>
+    @POST("/")
+    fun login(@Body body: AuthRequest): Observable<AuthResponse>
 }
