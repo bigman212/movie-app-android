@@ -8,9 +8,32 @@ data class AuthViewState(
     val wrongCredentials: Boolean = false,
     val unknownError: Throwable? = null
 ) {
-    fun fetchingState(): AuthViewState = this.copy(isLoading = true)
-    fun authorizedState(): AuthViewState = this.copy(isAuthorized = true)
-    fun wrongCredentialsErrorState(): AuthViewState = this.copy(wrongCredentials = true)
+    // можем ли мы убрать этот бойлерплейт?
+    fun fetchingState(): AuthViewState = this.copy(
+        isLoading = true,
+        isAuthorized = false,
+        wrongCredentials = false,
+        unknownError = null
+    )
 
-    fun unknownErrorState(unknownError: Throwable): AuthViewState = this.copy(unknownError = unknownError)
+    fun authorizedState(): AuthViewState = this.copy(
+        isLoading = false,
+        isAuthorized = true,
+        wrongCredentials = false,
+        unknownError = null
+    )
+
+    fun wrongCredentialsErrorState(): AuthViewState = this.copy(
+        isLoading = false,
+        isAuthorized = false,
+        wrongCredentials = true,
+        unknownError = null
+    )
+
+    fun unknownErrorState(unknownError: Throwable): AuthViewState = this.copy(
+        isLoading = false,
+        isAuthorized = false,
+        wrongCredentials = false,
+        unknownError = unknownError
+    )
 }

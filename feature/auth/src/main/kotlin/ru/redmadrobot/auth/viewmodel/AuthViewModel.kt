@@ -48,7 +48,9 @@ class AuthViewModel @Inject constructor(private val useCase: AuthUseCase) : View
                         if (it.authorized) dispatch(AuthAction.Authorize)
                         else dispatch(AuthAction.WrongCredentialsError)
                     },
-                    { dispatch(AuthAction.UnknownError(it)) }
+                    {
+                        dispatch(AuthAction.UnknownError(it))
+                    }
                 )
         )
     }
