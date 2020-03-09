@@ -1,6 +1,7 @@
 package ru.redmadrobot.movie_app.di
 
 import dagger.Component
+import ru.redmadrobot.common.di.AppProvider
 import ru.redmadrobot.core.network.di.NetworkProvider
 import ru.redmadrobot.core.network.di.component.NetworkComponent
 import ru.redmadrobot.movie_app.App
