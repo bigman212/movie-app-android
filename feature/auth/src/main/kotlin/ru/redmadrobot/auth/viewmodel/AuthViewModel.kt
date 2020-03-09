@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.functions.BiFunction
 import ru.redmadrobot.auth.domain.usecase.AuthUseCase
+import timber.log.Timber
 import javax.inject.Inject
 
 
@@ -49,6 +50,7 @@ class AuthViewModel @Inject constructor(private val useCase: AuthUseCase) : View
                         else dispatch(AuthAction.WrongCredentialsError)
                     },
                     {
+                        Timber.e(it)
                         dispatch(AuthAction.UnknownError(it))
                     }
                 )
