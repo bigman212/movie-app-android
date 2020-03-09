@@ -5,6 +5,7 @@ apply from: rootProject.file('common-android-library.gradle')
 
 dependencies {
     implementation project(":core:network")
+    implementation project(":common")
 
     implementation(
             deps.kotlin.stdlib,
