@@ -1,8 +1,7 @@
 package ru.redmadrobot.common.extensions
 
-import android.text.TextUtils
 import android.view.View
-import android.widget.EditText
+import android.widget.ProgressBar
 
 fun View.visible() {
     this.visibility = View.VISIBLE
@@ -16,6 +15,6 @@ fun View.gone() {
     this.visibility = View.GONE
 }
 
-fun EditText.isEmpty(): Boolean = TextUtils.isEmpty(text.toString())
+fun View.isVisible(visible: Boolean) = if (visible) visible() else invisible()
 
-fun EditText.isNotEmpty(): Boolean = !TextUtils.isEmpty(text.toString())
+fun ProgressBar.showLoading(loading: Boolean) = if (loading) visible() else gone()

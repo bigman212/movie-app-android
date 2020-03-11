@@ -1,59 +1,74 @@
 package ru.redmadrobot.auth.viewmodel
 
-import androidx.lifecycle.LiveData
+import android.util.Patterns
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.functions.BiFunction
 import ru.redmadrobot.auth.domain.usecase.AuthUseCase
+import ru.redmadrobot.common.base.BaseViewModel
+import ru.redmadrobot.common.extensions.ioSubscribe
+import ru.redmadrobot.common.extensions.uiObserve
 import timber.log.Timber
 import javax.inject.Inject
 
+class AuthViewModel @Inject constructor(private val useCase: AuthUseCase) : BaseViewModel() {
 
-class AuthViewModel @Inject constructor(private val useCase: AuthUseCase) : ViewModel() {
+    val viewState = MutableLiveData(AuthViewState())
 
-    private val compositeDisposable: CompositeDisposable by lazy { CompositeDisposable() }
+    var loginFieldValue: String = ""
+        set(value) {
+            field = value
+            checkValuesAreValid()
+        }
+
+    var passwordFieldValue: String = ""
+        set(value) {
+            field = value
+            checkValuesAreValid()
+        }
+
+    private fun checkValuesAreValid() {
+        val valuesAreValid = loginFieldValue.isEmail() and passwordFieldValue.isNotBlank()
+        dispatch(AuthAction.EnableButton(valuesAreValid))
+    }
 
     private val reducer = BiFunction { previousState: AuthViewState, action: AuthAction ->
         when (action) {
             is AuthAction.Fetching -> previousState.fetchingState()
             is AuthAction.Authorize -> previousState.authorizedState()
-            is AuthAction.WrongCredentialsError -> previousState.wrongCredentialsErrorState()
+            is AuthAction.EnableButton -> previousState.buttonChangedState(action.shouldBeEnabled)
 
-            is AuthAction.UnknownError -> previousState.unknownErrorState(action.unknownError)
+            is AuthAction.Error -> previousState.errorState(action.error)
         }
     }
 
-    private val _viewState = MutableLiveData(AuthViewState())
-
     private val currentState: AuthViewState
-        get() = _viewState.value!!
-
-    fun viewState(): LiveData<AuthViewState> = _viewState
+        get() = viewState.value!!
 
     private fun dispatch(action: AuthAction) =
         reducer.apply(currentState, action)
             .also {
-                _viewState.postValue(it)
+                viewState.postValue(it)
             }
 
-
-    fun onAuthorizeButtonClick(login: String, password: String) {
-        compositeDisposable.add(
-            useCase.login(login, password)
-                .doOnSubscribe {
-                    dispatch(AuthAction.Fetching)
+    fun onAuthorizeButtonClick() {
+        useCase.login(loginFieldValue, passwordFieldValue)
+            .ioSubscribe()
+            .uiObserve()
+            .doOnSubscribe {
+                dispatch(AuthAction.EnableButton(false))
+                dispatch(AuthAction.Fetching)
+            }
+            .subscribe(
+                {
+                    dispatch(AuthAction.Authorize)
+                },
+                {
+                    Timber.e(it)
+                    dispatch(AuthAction.Error(it))
                 }
-                .subscribe(
-                    {
-                        if (it.authorized) dispatch(AuthAction.Authorize)
-                        else dispatch(AuthAction.WrongCredentialsError)
-                    },
-                    {
-                        Timber.e(it)
-                        dispatch(AuthAction.UnknownError(it))
-                    }
-                )
-        )
+            )
+            .disposeOnCleared()
     }
+
+    private fun String.isEmail(): Boolean = Patterns.EMAIL_ADDRESS.matcher(this).matches()
 }

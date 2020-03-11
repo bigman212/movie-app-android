@@ -2,7 +2,7 @@ package ru.redmadrobot.auth.viewmodel
 
 sealed class AuthAction {
     object Fetching : AuthAction()
-    object WrongCredentialsError : AuthAction()
-    class UnknownError(val unknownError: Throwable) : AuthAction()
+    class EnableButton(val shouldBeEnabled: Boolean) : AuthAction()
+    class Error(val error: Throwable) : AuthAction()
     object Authorize : AuthAction()
 }

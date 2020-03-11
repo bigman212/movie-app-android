@@ -1,15 +1,15 @@
 package ru.redmadrobot.auth.viewmodel
 
 data class AuthViewState(
-    val isLoading: Boolean = false,
+    val isFetching: Boolean = false,
+    val isButtonEnabled: Boolean = false,
 
+    // с сервера 200, пользователь авторизован
     val isAuthorized: Boolean = false,
-
-    val wrongCredentials: Boolean = false,
-    val unknownError: Throwable? = null
+    val error: Throwable? = null
 ) {
-    fun fetchingState(): AuthViewState = AuthViewState(isLoading = true)
-    fun authorizedState(): AuthViewState = AuthViewState(isAuthorized = true)
-    fun wrongCredentialsErrorState(): AuthViewState = AuthViewState(wrongCredentials = true)
-    fun unknownErrorState(unknownError: Throwable): AuthViewState = AuthViewState(unknownError = unknownError)
+    fun fetchingState(): AuthViewState = copy(isFetching = true, error = null)
+    fun buttonChangedState(isEnabled: Boolean): AuthViewState = copy(isButtonEnabled = isEnabled)
+    fun authorizedState(): AuthViewState = copy(isAuthorized = true, isFetching = false)
+    fun errorState(error: Throwable): AuthViewState = copy(error = error)
 }

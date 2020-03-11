@@ -1,30 +1,20 @@
 package ru.redmadrobot.auth
 
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
-import androidx.appcompat.app.AppCompatActivity
+import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.google.android.material.textfield.TextInputEditText
 import kotlinx.android.synthetic.main.activity_auth.*
 import ru.redmadrobot.auth.di.component.AuthComponent
 import ru.redmadrobot.auth.viewmodel.AuthViewModel
 import ru.redmadrobot.auth.viewmodel.AuthViewState
-import ru.redmadrobot.common.di.AppProvider
-import ru.redmadrobot.common.di.DaggerApplication
-import ru.redmadrobot.common.extensions.gone
-import ru.redmadrobot.common.extensions.invisible
-import ru.redmadrobot.common.extensions.isNotEmpty
-import ru.redmadrobot.common.extensions.visible
+import ru.redmadrobot.common.base.BaseActivity
+import ru.redmadrobot.common.extensions.isVisible
+import ru.redmadrobot.common.extensions.showLoading
 import javax.inject.Inject
 
-class AuthActivity : AppCompatActivity(R.layout.activity_auth) {
-
-    val appComponent: AppProvider by lazy {
-        (applicationContext as DaggerApplication).getApplicationProvider()
-    }
-
+//todo(help): попробовать поднимать кнопку при поднятии клавиатуры
+class AuthActivity : BaseActivity(R.layout.activity_auth) {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
@@ -33,63 +23,57 @@ class AuthActivity : AppCompatActivity(R.layout.activity_auth) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        initDagger()
+        initViewModel()
+        initViews()
+    }
+
+    private fun initDagger() {
         AuthComponent.Builder
             .build(appComponent)
             .inject(this)
+    }
 
+    private fun initViewModel() {
         viewModel = ViewModelProvider(this, viewModelFactory)[AuthViewModel::class.java]
-        viewModel.viewState()
+        viewModel.viewState
             .observe(this, Observer { t: AuthViewState ->
-                renderLoading(t.isLoading)
-                renderWrongCredentialsError(t.wrongCredentials)
-                renderUnknownError(t.unknownError)
+                renderLoading(t.isFetching)
                 renderAuthorized(t.isAuthorized)
+                renderButtonChanged(t.isButtonEnabled)
+                renderError(t.error)
             })
+    }
 
+    private fun initViews() {
         btn_submit.setOnClickListener {
-            viewModel.onAuthorizeButtonClick(et_login.text.toString(), et_password.text.toString())
+            viewModel.onAuthorizeButtonClick()
         }
 
-        val editTexts = listOf(et_login, et_password)
-        editTexts.forEach {
-            it.addTextChangedListener(object : TextWatcher {
-                override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                    btn_submit.isEnabled = editTexts.all(TextInputEditText::isNotEmpty)
-                }
-
-                override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
-                override fun afterTextChanged(s: Editable) {}
-            })
+        et_login.doOnTextChanged { text, _, _, _ ->
+            text?.let {
+                viewModel.loginFieldValue = it.toString()
+            }
         }
-    }
 
-    private fun renderLoading(loading: Boolean) {
-        with(progress_bar) {
-            if (loading) visible() else gone()
-        }
-    }
-
-    private fun renderWrongCredentialsError(wrongCredentials: Boolean) {
-        with(tv_error) {
-            if (wrongCredentials) {
-                text = getString(R.string.error_wrong_credentials)
-                visible()
-            } else {
-                invisible()
+        et_password.doOnTextChanged { text, _, _, _ ->
+            text?.let {
+                viewModel.passwordFieldValue = it.toString()
             }
         }
     }
 
-    private fun renderUnknownError(unknownError: Throwable?) {
-        with(tv_error) {
-            if (unknownError != null) {
-                text = getString(R.string.error_unknown)
-                visible()
-            } else {
-                invisible()
-            }
-        }
+    private fun renderLoading(loading: Boolean) = progress_bar.showLoading(loading)
+
+    private fun renderError(error: Throwable?) {
+        tv_error.text = error?.message ?: ""
+        tv_error.isVisible(error != null)
     }
+
+    private fun renderButtonChanged(isEnabled: Boolean) {
+        btn_submit.isEnabled = isEnabled
+    }
+
 
     private fun renderAuthorized(authorized: Boolean) {
         //TODO: goto next screen
