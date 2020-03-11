@@ -1,6 +1,8 @@
+import ru.redmadrobot.movie_app.Dependencies
+import ru.redmadrobot.movie_app.TestDependencies
+
 apply plugin: 'com.android.library'
 
-apply from: rootProject.file('dependencies.gradle')
 apply from: rootProject.file('common-android-library.gradle')
 
 dependencies {
@@ -8,28 +10,28 @@ dependencies {
     implementation project(":common")
 
     implementation(
-            deps.kotlin.stdlib,
+            Dependencies.Kotlin,
 
-            deps.lifecycle.view_model,
-            deps.lifecycle.extensions,
+            Dependencies.Lifecycle.ViewModel,
+            Dependencies.Lifecycle.Extensions,
 
-            deps.material.material,
+            Dependencies.Material,
 
-            deps.constraint.constraint,
+            Dependencies.AndroidKtx.Core,
 
-            deps.dagger.dagger,
+            Dependencies.Constraint_layout,
 
-            deps.lifecycle.view_model,
-            deps.lifecycle.extensions,
+            Dependencies.Dagger.Dagger,
 
-            deps.tools.timber,
+            Dependencies.RxJava,
+
+            Dependencies.Tools.Timber,
     )
 
     kapt(
-            deps.dagger.processor,
+            Dependencies.Dagger.Processor
     )
 
-    testImplementation(testDependencies)
-    androidTestImplementation(androidTestDependencies)
-
+    testImplementation(TestDependencies.unitTest)
+    androidTestImplementation(TestDependencies.androidTest)
 }

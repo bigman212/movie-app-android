@@ -1,15 +1,17 @@
+import ru.redmadrobot.movie_app.Dependencies
+import ru.redmadrobot.movie_app.Versions
+
 apply plugin: 'com.android.application'
 
-apply from: rootProject.file('dependencies.gradle')
 apply from: rootProject.file('common-android-library.gradle')
 
 android {
     defaultConfig {
-        applicationId versions.appId
-        minSdkVersion versions.minSdk
-        targetSdkVersion versions.targetSdk
-        versionCode versions.code
-        versionName versions.name
+        applicationId Versions.appId
+        minSdkVersion Versions.minSdk
+        targetSdkVersion Versions.targetSdk
+        versionCode Versions.versionCode
+        versionName Versions.versionName
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -38,33 +40,23 @@ dependencies {
     implementation project(":feature:auth")
 
     implementation(
-            deps.kotlin.stdlib,
+            Dependencies.Kotlin,
 
-            deps.lifecycle.view_model,
-            deps.lifecycle.extensions,
+            Dependencies.Lifecycle.ViewModel,
+            Dependencies.Lifecycle.Extensions,
 
-            deps.material.material,
+            Dependencies.Material,
 
-            deps.constraint.constraint,
+            Dependencies.Constraint_layout,
 
-            deps.dagger.dagger,
+            Dependencies.Dagger.Dagger,
 
-            deps.tools.timber,
+            Dependencies.RxJava,
+
+            Dependencies.Tools.Timber,
     )
-
-    // ducktape for fixing "cannot access OkHttpClient"
-    implementation 'com.squareup.retrofit2:retrofit:2.7.1'
-    implementation 'com.squareup.retrofit2:converter-gson:2.7.1'
-    implementation 'com.squareup.okhttp3:logging-interceptor:4.4.0'
-
-    implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
-    implementation 'io.reactivex.rxjava2:rxjava:2.2.15'
-    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.7.1'
 
     kapt(
-            deps.dagger.processor,
+            Dependencies.Dagger.Processor
     )
-
-    testImplementation(testDependencies)
-    androidTestImplementation(androidTestDependencies)
 }

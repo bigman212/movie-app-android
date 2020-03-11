@@ -1,29 +1,30 @@
+import ru.redmadrobot.movie_app.Dependencies
+
 apply plugin: 'com.android.library'
 
-apply from: rootProject.file('dependencies.gradle')
 apply from: rootProject.file('common-android-library.gradle')
 
 dependencies {
-    implementation project(path: ':core:network')
+    implementation project(':core:network')
+
     implementation(
-            deps.kotlin.stdlib,
+            Dependencies.Kotlin,
 
-            deps.lifecycle.view_model,
-            deps.lifecycle.extensions,
+            Dependencies.Lifecycle.ViewModel,
+            Dependencies.Lifecycle.Extensions,
 
-            deps.material.material,
+            Dependencies.Material,
 
-            deps.constraint.constraint,
+            Dependencies.Constraint_layout,
 
-            deps.dagger.dagger,
+            Dependencies.Dagger.Dagger,
 
-            deps.tools.timber,
+            Dependencies.RxJava,
+
+            Dependencies.Tools.Timber,
     )
 
     kapt(
-            deps.dagger.processor,
+            Dependencies.Dagger.Processor
     )
-
-    testImplementation(testDependencies)
-    androidTestImplementation(androidTestDependencies)
 }
