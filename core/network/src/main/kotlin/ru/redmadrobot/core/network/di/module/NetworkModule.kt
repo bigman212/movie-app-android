@@ -12,7 +12,12 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 @Module
-class NetworkModule(private val baseUrl: String) {
+class NetworkModule {
+
+    companion object {
+        const val HTTP_CLIENT_TIMEOUT = 30L
+        const val BASE_URL = "http://example.com"
+    }
 
     @Provides
     @Singleton
@@ -22,7 +27,7 @@ class NetworkModule(private val baseUrl: String) {
         rxJava2Adapter: RxJava2CallAdapterFactory
     ): Retrofit {
         return Retrofit.Builder()
-            .baseUrl(baseUrl)
+            .baseUrl(BASE_URL)
             .client(okHttpClient)
             .addConverterFactory(gsonFactory)
             .addCallAdapterFactory(rxJava2Adapter)
@@ -31,7 +36,7 @@ class NetworkModule(private val baseUrl: String) {
 
     @Provides
     @Singleton
-    fun provideMoviesService(retrofit: Retrofit) = retrofit.create(MoviesService::class.java)
+    fun provideMoviesService(retrofit: Retrofit): MoviesService = retrofit.create(MoviesService::class.java)
 
     @Provides
     @Singleton
@@ -43,13 +48,12 @@ class NetworkModule(private val baseUrl: String) {
     @Provides
     @Singleton
     fun provideOkHttpClient(loggingInterceptor: HttpLoggingInterceptor): OkHttpClient {
-        val timeout: Long = 30
         return OkHttpClient.Builder()
             .addInterceptor(loggingInterceptor)
-            .callTimeout(timeout, TimeUnit.SECONDS)
-            .connectTimeout(timeout, TimeUnit.SECONDS)
-            .readTimeout(timeout, TimeUnit.SECONDS)
-            .writeTimeout(timeout, TimeUnit.SECONDS)
+            .callTimeout(HTTP_CLIENT_TIMEOUT, TimeUnit.SECONDS)
+            .connectTimeout(HTTP_CLIENT_TIMEOUT, TimeUnit.SECONDS)
+            .readTimeout(HTTP_CLIENT_TIMEOUT, TimeUnit.SECONDS)
+            .writeTimeout(HTTP_CLIENT_TIMEOUT, TimeUnit.SECONDS)
             .build()
     }
 

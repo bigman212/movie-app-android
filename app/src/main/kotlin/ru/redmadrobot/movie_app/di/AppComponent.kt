@@ -1,13 +1,12 @@
 package ru.redmadrobot.movie_app.di
 
+import android.app.Application
+import dagger.BindsInstance
 import dagger.Component
 import ru.redmadrobot.common.di.AppProvider
 import ru.redmadrobot.core.network.di.NetworkProvider
-import ru.redmadrobot.core.network.di.component.NetworkComponent
-import ru.redmadrobot.movie_app.App
 import ru.redmadrobot.movie_app.MainActivity
 import javax.inject.Singleton
-
 
 @Singleton
 @Component(
@@ -17,18 +16,12 @@ import javax.inject.Singleton
 interface AppComponent : AppProvider {
     fun inject(activity: MainActivity)
 
-    class Builder private constructor() {
+    @Component.Builder
+    interface Builder {
+        fun build(): AppComponent
 
-        companion object {
-            fun build(application: App, baseUrl: String): AppComponent {
-                val networkComponent = NetworkComponent.Builder.build(baseUrl)
-                val appModule = AppModule(application)
-
-                return DaggerAppComponent.builder()
-                    .appModule(appModule)
-                    .networkProvider(networkComponent)
-                    .build()
-            }
-        }
+        @BindsInstance
+        fun application(application: Application): Builder
+        fun networkProvider(networkProvider: NetworkProvider): Builder
     }
 }

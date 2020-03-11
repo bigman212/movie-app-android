@@ -12,10 +12,9 @@ import javax.inject.Singleton
 interface NetworkComponent : NetworkProvider {
     class Builder private constructor() {
         companion object {
-            fun build(baseUrl: String): NetworkProvider {
-                // fixme: unresolved reference: DaggerNetworkComponent
+            fun build(): NetworkProvider {
                 return DaggerNetworkComponent.builder()
-                    .networkModule(NetworkModule(baseUrl))
+                    .networkModule(NetworkModule())
                     .build()
             }
         }

@@ -1,22 +1,16 @@
 package ru.redmadrobot.movie_app.di
 
+import android.app.Application
 import android.content.Context
 import dagger.Module
 import dagger.Provides
-import ru.redmadrobot.movie_app.App
 import javax.inject.Singleton
 
 @Module
-class AppModule(private val application: App) {
+class AppModule {
     @Provides
     @Singleton
-    fun provideApplication(): App {
-        return application
-    }
-
-    @Provides
-    @Singleton
-    fun provideContext(): Context {
+    fun provideContext(application: Application): Context {
         return application.applicationContext
     }
 }
