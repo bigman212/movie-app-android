@@ -14,7 +14,6 @@ interface NetworkComponent : NetworkProvider {
         companion object {
             fun build(): NetworkProvider {
                 return DaggerNetworkComponent.builder()
-                    .networkModule(NetworkModule())
                     .build()
             }
         }

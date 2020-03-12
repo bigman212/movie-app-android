@@ -12,12 +12,10 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 @Module
-class NetworkModule {
+object NetworkModule {
 
-    companion object {
-        const val HTTP_CLIENT_TIMEOUT = 30L
-        const val BASE_URL = "http://example.com"
-    }
+    private const val HTTP_CLIENT_TIMEOUT = 30L
+    private const val BASE_URL = "http://example.com"
 
     @Provides
     @Singleton
