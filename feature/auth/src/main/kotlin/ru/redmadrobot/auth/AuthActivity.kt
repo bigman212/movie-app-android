@@ -14,7 +14,6 @@ import ru.redmadrobot.common.extensions.isVisible
 import ru.redmadrobot.common.extensions.showLoading
 import javax.inject.Inject
 
-//todo(help): попробовать поднимать кнопку при поднятии клавиатуры
 class AuthActivity : BaseActivity(R.layout.activity_auth) {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -30,8 +29,7 @@ class AuthActivity : BaseActivity(R.layout.activity_auth) {
     }
 
     private fun initDagger() {
-        AuthComponent.Builder
-            .build(appComponent)
+        AuthComponent.init(appComponent)
             .inject(this)
     }
 
