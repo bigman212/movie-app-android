@@ -14,30 +14,13 @@ class AuthViewModel @Inject constructor(private val useCase: AuthUseCase) : Base
 
     val viewState = MutableLiveData(AuthViewState())
 
-    var loginFieldValue: String = ""
-        set(value) {
-            field = value
-            checkValuesAreValid()
-        }
-
-    var passwordFieldValue: String = ""
-        set(value) {
-            field = value
-            checkValuesAreValid()
-        }
-
-    private fun checkValuesAreValid() {
-        val valuesAreValid = loginFieldValue.isEmail() and passwordFieldValue.isNotBlank()
-        dispatch(AuthAction.EnableButton(valuesAreValid))
-    }
-
     private val reducer = BiFunction { previousState: AuthViewState, action: AuthAction ->
         when (action) {
             is AuthAction.Fetching -> previousState.fetchingState()
             is AuthAction.Authorize -> previousState.authorizedState()
             is AuthAction.EnableButton -> previousState.buttonChangedState(action.shouldBeEnabled)
 
-            is AuthAction.Error -> previousState.errorState(action.error)
+            is AuthAction.Error -> previousState.errorState(action.error.message ?: "Неизвестная ошибка")
         }
     }
 
@@ -50,7 +33,12 @@ class AuthViewModel @Inject constructor(private val useCase: AuthUseCase) : Base
                 viewState.postValue(it)
             }
 
-    fun onAuthorizeButtonClick() {
+    fun checkValuesAreValid(loginFieldValue: String, passwordFieldValue: String) {
+        val valuesAreValid = loginFieldValue.isEmail() and passwordFieldValue.isNotBlank()
+        dispatch(AuthAction.EnableButton(valuesAreValid))
+    }
+
+    fun onAuthorizeButtonClick(loginFieldValue: String, passwordFieldValue: String) {
         useCase.login(loginFieldValue, passwordFieldValue)
             .ioSubscribe()
             .uiObserve()
