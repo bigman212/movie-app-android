@@ -1,37 +1,62 @@
+import ru.redmadrobot.movie_app.Dependencies
+import ru.redmadrobot.movie_app.Versions
+
 apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
+
+apply from: rootProject.file('common-android-library.gradle')
 
 android {
-    compileSdkVersion 29
-    buildToolsVersion "29.0.2"
-
     defaultConfig {
-        applicationId "ru.redmadrobot.movie_app"
-        minSdkVersion 21
-        targetSdkVersion 29
-        versionCode 1
-        versionName "1.0"
+        applicationId Versions.appId
+        minSdkVersion Versions.minSdk
+        targetSdkVersion Versions.targetSdk
+        versionCode Versions.versionCode
+        versionName Versions.versionName
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
-        release {
+        debug {
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            applicationIdSuffix '.debug'
+            versionNameSuffix '-DEBUG'
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+
+        release {
+            shrinkResources true
+            debuggable false
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'androidx.core:core-ktx:1.0.2'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    implementation project(":core:network")
+    implementation project(":common")
+
+    implementation project(":feature:auth")
+
+    implementation(
+            Dependencies.Kotlin,
+
+            Dependencies.Lifecycle.ViewModel,
+            Dependencies.Lifecycle.Extensions,
+
+            Dependencies.Material,
+
+            Dependencies.Constraint_layout,
+
+            Dependencies.Dagger.Dagger,
+
+            Dependencies.RxJava,
+
+            Dependencies.Tools.Timber,
+    )
+
+    kapt(
+            Dependencies.Dagger.Processor
+    )
 }

@@ -1,0 +1,33 @@
+<resources>
+
+    <style name="AuthActivityTheme" parent="AppTheme">
+        <item name="textInputStyle">@style/AuthTextInput</item>
+        <item name="materialButtonStyle">@style/AuthButton</item>
+    </style>
+
+    <style name="AuthTextInput" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxStrokeColor">@color/auth_text_input_stroke_color</item>
+        <item name="android:textColorHint">@color/auth_text_input_hint</item>
+        <item name="hintTextColor">@color/auth_text_input_hint</item>
+        <item name="android:textColorPrimary">@color/white</item>
+        <item name="endIconTint">@color/colorIcons</item>
+    </style>
+
+    <!--    попытался вынести цвет текста в EditText в стиль, не получилось, пришлось захардкодить textColor-->
+    <!--    <style name="MyCustomEditTextStyle" parent="Base.Widget.MaterialComponents.TextInputEditText">-->
+    <!--        <item name="android:textColor">@color/white</item>-->
+    <!--        <item name="editTextColor">@color/white</item>-->
+    <!--    </style>-->
+
+    <style name="AuthButton" parent="Widget.MaterialComponents.Button">
+        <item name="android:insetTop">0dp</item>
+        <item name="android:bottom">0dp</item>
+        <item name="backgroundTint">@color/auth_button_background_color</item>
+        <item name="android:textAppearance">@style/AuthButtonTextAppearance</item>
+    </style>
+
+    <style name="AuthButtonTextAppearance" parent="TextAppearance.MaterialComponents.Button">
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textColor">@color/auth_button_text_color</item>
+    </style>
+</resources>

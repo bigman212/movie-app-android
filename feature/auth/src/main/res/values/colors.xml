@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="auth_button_disabled">#E6232636</color>
+    <color name="auth_button_enabled">#FE4E27</color>
+
+    <color name="auth_text_input_hint">#656D8A</color>
+    <color name="auth_text_input_stroke_disabled">#2A2E42</color>
+    <color name="auth_text_input_stroke_enabled">#6C63FF</color>
+</resources>

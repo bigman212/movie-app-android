@@ -1,2 +1,5 @@
 rootProject.name='internship_android_levinkov'
 include ':app'
+include ':feature:auth'
+include ':core:network'
+include ':common'
