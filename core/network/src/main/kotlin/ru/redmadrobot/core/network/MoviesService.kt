@@ -7,6 +7,6 @@ import ru.redmadrobot.core.network.entities.AuthRequest
 import ru.redmadrobot.core.network.entities.AuthResponse
 
 interface MoviesService {
-    @POST("/")
+    @POST(NetworkRouter.Routes.AUTH_TOKEN_NEW)
     fun login(@Body body: AuthRequest): Single<AuthResponse>
 }
