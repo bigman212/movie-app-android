@@ -1,8 +1,10 @@
 package ru.redmadrobot.core.network.entities
 
-import com.google.gson.annotations.SerializedName
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 
+@JsonClass(generateAdapter = true)
 data class AuthRequest(
-    @SerializedName("login") val login: String,
-    @SerializedName("password") val password: String
+    @field:Json(name = "login") val login: String,
+    @field:Json(name = "password") val password: String
 )

@@ -6,7 +6,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
-import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.converter.moshi.MoshiConverterFactory
 import ru.redmadrobot.core.network.MoviesService
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
@@ -21,7 +21,7 @@ object NetworkModule {
     @Singleton
     fun provideApiClient(
         okHttpClient: OkHttpClient,
-        gsonFactory: GsonConverterFactory,
+        gsonFactory: MoshiConverterFactory,
         rxJava2Adapter: RxJava2CallAdapterFactory
     ): Retrofit {
         return Retrofit.Builder()
@@ -54,10 +54,6 @@ object NetworkModule {
             .writeTimeout(HTTP_CLIENT_TIMEOUT, TimeUnit.SECONDS)
             .build()
     }
-
-    @Provides
-    @Singleton
-    fun provideGsonConverterFactoryFactory(): GsonConverterFactory = GsonConverterFactory.create()
 
     @Provides
     @Singleton
