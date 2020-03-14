@@ -11,9 +11,10 @@ object MoshiModule {
 
     @Provides
     @Singleton
-    fun provideMoshi() = Moshi.Builder().build()
+    fun provideMoshi(): Moshi = Moshi.Builder().build()
 
     @Provides
     @Singleton
-    fun provideGsonConverterFactoryFactory(moshi: Moshi) = MoshiConverterFactory.create(moshi)
+    fun provideGsonConverterFactoryFactory(moshi: Moshi): MoshiConverterFactory =
+        MoshiConverterFactory.create(moshi)
 }

@@ -5,6 +5,8 @@ apply plugin: 'com.android.library'
 apply from: rootProject.file('common-android-library.gradle')
 
 dependencies {
+    implementation project(":core:android")
+
     implementation(
             Dependencies.Kotlin,
             Dependencies.Dagger.Dagger,
