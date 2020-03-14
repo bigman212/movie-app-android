@@ -17,10 +17,16 @@ dependencies {
     )
 
     // решено не выносить их в Dependencies т.к. пока используются только в этом модуле
+
+    def moshi_version = '1.9.2'
+    implementation "com.squareup.moshi:moshi:$moshi_version"
+    kapt "com.squareup.moshi:moshi-kotlin-codegen:$moshi_version"
+
     def retrofit_version = '2.7.1'
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
     implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-moshi:$retrofit_version"
 
     implementation 'com.squareup.okhttp3:logging-interceptor:4.4.0'
 }
