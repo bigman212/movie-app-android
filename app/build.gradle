@@ -35,6 +35,7 @@ android {
 
 dependencies {
     implementation project(":core:network")
+    implementation project(":core:android")
     implementation project(":common")
 
     implementation project(":feature:auth")
