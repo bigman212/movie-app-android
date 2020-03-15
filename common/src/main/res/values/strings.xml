@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="error_invalid_api_key">Неправильный API ключ</string>
+    <string name="error_no_internet">Отсуствует интернет соединение</string>
+    <string name="error_unknown">Неизвестная ошибка</string>
+</resources>
