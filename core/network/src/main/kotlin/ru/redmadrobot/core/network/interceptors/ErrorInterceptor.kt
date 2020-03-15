@@ -1,31 +1,48 @@
 package ru.redmadrobot.core.network.interceptors
 
-import android.accounts.NetworkErrorException
-import android.annotation.SuppressLint
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
+import com.squareup.moshi.Moshi
 import okhttp3.Interceptor
 import okhttp3.Response
+import okhttp3.ResponseBody
+import ru.redmadrobot.core.network.entities.ErrorResponse
+import ru.redmadrobot.core.network.entities.HttpException
 import javax.inject.Inject
 import javax.net.ssl.HttpsURLConnection
 
-class NoInternetConnectionException : NetworkErrorException()
+class NetworkErrorInterceptor
+@Inject constructor(
+    private val moshi: Moshi,
+    private val connectivityManager: ConnectivityManager
+) : Interceptor {
 
-class NetworkErrorInterceptor @Inject constructor() : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
-        if (!hasNetworkConnection()) {
-            throw NoInternetConnectionException()
+        if (noNetworkConnection()) {
+            throw HttpException.NoNetworkConnection()
         }
         val request = chain.request()
         val response = chain.proceed(request)
         when (response.code) {
             HttpsURLConnection.HTTP_BAD_REQUEST -> {
-
+                response.body?.let {
+                    val peekBody = response.peekBody(it.contentLength())
+                    val err = parseErrorBody(peekBody)
+                    throw HttpException.BadRequest(err)
+                }
             }
         }
         return response
     }
 
-    @SuppressLint("MissingPermission")
-    private fun hasNetworkConnection(): Boolean {
-        return true
+    private fun noNetworkConnection(): Boolean {
+        val netCap = connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
+        return !netCap.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) or !netCap.hasTransport(
+            NetworkCapabilities.TRANSPORT_WIFI
+        )
+    }
+
+    private fun parseErrorBody(body: ResponseBody): ErrorResponse {
+        return moshi.adapter(ErrorResponse::class.java).fromJson(body.string())!!
     }
 }
