@@ -11,22 +11,28 @@ class MockInterceptor @Inject constructor(private val router: NetworkRouter) : I
     companion object {
         const val HEADER_CONTENT_TYPE = "content_type"
         const val MEDIA_TYPE_APPLICATION_JSON = "application/json"
+
+        const val MOCK_ENABLED = false
     }
 
     override fun intercept(chain: Interceptor.Chain): Response {
         val request = chain.request()
 
-        val mockDataResponse = makeResponseByRequest(request)
-        val responseBody = makeResponseBody(mockDataResponse)
 
-        return Response.Builder()
-            .code(HttpURLConnection.HTTP_BAD_REQUEST)
-            .addHeader(HEADER_CONTENT_TYPE, MEDIA_TYPE_APPLICATION_JSON)
-            .message(mockDataResponse)
-            .body(responseBody)
-            .request(request)
-            .protocol(Protocol.HTTP_2)
-            .build()
+        if (MOCK_ENABLED) {
+            val mockDataResponse = makeResponseByRequest(request)
+            val responseBody = makeResponseBody(mockDataResponse)
+
+            return Response.Builder()
+                .code(HttpURLConnection.HTTP_BAD_REQUEST)
+                .addHeader(HEADER_CONTENT_TYPE, MEDIA_TYPE_APPLICATION_JSON)
+                .message(mockDataResponse)
+                .body(responseBody)
+                .request(request)
+                .protocol(Protocol.HTTP_2)
+                .build()
+        }
+        return chain.proceed(request)
     }
 
     private fun makeResponseBody(data: String): ResponseBody {
