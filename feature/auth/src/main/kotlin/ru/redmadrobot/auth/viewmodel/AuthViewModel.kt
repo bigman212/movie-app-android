@@ -11,7 +11,9 @@ import ru.redmadrobot.common.extensions.ioSubscribe
 import ru.redmadrobot.common.extensions.uiObserve
 import javax.inject.Inject
 
-class AuthViewModel @Inject constructor(context: Context, private val useCase: AuthUseCase) : BaseViewModel(context) {
+class AuthViewModel
+@Inject constructor(context: Context, private val useCase: AuthUseCase) :
+    BaseViewModel(context) {
 
     val viewState = MutableLiveData(AuthViewState())
 
@@ -35,12 +37,13 @@ class AuthViewModel @Inject constructor(context: Context, private val useCase: A
             }
 
     fun checkValuesAreValid(loginFieldValue: String, passwordFieldValue: String) {
-        val valuesAreValid = loginFieldValue.isEmail() and passwordFieldValue.isNotBlank()
+        val valuesAreValid = loginFieldValue.isNotBlank() and passwordFieldValue.isNotBlank()
         dispatch(AuthAction.EnableButton(valuesAreValid))
     }
 
     fun onAuthorizeButtonClick(loginFieldValue: String, passwordFieldValue: String) {
         useCase.login(loginFieldValue, passwordFieldValue)
+            .flatMap { useCase.popularTvShows() }
             .ioSubscribe()
             .uiObserve()
             .doOnSubscribe {
