@@ -1,5 +1,6 @@
 package ru.redmadrobot.core.network.interceptors
 
+import android.annotation.SuppressLint
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import com.squareup.moshi.Moshi
@@ -11,8 +12,7 @@ import ru.redmadrobot.core.network.entities.HttpException
 import javax.inject.Inject
 import javax.net.ssl.HttpsURLConnection
 
-class NetworkErrorInterceptor
-@Inject constructor(
+class NetworkErrorInterceptor @Inject constructor(
     private val moshi: Moshi,
     private val connectivityManager: ConnectivityManager
 ) : Interceptor {
@@ -35,12 +35,17 @@ class NetworkErrorInterceptor
         return response
     }
 
+    @SuppressLint("MissingPermission", "NewApi")
     private fun noNetworkConnection(): Boolean {
         val netCap = connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
-        return !netCap.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) or !netCap.hasTransport(
-            NetworkCapabilities.TRANSPORT_WIFI
-        )
+        return netCap?.let { !netCap.hasCellularTransport() or !netCap.hasWiFiTransport() } ?: false
     }
+
+    @SuppressLint("InlinedApi")
+    fun NetworkCapabilities.hasCellularTransport() = hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)
+
+    @SuppressLint("InlinedApi")
+    fun NetworkCapabilities.hasWiFiTransport() = hasTransport(NetworkCapabilities.TRANSPORT_WIFI)
 
     private fun parseErrorBody(body: ResponseBody): ErrorResponse {
         return moshi.adapter(ErrorResponse::class.java).fromJson(body.string())!!

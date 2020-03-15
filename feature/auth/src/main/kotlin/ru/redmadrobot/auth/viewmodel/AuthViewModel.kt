@@ -1,18 +1,17 @@
 package ru.redmadrobot.auth.viewmodel
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.util.Patterns
 import androidx.lifecycle.MutableLiveData
 import io.reactivex.functions.BiFunction
 import ru.redmadrobot.auth.domain.usecase.AuthUseCase
 import ru.redmadrobot.common.base.BaseViewModel
-import ru.redmadrobot.common.base.parseHttpError
 import ru.redmadrobot.common.extensions.ioSubscribe
 import ru.redmadrobot.common.extensions.uiObserve
 import javax.inject.Inject
 
-class AuthViewModel @Inject constructor(context: Context, private val useCase: AuthUseCase) :
-    BaseViewModel(context) {
+class AuthViewModel @Inject constructor(context: Context, private val useCase: AuthUseCase) : BaseViewModel(context) {
 
     val viewState = MutableLiveData(AuthViewState())
 
@@ -60,5 +59,6 @@ class AuthViewModel @Inject constructor(context: Context, private val useCase: A
             .disposeOnCleared()
     }
 
+    @SuppressLint("NewApi")
     private fun String.isEmail(): Boolean = Patterns.EMAIL_ADDRESS.matcher(this).matches()
 }

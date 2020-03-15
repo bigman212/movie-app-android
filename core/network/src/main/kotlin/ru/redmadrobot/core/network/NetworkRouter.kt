@@ -14,7 +14,7 @@ class NetworkRouter @Inject constructor(private val moshi: Moshi) {
         const val AUTH_TOKEN_NEW = "${auth}/token/new"
     }
 
-    fun mockedResponseByUrl(url: String): String = when {
+    fun mockedSuccessResponseByUrl(url: String): String = when {
         url.endsWith(AUTH_TOKEN_NEW) -> {
             toJson(AuthResponse(authorized = true))
         }
