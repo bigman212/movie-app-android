@@ -25,6 +25,9 @@ open class BaseViewModel @Inject constructor(context: Context) : ViewModel() {
         super.onCleared()
     }
 
+    /**
+     * Расширение позволяющее привести [Throwable] к удобночитабельной строке в зависимости от типа класса
+     */
     fun Throwable.toUiString(): String {
         return when (this) {
             is HttpException.BadRequest -> {
