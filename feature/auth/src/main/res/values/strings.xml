@@ -6,8 +6,5 @@
     <string name="text_input_hint_login">Логин</string>
     <string name="text_input_hint_password">Пароль</string>
 
-    <string name="error_unknown">Что-то пошло не так, попробуйте войти позже</string>
-    <string name="error_wrong_credentials">Неверный логин или пароль</string>
-
     <string name="btn_enter">Войти</string>
 </resources>
