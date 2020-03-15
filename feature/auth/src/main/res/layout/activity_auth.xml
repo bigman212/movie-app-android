@@ -76,7 +76,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="25dp"
-            android:text="@string/error_unknown"
+            android:text="@string/common_error_unknown"
             android:textColor="@color/colorError"
             android:visibility="invisible"
             app:layout_constraintEnd_toStartOf="@+id/guideline_right"

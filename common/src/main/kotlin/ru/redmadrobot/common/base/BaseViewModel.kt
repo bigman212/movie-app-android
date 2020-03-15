@@ -5,8 +5,8 @@ import androidx.lifecycle.ViewModel
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import ru.redmadrobot.common.R
-import ru.redmadrobot.core.network.entities.ErrorResponse
-import ru.redmadrobot.core.network.entities.HttpException
+import ru.redmadrobot.core.network.ErrorResponse
+import ru.redmadrobot.core.network.HttpException
 import timber.log.Timber
 import javax.inject.Inject
 

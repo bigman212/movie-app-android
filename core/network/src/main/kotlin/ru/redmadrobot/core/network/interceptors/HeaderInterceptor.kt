@@ -9,6 +9,7 @@ class HeaderInterceptor @Inject constructor() : Interceptor {
         private const val HEADER_AUTH = "Authorization"
 
         // репозиторий частный - апи ключ частично в безопасности
+        // V3 может потребоваться при отладке запросов через сайт
         private const val API_KEY_V3 = "956c58fe0f34ebde568c8101767e4567"
 
         private const val API_KEY_V4 =

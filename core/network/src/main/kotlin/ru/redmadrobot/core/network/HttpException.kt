@@ -1,5 +1,9 @@
-package ru.redmadrobot.core.network.entities
+package ru.redmadrobot.core.network
 
+/**
+ * Иерархия ошибок от сервера
+ * некоторые из предков принимают в себя [ErrorResponse] - с нужной UI информацией об ошибке
+ */
 sealed class HttpException(override val message: String) : Throwable(message) {
     data class NoNetworkConnection(override val message: String = "No internet connection") : HttpException(message)
 

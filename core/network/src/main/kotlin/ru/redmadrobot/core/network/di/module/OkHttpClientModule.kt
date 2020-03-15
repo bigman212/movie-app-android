@@ -4,9 +4,9 @@ import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import ru.redmadrobot.core.network.interceptors.ErrorInterceptor
 import ru.redmadrobot.core.network.interceptors.HeaderInterceptor
 import ru.redmadrobot.core.network.interceptors.MockInterceptor
-import ru.redmadrobot.core.network.interceptors.NetworkErrorInterceptor
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
@@ -19,11 +19,11 @@ object OkHttpClientModule {
     @Singleton
     fun provideOkHttpClient(
         loggingInterceptor: HttpLoggingInterceptor, mockInterceptor: MockInterceptor,
-        networkErrorInterceptor: NetworkErrorInterceptor, headerInterceptor: HeaderInterceptor
+        errorInterceptor: ErrorInterceptor, headerInterceptor: HeaderInterceptor
     ): OkHttpClient {
         return OkHttpClient.Builder()
             .addInterceptor(headerInterceptor)
-            .addInterceptor(networkErrorInterceptor)
+            .addInterceptor(errorInterceptor)
             .addInterceptor(loggingInterceptor)
             .addInterceptor(mockInterceptor)
             .callTimeout(HTTP_CLIENT_TIMEOUT, TimeUnit.SECONDS)

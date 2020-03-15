@@ -4,7 +4,7 @@ import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
 import retrofit2.converter.moshi.MoshiConverterFactory
-import ru.redmadrobot.core.network.entities.ErrorResponseAdapter
+import ru.redmadrobot.core.network.ErrorResponseAdapter
 import javax.inject.Singleton
 
 @Module

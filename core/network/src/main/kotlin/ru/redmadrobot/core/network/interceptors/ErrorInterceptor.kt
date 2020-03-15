@@ -7,12 +7,12 @@ import com.squareup.moshi.Moshi
 import okhttp3.Interceptor
 import okhttp3.Response
 import okhttp3.ResponseBody
-import ru.redmadrobot.core.network.entities.ErrorResponse
-import ru.redmadrobot.core.network.entities.HttpException
+import ru.redmadrobot.core.network.ErrorResponse
+import ru.redmadrobot.core.network.HttpException
 import javax.inject.Inject
 import javax.net.ssl.HttpsURLConnection
 
-class NetworkErrorInterceptor @Inject constructor(
+class ErrorInterceptor @Inject constructor(
     private val moshi: Moshi,
     private val connectivityManager: ConnectivityManager
 ) : Interceptor {
