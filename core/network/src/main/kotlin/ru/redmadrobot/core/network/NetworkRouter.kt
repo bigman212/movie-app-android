@@ -14,7 +14,6 @@ class NetworkRouter @Inject constructor(private val moshi: Moshi) {
         const val AUTH_TOKEN_NEW = "${auth}/token/new"
     }
 
-
     fun mockedResponseByUrl(url: String): String = when {
         url.endsWith(AUTH_TOKEN_NEW) -> {
             toJson(AuthResponse(authorized = true))
@@ -25,7 +24,10 @@ class NetworkRouter @Inject constructor(private val moshi: Moshi) {
 
     fun mockedErrorResponseByUrl(url: String): String = when {
         url.endsWith(AUTH_TOKEN_NEW) -> {
-            val serverError = ErrorResponse("Неправильный логин или пароль", 400)
+            val serverError = ErrorResponse(
+                "Invalid password or login",
+                ErrorResponse.StatusCode.INVALID_CREDENTIALS
+            )
             toJson(serverError)
         }
         else -> toJson(ErrorResponse.default())

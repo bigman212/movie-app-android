@@ -21,9 +21,9 @@ object OkHttpClientModule {
         networkErrorInterceptor: NetworkErrorInterceptor
     ): OkHttpClient {
         return OkHttpClient.Builder()
+            .addInterceptor(networkErrorInterceptor)
             .addInterceptor(loggingInterceptor)
             .addInterceptor(mockInterceptor)
-            .addInterceptor(networkErrorInterceptor)
             .callTimeout(HTTP_CLIENT_TIMEOUT, TimeUnit.SECONDS)
             .connectTimeout(HTTP_CLIENT_TIMEOUT, TimeUnit.SECONDS)
             .readTimeout(HTTP_CLIENT_TIMEOUT, TimeUnit.SECONDS)
