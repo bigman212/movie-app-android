@@ -31,6 +31,13 @@ class NetworkErrorInterceptor @Inject constructor(
                     throw HttpException.BadRequest(err)
                 }
             }
+            HttpsURLConnection.HTTP_UNAUTHORIZED -> {
+                response.body?.let {
+                    val peekBody = response.peekBody(it.contentLength())
+                    val err = parseErrorBody(peekBody)
+                    throw HttpException.Unauthorized(err)
+                }
+            }
         }
         return response
     }
@@ -38,7 +45,7 @@ class NetworkErrorInterceptor @Inject constructor(
     @SuppressLint("MissingPermission", "NewApi")
     private fun noNetworkConnection(): Boolean {
         val netCap = connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
-        return netCap?.let { !netCap.hasCellularTransport() or !netCap.hasWiFiTransport() } ?: false
+        return netCap?.let { !netCap.hasCellularTransport() and !netCap.hasWiFiTransport() } ?: false
     }
 
     @SuppressLint("InlinedApi")

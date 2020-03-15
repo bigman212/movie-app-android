@@ -9,8 +9,13 @@ data class ErrorResponse(
 ) {
 
     enum class StatusCode(val code: Int) {
-        INVALID_API_KEY(7),
-        INVALID_CREDENTIALS(5),
+        INVALID_API_KEY(7), // Неправильный апи ключ
+        INVALID_CREDENTIALS(30), // Неправильный логин или пароль
+
+        INVALID_REQUEST_TOKEN(33), // истек срок годности request_token
+
+        SESSION_DENIED(17), // истек срок годности session_id
+
         UNKNOWN_ERROR(-1);
 
         companion object {

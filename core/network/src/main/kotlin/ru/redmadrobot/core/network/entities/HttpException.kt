@@ -6,4 +6,8 @@ sealed class HttpException(override val message: String) : Throwable(message) {
     data class BadRequest(
         val errorResponse: ErrorResponse, override val message: String = errorResponse.statusMessage
     ) : HttpException(message)
+
+    data class Unauthorized(
+        val errorResponse: ErrorResponse, override val message: String = errorResponse.statusMessage
+    ) : HttpException(message)
 }

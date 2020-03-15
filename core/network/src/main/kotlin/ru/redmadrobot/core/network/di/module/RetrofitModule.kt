@@ -21,8 +21,8 @@ object RetrofitModule {
         rxJava2Adapter: RxJava2CallAdapterFactory
     ): Retrofit {
         return Retrofit.Builder()
-            .baseUrl(NetworkRouter.Routes.BASE_URL)
             .client(okHttpClient)
+            .baseUrl(NetworkRouter.BASE_URL)
             .addConverterFactory(gsonFactory)
             .addCallAdapterFactory(rxJava2Adapter)
             .build()

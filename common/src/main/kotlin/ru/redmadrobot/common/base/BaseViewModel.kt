@@ -29,15 +29,20 @@ open class BaseViewModel @Inject constructor(context: Context) : ViewModel() {
         return when (this) {
             is HttpException.BadRequest -> {
                 when (errorResponse.statusCode) {
-                    ErrorResponse.StatusCode.INVALID_API_KEY -> getContextString(R.string.error_invalid_api_key)
-                    ErrorResponse.StatusCode.INVALID_CREDENTIALS -> getContextString(R.string.error_invalid_api_key)
-                    else -> getContextString(R.string.error_invalid_api_key)
+                    ErrorResponse.StatusCode.INVALID_API_KEY -> getContextString(R.string.common_error_invalid_api_key)
+                    ErrorResponse.StatusCode.INVALID_CREDENTIALS -> getContextString(R.string.common_invalid_credentials)
+                    ErrorResponse.StatusCode.SESSION_DENIED -> getContextString(R.string.common_error_session_denied)
+                    ErrorResponse.StatusCode.INVALID_REQUEST_TOKEN -> getContextString(R.string.common_error_auth_gone_wrong)
+
+                    ErrorResponse.StatusCode.UNKNOWN_ERROR -> getContextString(R.string.common_error_unknown)
+                    else -> getContextString(R.string.common_error_unknown)
                 }
             }
+            is HttpException.Unauthorized -> getContextString(R.string.common_error_session_denied)
             is HttpException.NoNetworkConnection -> getContextString(R.string.error_no_internet)
             else -> {
                 Timber.e(this)
-                getContextString(R.string.error_unknown)
+                getContextString(R.string.common_error_unknown)
             }
         }
     }
