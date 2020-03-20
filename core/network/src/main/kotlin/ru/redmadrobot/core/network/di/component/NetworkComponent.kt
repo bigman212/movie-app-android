@@ -3,15 +3,13 @@ package ru.redmadrobot.core.network.di.component
 import dagger.Component
 import ru.redmadrobot.core.android.AndroidToolsProvider
 import ru.redmadrobot.core.network.di.NetworkProvider
-import ru.redmadrobot.core.network.di.module.MoshiModule
-import ru.redmadrobot.core.network.di.module.OkHttpClientModule
-import ru.redmadrobot.core.network.di.module.RetrofitModule
+import ru.redmadrobot.core.network.di.module.NetworkModule
 import javax.inject.Singleton
 
 @Singleton
 @Component(
     dependencies = [AndroidToolsProvider::class],
-    modules = [RetrofitModule::class, OkHttpClientModule::class, MoshiModule::class]
+    modules = [NetworkModule::class]
 )
 interface NetworkComponent : NetworkProvider {
     class Builder private constructor() {
