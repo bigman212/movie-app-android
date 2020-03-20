@@ -7,6 +7,9 @@ apply plugin: 'kotlin-kapt'
 android {
     compileSdkVersion Versions.compileSdk
     buildToolsVersion Versions.buildTools
+    defaultConfig {
+        minSdkVersion Versions.minSdk
+    }
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
