@@ -1,0 +1,36 @@
+apply plugin: 'io.gitlab.arturbosch.detekt'
+
+detekt {
+    config = files("$project.rootDir/config/detekt/detekt.yml")
+    reports {
+        html.enabled = true // observe findings in your browser with structure and code snippets
+        xml.enabled = true // checkstyle like format mainly for integrations like Jenkins
+        txt.enabled = true // similar to the console output, contains issue signature to manually edit baseline files
+    }
+}
+
+tasks.detekt.jvmTarget = "1.8"
+
+task detektGrabSubprojectsReports {
+    group = "Verification"
+    def detektSingleReportFolder = "$rootDir/reports/detekt"
+    def detektGeneralFolder = new File(detektSingleReportFolder)
+    detektGeneralFolder.mkdirs()
+    subprojects.findAll { subproject ->
+        def projectReportDir = "$subproject.buildDir/reports/detekt"
+        def detektReportFiles = [
+                "detekt.html"
+        ]
+        def detektReport = new File("$projectReportDir/${detektReportFiles[0]}")
+        if (detektReport.exists()) {
+            println "Detekt report for $subproject is available."
+            detektReportFiles.each { detektFileName ->
+                println detektFileName
+                def src = new File("$projectReportDir/$detektFileName")
+                def target = new File("$detektSingleReportFolder/${subproject.name}-$detektFileName")
+                target.createNewFile()
+                target.write(src.text)
+            }
+        }
+    }
+}
