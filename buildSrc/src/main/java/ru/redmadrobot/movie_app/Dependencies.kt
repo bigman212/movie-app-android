@@ -46,6 +46,10 @@ object Dependencies {
     private const val rxjava_version = "2.2.18"
     private const val rxandroid_version = "2.1.1"
 
+    private const val moshi_version = "1.9.2"
+    private const val retrofit_version = "2.7.1"
+    private const val okhttp_logging_version = "4.4.0"
+
     private const val timber_version = "4.7.1"
 
     const val Kotlin = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
@@ -71,6 +75,20 @@ object Dependencies {
     val RxJava = listOf(
         "io.reactivex.rxjava2:rxjava:$rxjava_version",
         "io.reactivex.rxjava2:rxandroid:$rxandroid_version"
+    )
+
+    object Moshi {
+        const val Moshi = "com.squareup.moshi:moshi:$moshi_version"
+        const val KotlinCodeGen = "com.squareup.moshi:moshi-kotlin-codegen:$moshi_version"
+    }
+
+    val Retrofit = listOf(
+        "com.squareup.retrofit2:retrofit:$retrofit_version",
+        "com.squareup.retrofit2:converter-gson:$retrofit_version",
+        "com.squareup.retrofit2:adapter-rxjava2:$retrofit_version",
+        "com.squareup.retrofit2:converter-moshi:$retrofit_version",
+
+        "com.squareup.okhttp3:logging-interceptor:$okhttp_logging_version"
     )
 
     object Tools {
