@@ -5,6 +5,10 @@ import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton
 
+/**
+ * Компонент для внедрения Android классов
+ * таких как: Context, SharedPreferences, ConnectivityManager и тому подобное
+ */
 @Singleton
 @Component(modules = [AndroidToolsModule::class])
 interface AndroidToolsComponent : AndroidToolsProvider {
