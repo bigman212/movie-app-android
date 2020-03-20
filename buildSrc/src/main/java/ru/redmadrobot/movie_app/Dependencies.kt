@@ -36,8 +36,10 @@ object TestDependencies {
 
 object Dependencies {
     private const val kotlin_version = "1.3.70"
-    private const val material_version = "1.1.0"
     private const val lifecycle_version = "2.2.0"
+    private const val navigation_version = "2.2.0"
+    private const val material_version = "1.1.0"
+
     private const val constraint_layout_version = "1.1.3"
     private const val android_ktx_version = "1.2.0"
 
@@ -57,6 +59,11 @@ object Dependencies {
     object Lifecycle {
         const val ViewModel = "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
         const val Extensions = "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
+    }
+
+    object Navigation {
+        const val Fragment = "androidx.navigation:navigation-fragment-ktx:$navigation_version"
+        const val UI_KTX = "androidx.navigation:navigation-ui-ktx:$navigation_version"
     }
 
     const val Material = "com.google.android.material:material:$material_version"

@@ -16,6 +16,9 @@ dependencies {
 
             Dependencies.Material,
 
+            Dependencies.Navigation.Fragment,
+            Dependencies.Navigation.UI_KTX,
+
             Dependencies.Constraint_layout,
 
             Dependencies.Dagger.Dagger,
