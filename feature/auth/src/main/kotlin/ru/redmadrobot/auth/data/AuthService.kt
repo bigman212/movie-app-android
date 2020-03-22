@@ -1,12 +1,16 @@
-package ru.redmadrobot.core.network
+package ru.redmadrobot.auth.data
 
 import io.reactivex.Single
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
-import ru.redmadrobot.core.network.entities.*
+import ru.redmadrobot.auth.data.entities.request.SessionIdRequest
+import ru.redmadrobot.auth.data.entities.request.ValidateTokenRequest
+import ru.redmadrobot.auth.data.entities.response.SessionIdResponse
+import ru.redmadrobot.auth.data.entities.response.TokenResponse
+import ru.redmadrobot.core.network.NetworkRouter
 
-interface MoviesService {
+interface AuthService {
     // порядок авторизации:
     // 1. /authentication/token/new
     // 2. /authentication/token/validate_with_login
@@ -34,6 +38,4 @@ interface MoviesService {
     @POST(NetworkRouter.AUTH_CREATE_SESSION_ID)
     fun createSessionId(@Body body: SessionIdRequest): Single<SessionIdResponse>
 
-    @GET(NetworkRouter.TV_POPULAR)
-    fun popularTvShows(): Single<WithPages<TvShow>>
 }

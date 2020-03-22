@@ -1,4 +1,4 @@
-package ru.redmadrobot.core.network.entities
+package ru.redmadrobot.auth.data.entities.response
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass

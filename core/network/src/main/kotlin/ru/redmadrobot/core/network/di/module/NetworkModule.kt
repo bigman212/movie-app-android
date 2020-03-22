@@ -8,7 +8,6 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
-import ru.redmadrobot.core.network.MoviesService
 import ru.redmadrobot.core.network.NetworkRouter
 import ru.redmadrobot.core.network.interceptors.ErrorInterceptor
 import ru.redmadrobot.core.network.interceptors.HeaderInterceptor
@@ -19,10 +18,6 @@ import javax.inject.Singleton
 @Module
 object NetworkModule {
     private const val HTTP_CLIENT_TIMEOUT = 30L
-
-    @Provides
-    @Singleton
-    fun provideMoviesService(retrofit: Retrofit): MoviesService = retrofit.create(MoviesService::class.java)
 
     @Provides
     @Singleton

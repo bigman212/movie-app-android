@@ -29,11 +29,15 @@ dependencies {
 
             Dependencies.RxJava,
 
-            Dependencies.Tools.Timber,
+            Dependencies.Moshi.Moshi,
+            Dependencies.Retrofit,
+
+            Dependencies.Tools.Timber
     )
 
     kapt(
-            Dependencies.Dagger.Processor
+            Dependencies.Dagger.Processor,
+            Dependencies.Moshi.KotlinCodeGen
     )
 
     testImplementation(TestDependencies.unitTest)

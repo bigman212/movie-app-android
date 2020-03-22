@@ -41,13 +41,13 @@ class AuthViewModel
 
     fun onAuthorizeButtonClick(loginFieldValue: String, passwordFieldValue: String) {
         useCase.login(loginFieldValue, passwordFieldValue)
-            .flatMap { useCase.popularTvShows() }
             .ioSubscribe()
             .uiObserve()
             .doOnSubscribe {
                 dispatch(AuthAction.EnableButton(false))
                 dispatch(AuthAction.Fetching)
             }
+            .doOnEvent { _, _ -> dispatch(AuthAction.EnableButton(true)) }
             .subscribe(
                 {
                     dispatch(AuthAction.Authorize)

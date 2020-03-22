@@ -1,7 +1,6 @@
 package ru.redmadrobot.core.network
 
 import com.squareup.moshi.Moshi
-import ru.redmadrobot.core.network.entities.AuthResponse
 import javax.inject.Inject
 
 /**
@@ -10,7 +9,9 @@ import javax.inject.Inject
 class MockCreator @Inject constructor(private val moshi: Moshi) {
     fun mockedSuccessResponseByUrl(url: String): String = when {
         url.endsWith(NetworkRouter.AUTH_TOKEN_NEW) -> {
-            toJson(AuthResponse(authorized = true))
+            //todo: нужен ли доступ к entities в :auth чтобы замокать ответ, или строкового JSON будет достаточно?
+            //language=JSON
+            "{\"success\": true, \"expires_at\": 19999, \"request_token\": \"3fa1q1\"}"
         }
 
         else -> toJson(unknownServerResponse())
@@ -27,7 +28,7 @@ class MockCreator @Inject constructor(private val moshi: Moshi) {
         else -> toJson(unknownServerResponse())
     }
 
-    fun unknownServerResponse() = ErrorResponse(
+    private fun unknownServerResponse() = ErrorResponse(
         "url not found",
         NetworkErrorHandler.ErrorStatusCode.UNKNOWN_ERROR
     )

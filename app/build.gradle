@@ -56,6 +56,7 @@ dependencies {
             Dependencies.Dagger.Dagger,
 
             Dependencies.RxJava,
+            Dependencies.Retrofit,
 
             Dependencies.Tools.Timber,
     )
