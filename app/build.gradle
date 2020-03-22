@@ -34,9 +34,10 @@ android {
 }
 
 dependencies {
-    implementation project(":core:network")
-    implementation project(":core:android")
     implementation project(":common")
+
+    implementation project(":core:android")
+    implementation project(":core:network")
 
     implementation project(":feature:auth")
 
@@ -56,6 +57,7 @@ dependencies {
             Dependencies.Dagger.Dagger,
 
             Dependencies.RxJava,
+
             Dependencies.Retrofit,
 
             Dependencies.Tools.Timber,

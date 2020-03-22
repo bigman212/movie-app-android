@@ -9,12 +9,15 @@ dependencies {
 
     implementation(
             Dependencies.Kotlin,
+
             Dependencies.Dagger.Dagger,
+
             Dependencies.RxJava,
-            Dependencies.Tools.Timber,
 
             Dependencies.Moshi.Moshi,
-            Dependencies.Retrofit
+            Dependencies.Retrofit,
+
+            Dependencies.Tools.Timber,
     )
 
     kapt(

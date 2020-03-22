@@ -7,15 +7,18 @@ apply from: rootProject.file('common-android-library.gradle')
 dependencies {
     implementation(
             Dependencies.Kotlin,
-            Dependencies.Dagger.Dagger,
-            Dependencies.RxJava,
-            Dependencies.Tools.Timber,
 
             Dependencies.Navigation.Fragment,
             Dependencies.Navigation.UI_KTX,
 
+            Dependencies.Dagger.Dagger,
+
+            Dependencies.RxJava,
+
             Dependencies.Retrofit,
-            Dependencies.Moshi.Moshi
+            Dependencies.Moshi.Moshi,
+
+            Dependencies.Tools.Timber,
     )
 
     kapt(

@@ -6,9 +6,9 @@ apply plugin: 'com.android.library'
 apply from: rootProject.file('common-android-library.gradle')
 
 dependencies {
-    implementation project(":core:network")
-    implementation project(":core:android")
     implementation project(":common")
+    implementation project(":core:android")
+    implementation project(":core:network")
 
     implementation(
             Dependencies.Kotlin,
