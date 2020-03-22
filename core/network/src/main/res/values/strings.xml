@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="network_error_invalid_api_key">Неправильный API ключ</string>
+    <string name="network_error_no_internet">Отсутствует интернет соединение</string>
+    <string name="network_error_session_denied">Сессия больше не валидна. Пожалуйста перезайдите.</string>
+    <string name="network_error_unknown">Неизвестная ошибка</string>
+    <string name="network_invalid_credentials">Неправильный логин или пароль</string>
+    <string name="network_error_auth_gone_wrong">Сбой при авторизации, попробуйте позднее</string>
+    <string name="network_error_unauthorized">Отсутствует доступ к ресурсу</string>
+</resources>

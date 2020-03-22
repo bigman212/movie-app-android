@@ -13,19 +13,24 @@ class MockCreator @Inject constructor(private val moshi: Moshi) {
             toJson(AuthResponse(authorized = true))
         }
 
-        else -> toJson(ErrorResponse.unknown())
+        else -> toJson(unknownServerResponse())
     }
 
     fun mockedErrorResponseByUrl(url: String): String = when {
         url.endsWith(NetworkRouter.AUTH_TOKEN_NEW) -> {
             val serverError = ErrorResponse(
                 "Invalid password or login",
-                ErrorResponse.StatusCode.INVALID_CREDENTIALS
+                NetworkErrorHandler.ErrorStatusCode.INVALID_CREDENTIALS
             )
             toJson(serverError)
         }
-        else -> toJson(ErrorResponse.unknown())
+        else -> toJson(unknownServerResponse())
     }
+
+    fun unknownServerResponse() = ErrorResponse(
+        "url not found",
+        NetworkErrorHandler.ErrorStatusCode.UNKNOWN_ERROR
+    )
 
     private inline fun <reified T> toJson(entity: T) = moshi.adapter(T::class.java).toJson(entity)
 }

@@ -8,7 +8,6 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
-import ru.redmadrobot.core.network.ErrorResponseAdapter
 import ru.redmadrobot.core.network.MoviesService
 import ru.redmadrobot.core.network.NetworkRouter
 import ru.redmadrobot.core.network.interceptors.ErrorInterceptor
@@ -69,9 +68,7 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideMoshi(): Moshi = Moshi.Builder()
-        .add(ErrorResponseAdapter())
-        .build()
+    fun provideMoshi(): Moshi = Moshi.Builder().build()
 
     @Provides
     @Singleton

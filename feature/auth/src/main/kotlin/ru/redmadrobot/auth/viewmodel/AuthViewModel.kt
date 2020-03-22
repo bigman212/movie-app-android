@@ -1,7 +1,6 @@
 package ru.redmadrobot.auth.viewmodel
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.util.Patterns
 import androidx.lifecycle.MutableLiveData
 import io.reactivex.functions.BiFunction
@@ -12,8 +11,7 @@ import ru.redmadrobot.common.extensions.uiObserve
 import javax.inject.Inject
 
 class AuthViewModel
-@Inject constructor(context: Context, private val useCase: AuthUseCase) :
-    BaseViewModel(context) {
+@Inject constructor(private val useCase: AuthUseCase) : BaseViewModel() {
 
     val viewState = MutableLiveData(AuthViewState())
 
@@ -55,8 +53,7 @@ class AuthViewModel
                     dispatch(AuthAction.Authorize)
                 },
                 {
-                    val uxError = it.toUiString()
-                    dispatch(AuthAction.Error(uxError))
+                    dispatch(AuthAction.Error(it.message))
                 }
             )
             .disposeOnCleared()
