@@ -5,22 +5,23 @@ apply plugin: 'com.android.library'
 apply from: rootProject.file('common-android-library.gradle')
 
 dependencies {
+    implementation project(":core:android")
+
     implementation(
             Dependencies.Kotlin,
+
             Dependencies.Dagger.Dagger,
+
             Dependencies.RxJava,
+
+            Dependencies.Moshi.Moshi,
+            Dependencies.Retrofit,
+
             Dependencies.Tools.Timber,
     )
 
     kapt(
-            Dependencies.Dagger.Processor
+            Dependencies.Dagger.Processor,
+            Dependencies.Moshi.KotlinCodeGen
     )
-
-    // решено не выносить их в Dependencies т.к. пока используются только в этом модуле
-    def retrofit_version = '2.7.1'
-    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
-    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
-    implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofit_version"
-
-    implementation 'com.squareup.okhttp3:logging-interceptor:4.4.0'
 }

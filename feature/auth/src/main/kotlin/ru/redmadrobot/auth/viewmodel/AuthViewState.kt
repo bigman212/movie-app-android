@@ -11,5 +11,5 @@ data class AuthViewState(
     fun fetchingState(): AuthViewState = copy(isFetching = true, errorMessage = null)
     fun buttonChangedState(isEnabled: Boolean): AuthViewState = copy(isButtonEnabled = isEnabled)
     fun authorizedState(): AuthViewState = copy(isAuthorized = true, isFetching = false)
-    fun errorState(error: String): AuthViewState = copy(errorMessage = error)
+    fun errorState(error: String?): AuthViewState = copy(errorMessage = error, isFetching = false)
 }

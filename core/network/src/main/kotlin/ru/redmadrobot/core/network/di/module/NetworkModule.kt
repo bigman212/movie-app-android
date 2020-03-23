@@ -1,53 +1,52 @@
 package ru.redmadrobot.core.network.di.module
 
+import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
-import retrofit2.converter.gson.GsonConverterFactory
-import ru.redmadrobot.core.network.MoviesService
+import retrofit2.converter.moshi.MoshiConverterFactory
+import ru.redmadrobot.core.network.NetworkRouter
+import ru.redmadrobot.core.network.interceptors.ErrorInterceptor
+import ru.redmadrobot.core.network.interceptors.HeaderInterceptor
+import ru.redmadrobot.core.network.interceptors.MockInterceptor
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 @Module
 object NetworkModule {
-
     private const val HTTP_CLIENT_TIMEOUT = 30L
-    private const val BASE_URL = "http://example.com"
 
     @Provides
     @Singleton
     fun provideApiClient(
         okHttpClient: OkHttpClient,
-        gsonFactory: GsonConverterFactory,
+        moshiFactory: MoshiConverterFactory,
         rxJava2Adapter: RxJava2CallAdapterFactory
     ): Retrofit {
         return Retrofit.Builder()
-            .baseUrl(BASE_URL)
             .client(okHttpClient)
-            .addConverterFactory(gsonFactory)
+            .baseUrl(NetworkRouter.BASE_URL)
+            .addConverterFactory(moshiFactory)
             .addCallAdapterFactory(rxJava2Adapter)
             .build()
     }
 
     @Provides
     @Singleton
-    fun provideMoviesService(retrofit: Retrofit): MoviesService = retrofit.create(MoviesService::class.java)
-
-    @Provides
-    @Singleton
-    fun provideLoggingInterceptor(): HttpLoggingInterceptor =
-        HttpLoggingInterceptor().apply {
-            level = HttpLoggingInterceptor.Level.HEADERS
-        }
-
-    @Provides
-    @Singleton
-    fun provideOkHttpClient(loggingInterceptor: HttpLoggingInterceptor): OkHttpClient {
+    fun provideOkHttpClient(
+        headerInterceptor: HeaderInterceptor,
+        errorInterceptor: ErrorInterceptor,
+        loggingInterceptor: HttpLoggingInterceptor,
+        mockInterceptor: MockInterceptor
+    ): OkHttpClient {
         return OkHttpClient.Builder()
+            .addInterceptor(headerInterceptor)
+            .addInterceptor(errorInterceptor)
             .addInterceptor(loggingInterceptor)
+            .addInterceptor(mockInterceptor)
             .callTimeout(HTTP_CLIENT_TIMEOUT, TimeUnit.SECONDS)
             .connectTimeout(HTTP_CLIENT_TIMEOUT, TimeUnit.SECONDS)
             .readTimeout(HTTP_CLIENT_TIMEOUT, TimeUnit.SECONDS)
@@ -57,7 +56,18 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideGsonConverterFactoryFactory(): GsonConverterFactory = GsonConverterFactory.create()
+    fun provideLoggingInterceptor(): HttpLoggingInterceptor =
+        HttpLoggingInterceptor().apply {
+            level = HttpLoggingInterceptor.Level.BODY
+        }
+
+    @Provides
+    @Singleton
+    fun provideMoshi(): Moshi = Moshi.Builder().build()
+
+    @Provides
+    @Singleton
+    fun provideMoshiConverterFactory(moshi: Moshi): MoshiConverterFactory = MoshiConverterFactory.create(moshi)
 
     @Provides
     @Singleton

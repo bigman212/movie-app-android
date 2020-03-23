@@ -1,0 +1,28 @@
+import ru.redmadrobot.movie_app.Dependencies
+
+apply plugin: 'com.android.library'
+
+apply from: rootProject.file('common-android-library.gradle')
+
+dependencies {
+    implementation(
+            Dependencies.Kotlin,
+
+            Dependencies.Navigation.Fragment,
+            Dependencies.Navigation.UI_KTX,
+
+            Dependencies.Dagger.Dagger,
+
+            Dependencies.RxJava,
+
+            Dependencies.Retrofit,
+            Dependencies.Moshi.Moshi,
+
+            Dependencies.Tools.Timber,
+    )
+
+    kapt(
+            Dependencies.Dagger.Processor,
+            Dependencies.Moshi.KotlinCodeGen
+    )
+}

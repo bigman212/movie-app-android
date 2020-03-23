@@ -1,7 +1,7 @@
 package ru.redmadrobot.core.network.di
 
-import ru.redmadrobot.core.network.MoviesService
+import retrofit2.Retrofit
 
 interface NetworkProvider {
-    fun moviesService(): MoviesService
+    fun retrofitClient(): Retrofit
 }

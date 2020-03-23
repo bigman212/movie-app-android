@@ -1,5 +1,6 @@
 package ru.redmadrobot.auth.viewmodel
 
+import android.annotation.SuppressLint
 import android.util.Patterns
 import androidx.lifecycle.MutableLiveData
 import io.reactivex.functions.BiFunction
@@ -7,10 +8,10 @@ import ru.redmadrobot.auth.domain.usecase.AuthUseCase
 import ru.redmadrobot.common.base.BaseViewModel
 import ru.redmadrobot.common.extensions.ioSubscribe
 import ru.redmadrobot.common.extensions.uiObserve
-import timber.log.Timber
 import javax.inject.Inject
 
-class AuthViewModel @Inject constructor(private val useCase: AuthUseCase) : BaseViewModel() {
+class AuthViewModel
+@Inject constructor(private val useCase: AuthUseCase) : BaseViewModel() {
 
     val viewState = MutableLiveData(AuthViewState())
 
@@ -20,7 +21,7 @@ class AuthViewModel @Inject constructor(private val useCase: AuthUseCase) : Base
             is AuthAction.Authorize -> previousState.authorizedState()
             is AuthAction.EnableButton -> previousState.buttonChangedState(action.shouldBeEnabled)
 
-            is AuthAction.Error -> previousState.errorState(action.error.message ?: "Неизвестная ошибка")
+            is AuthAction.Error -> previousState.errorState(action.uxError)
         }
     }
 
@@ -34,7 +35,7 @@ class AuthViewModel @Inject constructor(private val useCase: AuthUseCase) : Base
             }
 
     fun checkValuesAreValid(loginFieldValue: String, passwordFieldValue: String) {
-        val valuesAreValid = loginFieldValue.isEmail() and passwordFieldValue.isNotBlank()
+        val valuesAreValid = loginFieldValue.isNotBlank() and passwordFieldValue.isNotBlank()
         dispatch(AuthAction.EnableButton(valuesAreValid))
     }
 
@@ -46,17 +47,18 @@ class AuthViewModel @Inject constructor(private val useCase: AuthUseCase) : Base
                 dispatch(AuthAction.EnableButton(false))
                 dispatch(AuthAction.Fetching)
             }
+            .doOnEvent { _, _ -> dispatch(AuthAction.EnableButton(true)) }
             .subscribe(
                 {
                     dispatch(AuthAction.Authorize)
                 },
                 {
-                    Timber.e(it)
-                    dispatch(AuthAction.Error(it))
+                    dispatch(AuthAction.Error(it.message))
                 }
             )
             .disposeOnCleared()
     }
 
+    @SuppressLint("NewApi")
     private fun String.isEmail(): Boolean = Patterns.EMAIL_ADDRESS.matcher(this).matches()
 }

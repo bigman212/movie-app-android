@@ -36,8 +36,10 @@ object TestDependencies {
 
 object Dependencies {
     private const val kotlin_version = "1.3.70"
-    private const val material_version = "1.1.0"
     private const val lifecycle_version = "2.2.0"
+    private const val navigation_version = "2.2.0"
+    private const val material_version = "1.1.0"
+
     private const val constraint_layout_version = "1.1.3"
     private const val android_ktx_version = "1.2.0"
 
@@ -46,6 +48,10 @@ object Dependencies {
     private const val rxjava_version = "2.2.18"
     private const val rxandroid_version = "2.1.1"
 
+    private const val moshi_version = "1.9.2"
+    private const val retrofit_version = "2.7.1"
+    private const val okhttp_logging_version = "4.4.0"
+
     private const val timber_version = "4.7.1"
 
     const val Kotlin = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
@@ -53,6 +59,11 @@ object Dependencies {
     object Lifecycle {
         const val ViewModel = "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
         const val Extensions = "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
+    }
+
+    object Navigation {
+        const val Fragment = "androidx.navigation:navigation-fragment-ktx:$navigation_version"
+        const val UI_KTX = "androidx.navigation:navigation-ui-ktx:$navigation_version"
     }
 
     const val Material = "com.google.android.material:material:$material_version"
@@ -71,6 +82,20 @@ object Dependencies {
     val RxJava = listOf(
         "io.reactivex.rxjava2:rxjava:$rxjava_version",
         "io.reactivex.rxjava2:rxandroid:$rxandroid_version"
+    )
+
+    object Moshi {
+        const val Moshi = "com.squareup.moshi:moshi:$moshi_version"
+        const val KotlinCodeGen = "com.squareup.moshi:moshi-kotlin-codegen:$moshi_version"
+    }
+
+    val Retrofit = listOf(
+        "com.squareup.retrofit2:retrofit:$retrofit_version",
+        "com.squareup.retrofit2:converter-gson:$retrofit_version",
+        "com.squareup.retrofit2:adapter-rxjava2:$retrofit_version",
+        "com.squareup.retrofit2:converter-moshi:$retrofit_version",
+
+        "com.squareup.okhttp3:logging-interceptor:$okhttp_logging_version"
     )
 
     object Tools {

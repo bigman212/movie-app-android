@@ -1,15 +1,18 @@
 package ru.redmadrobot.auth.data.repository
 
 import io.reactivex.Single
-import ru.redmadrobot.auth.data.entities.UserCredentials
-import ru.redmadrobot.core.network.MoviesService
-import ru.redmadrobot.core.network.entities.AuthResponse
+import ru.redmadrobot.auth.data.AuthService
+import ru.redmadrobot.auth.data.entities.request.SessionIdRequest
+import ru.redmadrobot.auth.data.entities.request.ValidateTokenRequest
+import ru.redmadrobot.auth.data.entities.response.SessionIdResponse
 import javax.inject.Inject
 
-class AuthRepository @Inject constructor(private val moviesApi: MoviesService) {
+class AuthRepository @Inject constructor(private val authApi: AuthService) {
 
-    fun loginWith(credentials: UserCredentials): Single<AuthResponse> {
-        return moviesApi
-            .login(credentials.toAuthRequest())
-    }
+    fun loginWith(login: String, password: String): Single<SessionIdResponse> = authApi
+        .newRequestToken()
+        .map { ValidateTokenRequest(login, password, it.requestToken) }
+        .flatMap(authApi::validateUser)
+        .map { SessionIdRequest(it.requestToken) }
+        .flatMap(authApi::createSessionId)
 }
