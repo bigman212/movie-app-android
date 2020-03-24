@@ -39,7 +39,4 @@ dependencies {
             Dependencies.Dagger.Processor,
             Dependencies.Moshi.KotlinCodeGen
     )
-
-    testImplementation(TestDependencies.unitTest)
-    androidTestImplementation(TestDependencies.androidTest)
 }

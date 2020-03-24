@@ -1,14 +1,20 @@
+import ru.redmadrobot.movie_app.TestDependencies
 import ru.redmadrobot.movie_app.Versions
 
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
+apply plugin: 'de.mannodermaus.android-junit5'
+
 android {
     compileSdkVersion Versions.compileSdk
     buildToolsVersion Versions.buildTools
     defaultConfig {
         minSdkVersion Versions.minSdk
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunnerArgument "runnerBuilder", "de.mannodermaus.junit5.AndroidJUnit5Builder"
     }
 
     compileOptions {
@@ -20,7 +26,25 @@ android {
         jvmTarget = "1.8"
     }
 
-    sourceSets {
-        main.java.srcDirs += 'src/main/kotlin'
+    sourceSets.each {
+        it.java.srcDirs += "src/$it.name/kotlin"
     }
+
+    testOptions {
+        junitPlatform {
+            filters {
+                engines {
+                    include 'spek2'
+                }
+            }
+        }
+    }
+}
+
+dependencies {
+    testImplementation(TestDependencies.testImpl)
+    testRuntimeOnly(TestDependencies.testRuntime)
+
+    androidTestImplementation(TestDependencies.androidTestImpl)
+    androidTestRuntimeOnly(TestDependencies.androidTestRuntime)
 }
