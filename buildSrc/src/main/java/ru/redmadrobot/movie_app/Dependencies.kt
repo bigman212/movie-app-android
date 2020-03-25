@@ -20,7 +20,7 @@ object TestDependencies {
     private const val mockito_core_version = "2.18.0"
     private const val mockito_kotlin_version = "2.2.0"
 
-    private const val spek_version = "2.0.0"
+    private const val spek_version = "2.0.3"
 
     private const val mockwebserver_version = "4.4.0"
 
@@ -30,6 +30,7 @@ object TestDependencies {
         // junit5
         "org.junit.jupiter:junit-jupiter-api:$junit5_version",
         "org.junit.jupiter:junit-jupiter-params:$junit5_version",
+        "org.junit.platform:junit-platform-runner:1.6.1",
         "junit:junit:$junit4_version",
 
         // mockito
