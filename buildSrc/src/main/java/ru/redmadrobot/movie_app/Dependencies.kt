@@ -20,7 +20,7 @@ object TestDependencies {
     private const val mockito_core_version = "2.18.0"
     private const val mockito_kotlin_version = "2.2.0"
 
-    private const val spek_version = "2.0.3"
+    private const val spek_version = "2.0.10"
 
     private const val mockwebserver_version = "4.4.0"
 
