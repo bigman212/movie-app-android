@@ -26,6 +26,8 @@ object TestDependencies {
 
     private const val assertj_version = "3.15.0"
 
+    val MockitoWebServer = "com.squareup.okhttp3:mockwebserver:$mockwebserver_version"
+
     val testImpl = listOf(
         // junit5
         "org.junit.jupiter:junit-jupiter-api:$junit5_version",

@@ -1,4 +1,5 @@
 import ru.redmadrobot.movie_app.Dependencies
+import ru.redmadrobot.movie_app.TestDependencies
 
 apply plugin: 'com.android.library'
 
@@ -16,6 +17,7 @@ dependencies {
 
             Dependencies.Moshi.Moshi,
             Dependencies.Retrofit,
+            TestDependencies.MockitoWebServer,
 
             Dependencies.Tools.Timber,
     )
