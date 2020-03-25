@@ -39,4 +39,6 @@ dependencies {
             Dependencies.Dagger.Processor,
             Dependencies.Moshi.KotlinCodeGen
     )
+
+    testImplementation project(":test_tools")
 }

@@ -13,6 +13,7 @@ import okhttp3.mockwebserver.RecordedRequest
 import org.assertj.core.api.SoftAssertions.assertSoftly
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.gherkin.Feature
+import ru.redmadrobot.test_tools.network.makeGet
 import java.util.concurrent.TimeUnit
 
 object NetworkErrorHandlerTest : Spek({

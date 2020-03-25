@@ -6,18 +6,20 @@ apply plugin: 'com.android.library'
 apply from: rootProject.file('common-android-library.gradle')
 
 dependencies {
-    implementation project(":core:android")
-
     implementation(
             Dependencies.Kotlin,
+
+            Dependencies.Navigation.Fragment,
+            Dependencies.Navigation.UI_KTX,
 
             Dependencies.Dagger.Dagger,
 
             Dependencies.RxJava,
 
-            Dependencies.Moshi.Moshi,
             Dependencies.Retrofit,
-            TestDependencies.MockitoWebServer,
+            Dependencies.Moshi.Moshi,
+
+            TestDependencies.testImpl,
 
             Dependencies.Tools.Timber,
     )
@@ -26,6 +28,4 @@ dependencies {
             Dependencies.Dagger.Processor,
             Dependencies.Moshi.KotlinCodeGen
     )
-
-    testImplementation project(":test_tools")
 }

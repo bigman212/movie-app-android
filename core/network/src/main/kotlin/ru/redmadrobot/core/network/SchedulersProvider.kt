@@ -1,4 +1,4 @@
-package ru.redmadrobot.common.rx
+package ru.redmadrobot.core.network
 
 import io.reactivex.Scheduler
 import io.reactivex.Single

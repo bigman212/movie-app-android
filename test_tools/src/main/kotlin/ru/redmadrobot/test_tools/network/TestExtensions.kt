@@ -1,4 +1,4 @@
-package ru.redmadrobot.core.network
+package ru.redmadrobot.test_tools.network
 
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient

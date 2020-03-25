@@ -10,12 +10,12 @@ import ru.redmadrobot.auth.data.entities.response.SessionIdResponse
 import ru.redmadrobot.auth.data.entities.response.TokenResponse
 import ru.redmadrobot.auth.data.repository.AuthRepository
 import ru.redmadrobot.auth.domain.usecase.AuthUseCase
-import ru.redmadrobot.common.LiveDataExecutionManager
-import ru.redmadrobot.common.TestSchedulersProvider
-import ru.redmadrobot.core.network.NetworkEnvironment
 import ru.redmadrobot.core.network.NetworkRouter
-import ru.redmadrobot.core.network.notFound
-import ru.redmadrobot.core.network.success
+import ru.redmadrobot.test_tools.LiveDataExecutionManager
+import ru.redmadrobot.test_tools.network.NetworkEnvironment
+import ru.redmadrobot.test_tools.network.notFound
+import ru.redmadrobot.test_tools.network.success
+import ru.redmadrobot.test_tools.rx.TestSchedulersProvider
 import javax.net.ssl.HttpsURLConnection
 import kotlin.test.assertEquals
 

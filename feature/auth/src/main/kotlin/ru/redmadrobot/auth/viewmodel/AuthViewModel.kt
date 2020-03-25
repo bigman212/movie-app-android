@@ -6,8 +6,8 @@ import androidx.lifecycle.MutableLiveData
 import io.reactivex.functions.BiFunction
 import ru.redmadrobot.auth.domain.usecase.AuthUseCase
 import ru.redmadrobot.common.base.BaseViewModel
-import ru.redmadrobot.common.rx.SchedulersProvider
-import ru.redmadrobot.common.rx.scheduleIoToUi
+import ru.redmadrobot.core.network.SchedulersProvider
+import ru.redmadrobot.core.network.scheduleIoToUi
 import javax.inject.Inject
 
 class AuthViewModel

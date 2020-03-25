@@ -1,4 +1,4 @@
-package ru.redmadrobot.common
+package ru.redmadrobot.test_tools
 
 import androidx.arch.core.executor.ArchTaskExecutor
 import androidx.arch.core.executor.TaskExecutor

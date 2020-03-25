@@ -16,12 +16,18 @@ internal object MockErrorResponseCreator {
         }
 
     private val urlToErrorJson = mapOf(
-        NetworkRouter.AUTH_TOKEN_NEW to errorJson(ErrorStatusCode.INVALID_API_KEY, "invalid_api_key"),
+        NetworkRouter.AUTH_TOKEN_NEW to errorJson(
+            ErrorStatusCode.INVALID_API_KEY,
+            "invalid_api_key"
+        ),
         NetworkRouter.AUTH_CREATE_SESSION_ID to errorJson(
             ErrorStatusCode.INVALID_REQUEST_TOKEN,
             "invalid_request_token"
         ),
-        NetworkRouter.AUTH_VALIDATE_TOKEN to errorJson(ErrorStatusCode.INVALID_CREDENTIALS, "invalid credentials")
+        NetworkRouter.AUTH_VALIDATE_TOKEN to errorJson(
+            ErrorStatusCode.INVALID_CREDENTIALS,
+            "invalid credentials"
+        )
     )
 
     private fun urlCanBeMocked(url: String): Boolean {
