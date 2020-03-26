@@ -1,5 +1,7 @@
 package ru.redmadrobot.auth.viewmodel
 
+import com.nhaarman.mockitokotlin2.any
+import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.mock
 import com.squareup.moshi.Moshi
 import okhttp3.mockwebserver.MockResponse
@@ -10,7 +12,8 @@ import ru.redmadrobot.auth.data.entities.response.SessionIdResponse
 import ru.redmadrobot.auth.data.entities.response.TokenResponse
 import ru.redmadrobot.auth.data.repository.AuthRepository
 import ru.redmadrobot.auth.domain.usecase.AuthUseCase
-import ru.redmadrobot.core.network.NetworkRouter
+import ru.redmadrobot.core.network.*
+import ru.redmadrobot.core.network.interceptors.ErrorInterceptor
 import ru.redmadrobot.test_tools.LiveDataExecutionManager
 import ru.redmadrobot.test_tools.network.NetworkEnvironment
 import ru.redmadrobot.test_tools.network.notFound
