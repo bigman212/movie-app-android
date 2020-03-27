@@ -1,36 +1,24 @@
 package ru.redmadrobot.auth.viewmodel
 
-import com.nhaarman.mockitokotlin2.any
+import androidx.lifecycle.Observer
 import com.nhaarman.mockitokotlin2.doReturn
+import com.nhaarman.mockitokotlin2.inOrder
 import com.nhaarman.mockitokotlin2.mock
-import com.squareup.moshi.Moshi
-import okhttp3.mockwebserver.MockResponse
+import io.reactivex.Single
+import io.reactivex.schedulers.TestScheduler
+import org.assertj.core.api.Assertions.assertThat
+import org.mockito.ArgumentMatchers.anyString
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.gherkin.Feature
-import ru.redmadrobot.auth.data.AuthService
-import ru.redmadrobot.auth.data.entities.response.SessionIdResponse
-import ru.redmadrobot.auth.data.entities.response.TokenResponse
-import ru.redmadrobot.auth.data.repository.AuthRepository
-import ru.redmadrobot.auth.domain.usecase.AuthUseCase
-import ru.redmadrobot.core.network.*
-import ru.redmadrobot.core.network.interceptors.ErrorInterceptor
+import ru.redmadrobot.core.network.ErrorResponse
+import ru.redmadrobot.core.network.NetworkException
+import ru.redmadrobot.core.network.TestSchedulersProvider
 import ru.redmadrobot.test_tools.LiveDataExecutionManager
-import ru.redmadrobot.test_tools.network.NetworkEnvironment
-import ru.redmadrobot.test_tools.network.badRequest
-import ru.redmadrobot.test_tools.network.notFound
-import ru.redmadrobot.test_tools.network.success
 import kotlin.test.assertEquals
 
 
 internal class AuthViewModelTest : Spek({
-
-    val networkErrorHandler = mock<NetworkErrorHandler> {
-        on { networkExceptionToThrow(any()) }.doReturn(
-            NetworkException.BadRequest(ErrorResponse("Неправильный логин или пароль", 7))
-        )
-    }
-    val networkEnvironment = NetworkEnvironment(AuthService::class, ErrorInterceptor(networkErrorHandler, mock()))
-    Feature("Login") {
+    Feature("AuthViewModel state") {
         beforeFeature {
             LiveDataExecutionManager.enableTestMode()
         }
@@ -39,105 +27,126 @@ internal class AuthViewModelTest : Spek({
             LiveDataExecutionManager.disableTestMode()
         }
 
-        val authRepository = AuthRepository(networkEnvironment.api)
-        val authViewModel = AuthViewModel(TestSchedulersProvider(), AuthUseCase(mock(), authRepository))
+        Scenario("enter different values of credentials") {
+            val authViewModel = AuthViewModel(mock(), mock())
 
-        Scenario("enter credentials and click login button and authorize successfully") {
-            networkEnvironment.dispatchResponses {
-                val moshi = Moshi.Builder().build()
-                when (it) {
-                    NetworkRouter.AUTH_TOKEN_NEW, NetworkRouter.AUTH_VALIDATE_TOKEN -> MockResponse()
-                        .success(
-                            moshi.toJson(TokenResponse(true, "10.10.2020", "request_token"))
-                        )
-                    NetworkRouter.AUTH_CREATE_SESSION_ID -> MockResponse()
-                        .success(
-                            moshi.toJson(
-                                SessionIdResponse(true, "session_id")
-                            )
-                        )
-                    else -> MockResponse().notFound()
-                }
-            }
-
-            When("enter not blank login and password") {
-                authViewModel.checkValuesAreValid("login", "password")
-
-                val currentState = authViewModel.viewState.value
-                val expectedState = AuthViewState().buttonChangedState(true)
-                assertEquals(expectedState, currentState)
-            }
-            And("click login button") {
-                authViewModel.onAuthorizeButtonClick("login", "password")
-            }
-            Then("state should be in authorized mode") {
-                val currentState = authViewModel.viewState.value!!
-                val expectedState = currentState.authorizedState()
-                assertEquals(expectedState, currentState)
-            }
-        }
-
-        Scenario("!!! DOESN'T WORK !!! try to login and fail with invalid_credentials error") {
-
-            Given("invalid_credentials error from server") {
-                val moshi = Moshi.Builder().build()
-                networkEnvironment.dispatchResponses { path ->
-                    when (path) {
-
-                        NetworkRouter.AUTH_TOKEN_NEW -> MockResponse()
-                            .success(
-                                moshi.toJson(TokenResponse(true, "10.10.2020", "request_token"))
-                            )
-                        NetworkRouter.AUTH_CREATE_SESSION_ID -> MockResponse()
-                            .success(
-                                moshi.toJson(
-                                    SessionIdResponse(true, "session_id")
-                                )
-                            )
-                        NetworkRouter.AUTH_VALIDATE_TOKEN -> MockResponse()
-                            .badRequest(moshi.toJson(ErrorResponse("invalid", 8)))
-                        else -> MockResponse().notFound()
-                    }
-                }
-            }
-
-            When("pass wrong login and password to viewmodel") {
-                authViewModel.checkValuesAreValid("login1", "password1")
-            }
-            And("click button to authrorize") {
-                authViewModel.onAuthorizeButtonClick("login1", "password1")
-            }
-            Then("recieve invalid_credentials error and keep it in the state") {
-                val currentState = authViewModel.viewState.value!!
-                val expectedState = currentState.errorState("error")
-                assertEquals(expectedState, currentState)
-            }
-        }
-
-        Scenario("credentials are blank and button state should be disabled") {
-            When("pass nothing in viewmodel") {
+            When("enter blank as credentials") {
                 authViewModel.checkValuesAreValid("", "")
             }
-            Then("state should be not changed with button enabled = false") {
+            Then("state changes to buttonChangedState = false") {
                 val currentState = authViewModel.viewState.value!!
                 val expectedState = currentState.buttonChangedState(false)
+
+                assertEquals(expectedState, currentState)
+            }
+
+            When("pass only one credential") {
+                authViewModel.checkValuesAreValid("login", "")
+            }
+            Then("state keeps state buttonChangedState = false") {
+                val currentState = authViewModel.viewState.value!!
+                val expectedState = AuthViewState().buttonChangedState(false)
+
+                assertEquals(expectedState, currentState)
+            }
+
+            When("pass all credentials") {
+                authViewModel.checkValuesAreValid("login", "password")
+            }
+            Then("state changes to buttonChangedState = true") {
+                val currentState = authViewModel.viewState.value!!
+                val expectedState = AuthViewState().buttonChangedState(true)
 
                 assertEquals(expectedState, currentState)
             }
         }
 
-        Scenario("one of credentials is blank and button state should be disabled") {
-            When("pass only login value to viewmodel") {
-                authViewModel.checkValuesAreValid("login", "")
-            }
-            Then("state should be not changed and with button enabled = false") {
-                val currentState = authViewModel.viewState.value!!
-                val expectedState = currentState.buttonChangedState(false)
+        Scenario("authorize user with valid credentials") {
+            val testScheduler = TestScheduler()
+            val authViewModel = AuthViewModel(TestSchedulersProvider(backgroundScheduler = testScheduler), mock {
+                on { login(anyString(), anyString()) }.doReturn(Single.just(mock()))
+            })
 
-                assertEquals(expectedState, currentState)
+            val observer: Observer<AuthViewState> = mock {}
+            When("valid credentials are entered and button is clicked") {
+                authViewModel.viewState.observeForever(observer)
+                authViewModel.checkValuesAreValid("login", "password")
+                authViewModel.onAuthorizeButtonClick("login", "password")
+                testScheduler.triggerActions()
+            }
+            Then("state becomes Authorized") {
+                val expectedState = AuthViewState().authorizedState()
+                    .buttonChangedState(true)
+
+                authViewModel.assertStateIs(expectedState)
+            }
+            And("state changes accordingly in order") {
+                inOrder(observer) {
+                    with(verify(observer)) {
+                        val defaultViewState = AuthViewState()
+                        val buttonEnabledState = defaultViewState.buttonChangedState(isEnabled = true)
+                        val requestButtonDisabledState = buttonEnabledState.buttonChangedState(isEnabled = false)
+                        val requestIsFetchingState = requestButtonDisabledState.fetchingState()
+                        val requestIsFinishedSuccessfullyState = requestIsFetchingState.authorizedState()
+
+                        onChanged(buttonEnabledState)
+                        onChanged(requestButtonDisabledState)
+                        onChanged(requestIsFetchingState)
+                        onChanged(requestIsFinishedSuccessfullyState)
+                    }
+                }
+                authViewModel.viewState.removeObserver(observer)
+            }
+        }
+
+        Scenario("authorize user with wrong credentials") {
+            val expectedWrongCredentialsError = ErrorResponse("Неправильные логин или пароль", 7)
+
+            val testScheduler = TestScheduler()
+            val authViewModel = AuthViewModel(TestSchedulersProvider(backgroundScheduler = testScheduler), mock {
+                on { login(anyString(), anyString()) }
+                    .doReturn(Single.error { NetworkException.BadRequest(expectedWrongCredentialsError) })
+            })
+
+            val observer: Observer<AuthViewState> = mock {}
+            When("wrong credentials are entered and authorize button clicked") {
+                authViewModel.viewState.observeForever(observer)
+
+                authViewModel.checkValuesAreValid("bad_login", "bad_password")
+                authViewModel.onAuthorizeButtonClick("bad_login", "bad_login")
+
+                testScheduler.triggerActions()
+            }
+            Then("state receives error state with invalid_credentials") {
+                val expectedState = AuthViewState()
+                    .buttonChangedState(isEnabled = true)
+                    .errorState(expectedWrongCredentialsError.statusMessage)
+
+                authViewModel.assertStateIs(expectedState)
+            }
+            And("state changes in order") {
+                inOrder(observer) {
+                    with(verify(observer)) {
+                        val defaultViewState = AuthViewState()
+                        val buttonEnabledState = defaultViewState.buttonChangedState(isEnabled = true)
+                        val requestButtonDisabledState = buttonEnabledState.buttonChangedState(isEnabled = false)
+                        val requestIsFetchingState = requestButtonDisabledState.fetchingState()
+                        val requestFinishedWithErrorState =
+                            requestIsFetchingState.errorState(expectedWrongCredentialsError.statusMessage)
+
+                        onChanged(buttonEnabledState)
+                        onChanged(requestButtonDisabledState)
+                        onChanged(requestIsFetchingState)
+                        onChanged(requestFinishedWithErrorState)
+                        onChanged(requestFinishedWithErrorState.buttonChangedState(true))
+                    }
+                }
+                authViewModel.viewState.removeObserver(observer)
             }
         }
     }
 })
 
-private inline fun <reified T> Moshi.toJson(entity: T): String = this.adapter(T::class.java).toJson(entity)
+private fun AuthViewModel.assertStateIs(expected: AuthViewState) {
+    assertThat(expected).isEqualTo(viewState.value!!)
+}
