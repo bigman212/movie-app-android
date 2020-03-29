@@ -17,7 +17,7 @@ import ru.redmadrobot.test_tools.network.makeGet
 import java.util.concurrent.TimeUnit
 
 object NetworkErrorHandlerTest : Spek({
-    Feature("Handle network errors with NetworkErrorHandler") {
+    Feature("Handle network errors") {
         val dispatcher: Dispatcher = object : Dispatcher() {
             @Throws(InterruptedException::class)
             override fun dispatch(request: RecordedRequest): MockResponse {

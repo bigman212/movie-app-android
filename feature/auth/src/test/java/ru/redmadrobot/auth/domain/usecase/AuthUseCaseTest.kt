@@ -13,30 +13,32 @@ import ru.redmadrobot.auth.data.repository.AuthRepository
 import ru.redmadrobot.core.network.SessionIdRepository
 
 internal class AuthUseCaseTest : Spek({
-    Feature("Authorize user with UseCase and save session_id") {
-        Scenario("successfully authorize user and get session id") {
-            val sessionResponse = SessionIdResponse(true, "1235")
+    Feature("create authorized session (login user)") {
+        Scenario("create authorized session") {
+            val session = SessionIdResponse(true, "1235")
 
             val sessionIdRepository = mock<SessionIdRepository> {
-                on { getSessionId() }.doReturn(sessionResponse.sessionId)
+                on { getSessionId() }.doReturn(session.sessionId)
             }
 
             val repo = mock<AuthRepository> {
-                on { loginWith(anyString(), anyString()) }.doReturn(Single.just(sessionResponse))
+                on { loginWith(anyString(), anyString()) }.doReturn(Single.just(session))
             }
 
             val authUseCase = AuthUseCase(sessionIdRepository, repo)
 
-            lateinit var request: TestObserver<SessionIdResponse>
-            When("it login user with credentials") {
-                request = authUseCase.login("login", "password").test()
+            lateinit var sessionRequest: TestObserver<SessionIdResponse>
+            When("pass valid login and password") {
+                sessionRequest = authUseCase.login("login", "password").test()
             }
-
-            Then("it returns session_id response and save it") {
-                verify(sessionIdRepository).saveSessionId(sessionResponse.sessionId)
-                request
+            Then("login and receive new session") {
+                sessionRequest
                     .assertNoErrors()
-                    .assertValue(sessionResponse)
+                    .assertComplete()
+                    .assertValue(session)
+            }
+            And("session saved in repository") {
+                verify(sessionIdRepository).saveSessionId(session.sessionId)
             }
         }
     }

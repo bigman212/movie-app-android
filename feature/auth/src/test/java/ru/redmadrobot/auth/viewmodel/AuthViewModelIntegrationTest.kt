@@ -12,7 +12,11 @@ import ru.redmadrobot.auth.data.entities.response.SessionIdResponse
 import ru.redmadrobot.auth.data.entities.response.TokenResponse
 import ru.redmadrobot.auth.data.repository.AuthRepository
 import ru.redmadrobot.auth.domain.usecase.AuthUseCase
-import ru.redmadrobot.core.network.*
+import ru.redmadrobot.core.network.ErrorResponse
+import ru.redmadrobot.core.network.NetworkErrorHandler
+import ru.redmadrobot.core.network.NetworkException
+import ru.redmadrobot.core.network.NetworkRouter
+import ru.redmadrobot.core.network.TestSchedulersProvider
 import ru.redmadrobot.core.network.interceptors.ErrorInterceptor
 import ru.redmadrobot.test_tools.LiveDataExecutionManager
 import ru.redmadrobot.test_tools.network.NetworkEnvironment
@@ -20,7 +24,6 @@ import ru.redmadrobot.test_tools.network.badRequest
 import ru.redmadrobot.test_tools.network.notFound
 import ru.redmadrobot.test_tools.network.success
 import kotlin.test.assertEquals
-
 
 // моки ближе к сценарию в when чтобы возвралось ожидаемое поведение
 internal class AuthViewModelIntegrationTest : Spek({
