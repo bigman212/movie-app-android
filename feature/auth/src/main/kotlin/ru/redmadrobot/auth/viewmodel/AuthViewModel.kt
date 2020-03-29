@@ -52,7 +52,8 @@ class AuthViewModel
                     dispatch(AuthAction.Authorize)
                 },
                 {
-                    dispatch(AuthAction.Error(it.message))
+                    val stateError = it.message ?: "Неизвестная ошибка"
+                    dispatch(AuthAction.Error(stateError))
                 }
             )
             .disposeOnCleared()

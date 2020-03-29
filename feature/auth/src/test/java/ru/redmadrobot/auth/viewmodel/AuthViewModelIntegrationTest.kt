@@ -1,10 +1,11 @@
 package ru.redmadrobot.auth.viewmodel
 
-import com.nhaarman.mockitokotlin2.any
+import android.content.Context
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.mock
 import com.squareup.moshi.Moshi
 import okhttp3.mockwebserver.MockResponse
+import org.assertj.core.api.Assertions.assertThat
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.gherkin.Feature
 import ru.redmadrobot.auth.data.AuthService
@@ -14,25 +15,43 @@ import ru.redmadrobot.auth.data.repository.AuthRepository
 import ru.redmadrobot.auth.domain.usecase.AuthUseCase
 import ru.redmadrobot.core.network.ErrorResponse
 import ru.redmadrobot.core.network.NetworkErrorHandler
-import ru.redmadrobot.core.network.NetworkException
 import ru.redmadrobot.core.network.NetworkRouter
+import ru.redmadrobot.core.network.R
+import ru.redmadrobot.core.network.SessionIdRepository
 import ru.redmadrobot.core.network.TestSchedulersProvider
 import ru.redmadrobot.core.network.interceptors.ErrorInterceptor
 import ru.redmadrobot.test_tools.LiveDataExecutionManager
+import ru.redmadrobot.test_tools.android.SharedPreferencesMock
 import ru.redmadrobot.test_tools.network.NetworkEnvironment
 import ru.redmadrobot.test_tools.network.badRequest
 import ru.redmadrobot.test_tools.network.notFound
 import ru.redmadrobot.test_tools.network.success
-import kotlin.test.assertEquals
 
 // моки ближе к сценарию в when чтобы возвралось ожидаемое поведение
 internal class AuthViewModelIntegrationTest : Spek({
 
-    val networkErrorHandler = mock<NetworkErrorHandler> {
-        on { networkExceptionToThrow(any()) }
-            .doReturn(NetworkException.BadRequest(ErrorResponse("Неправильный логин или пароль", 7)))
+    //region init global vars
+    val context = mock<Context> {
+        on { getString(R.string.network_error_invalid_api_key) } doReturn "Неправильный апи ключ"
+        on { getString(R.string.network_error_unknown) } doReturn "Неизвестная ошибка"
+        on { getString(R.string.network_error_session_denied) } doReturn "Сессия просрочена или неправильная"
+        on { getString(R.string.network_invalid_credentials) } doReturn "Неправильный логин или пароль"
     }
-    val networkEnvironment = NetworkEnvironment(AuthService::class, ErrorInterceptor(networkErrorHandler, mock()))
+
+    val moshi = Moshi.Builder().build()
+    val networkErrorHandler = NetworkErrorHandler(context, moshi)
+
+    val errorInterceptor = ErrorInterceptor(networkErrorHandler, mock())
+    val networkEnvironment = NetworkEnvironment(AuthService::class, errorInterceptor)
+
+    val authRepository = AuthRepository(networkEnvironment.api)
+
+    val sessionIdRepo = SessionIdRepository(
+        SharedPreferencesMock(mapOf("session_id_key" to "session_id")).sharedPrefs
+    )
+    val authUseCase = AuthUseCase(sessionIdRepo, authRepository)
+    //endregion
+
     Feature("Login") {
         beforeFeature {
             LiveDataExecutionManager.enableTestMode()
@@ -42,12 +61,12 @@ internal class AuthViewModelIntegrationTest : Spek({
             LiveDataExecutionManager.disableTestMode()
         }
 
-        val authRepository = AuthRepository(networkEnvironment.api)
-        val authViewModel = AuthViewModel(TestSchedulersProvider(), AuthUseCase(mock(), authRepository))
+        val authViewModel by memoized {
+            AuthViewModel(TestSchedulersProvider(), authUseCase)
+        }
 
-        Scenario("enter credentials and click login button and authorize successfully") {
+        Scenario("authorize user with entered credentials") {
             networkEnvironment.dispatchResponses {
-                val moshi = Moshi.Builder().build()
                 when (it) {
                     NetworkRouter.AUTH_TOKEN_NEW, NetworkRouter.AUTH_VALIDATE_TOKEN -> MockResponse()
                         .success(
@@ -55,61 +74,54 @@ internal class AuthViewModelIntegrationTest : Spek({
                         )
                     NetworkRouter.AUTH_CREATE_SESSION_ID -> MockResponse()
                         .success(
-                            moshi.toJson(
-                                SessionIdResponse(true, "session_id")
-                            )
+                            moshi.toJson(SessionIdResponse(true, "session_id"))
                         )
                     else -> MockResponse().notFound()
                 }
             }
 
-            When("enter not blank login and password") {
-                authViewModel.checkValuesAreValid("login", "password")
+            val loginValue = "login"
+            val passwordValue = "password"
+            When("enter valid login and password") {
+                authViewModel.checkValuesAreValid(loginValue, passwordValue)
             }
             And("click login button") {
-                authViewModel.onAuthorizeButtonClick("login", "password")
+                authViewModel.onAuthorizeButtonClick(loginValue, passwordValue)
             }
-            Then("state should be in authorized mode") {
+            Then("user is authorized") {
                 val currentState = authViewModel.viewState.value!!
                 val expectedState = currentState.authorizedState()
-                assertEquals(expectedState, currentState)
+
+                assertThat(expectedState).isEqualTo(currentState)
             }
         }
 
-        Scenario("!!! DOESN'T WORK !!! try to login and fail with invalid_credentials error") {
-
+        Scenario("fail to authorize user with entered credentials") {
             Given("invalid_credentials error from server") {
-                val moshi = Moshi.Builder().build()
+                val errorResponse = ErrorResponse("invalid_credentials", 30)
                 networkEnvironment.dispatchResponses { path ->
                     when (path) {
-
                         NetworkRouter.AUTH_TOKEN_NEW -> MockResponse()
-                            .success(
-                                moshi.toJson(TokenResponse(true, "10.10.2020", "request_token"))
-                            )
-                        NetworkRouter.AUTH_CREATE_SESSION_ID -> MockResponse()
-                            .success(
-                                moshi.toJson(
-                                    SessionIdResponse(true, "session_id")
-                                )
-                            )
+                            .success(moshi.toJson(TokenResponse(true, "10.10.2020", "request_token")))
                         NetworkRouter.AUTH_VALIDATE_TOKEN -> MockResponse()
-                            .badRequest(moshi.toJson(ErrorResponse("invalid", 8)))
+                            .badRequest(moshi.toJson(errorResponse))
                         else -> MockResponse().notFound()
                     }
                 }
             }
 
-            When("pass wrong login and password to viewmodel") {
-                authViewModel.checkValuesAreValid("login1", "password1")
+            val wrongLoginValue = "login_2"
+            val wrongPasswordValue = "password_2"
+            When("enter wrong login and password") {
+                authViewModel.checkValuesAreValid(wrongLoginValue, wrongPasswordValue)
             }
-            And("click button to authrorize") {
-                authViewModel.onAuthorizeButtonClick("login1", "password1")
+            And("click login button") {
+                authViewModel.onAuthorizeButtonClick(wrongLoginValue, wrongPasswordValue)
             }
-            Then("recieve invalid_credentials error and keep it in the state") {
+            Then("receive invalid_credentials error") {
                 val currentState = authViewModel.viewState.value!!
-                val expectedState = currentState.errorState("error")
-                assertEquals(expectedState, currentState)
+                val expectedState = currentState.errorState(context.getString(R.string.network_invalid_credentials))
+                assertThat(expectedState).isEqualTo(currentState)
             }
         }
     }
