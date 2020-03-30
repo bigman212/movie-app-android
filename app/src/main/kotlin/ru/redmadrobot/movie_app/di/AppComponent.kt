@@ -7,6 +7,7 @@ import ru.redmadrobot.core.android.AndroidToolsComponent
 import ru.redmadrobot.core.android.AndroidToolsProvider
 import ru.redmadrobot.core.network.di.NetworkProvider
 import ru.redmadrobot.core.network.di.component.NetworkComponent
+import ru.redmadrobot.movie_app.MainActivity
 import javax.inject.Singleton
 
 @Singleton
@@ -14,6 +15,8 @@ import javax.inject.Singleton
     dependencies = [NetworkProvider::class, AndroidToolsProvider::class]
 )
 interface AppComponent : AppProvider {
+
+    fun inject(obj: MainActivity)
 
     @Component.Factory
     interface Factory {

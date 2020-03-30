@@ -1,7 +1,7 @@
 package ru.redmadrobot.auth.di.component
 
 import dagger.Component
-import ru.redmadrobot.auth.AuthActivity
+import ru.redmadrobot.auth.AuthFragment
 import ru.redmadrobot.auth.di.module.AuthServiceModule
 import ru.redmadrobot.auth.di.module.AuthViewModelModule
 import ru.redmadrobot.common.di.AppProvider
@@ -13,7 +13,7 @@ import ru.redmadrobot.core.network.di.NetworkProvider
     modules = [AuthViewModelModule::class, AuthServiceModule::class]
 )
 interface AuthComponent {
-    fun inject(activity: AuthActivity)
+    fun inject(obj: AuthFragment)
 
     @Component.Factory
     interface Factory {
