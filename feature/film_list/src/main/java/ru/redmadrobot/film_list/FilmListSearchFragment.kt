@@ -30,12 +30,28 @@ class FilmListSearchFragment : BaseFragment(R.layout.fragment_film_search_list) 
         super.onActivityCreated(savedInstanceState)
 
         initDagger()
+        initMovieList()
 //        initViewModel()
 //        initViews()
     }
 
     private fun initDagger() {
         FilmListComponent.init(appComponent).inject(this)
+    }
+
+    private fun initMovieList() {
+        adapter = MoviesListAdapter()
+        binding.rvMoviesList.layoutManager = LinearLayoutManager(this.context)
+        binding.rvMoviesList.adapter = adapter
+        api.popularMovies()
+            .scheduleIoToUi(SchedulersProvider())
+            .subscribe(
+                {
+                    val results = it.results
+                    adapter.addAll(results)
+                }, {
+                    Timber.e(it)
+                })
     }
 
     companion object {

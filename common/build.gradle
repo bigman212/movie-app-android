@@ -25,6 +25,9 @@ dependencies {
 
             Dependencies.RxJava,
 
+            Dependencies.Moshi.Moshi,
+            Dependencies.Retrofit,
+
             Dependencies.Tools.Timber,
     )
 

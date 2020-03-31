@@ -4,11 +4,12 @@ import dagger.Module
 import dagger.Provides
 import dagger.Reusable
 import retrofit2.Retrofit
-import ru.redmadrobot.film_list.FilmSearchService
+import ru.redmadrobot.film_list.MovieSearchService
 
 @Module
 object FilmSearchServiceModule {
     @Provides
     @Reusable
-    fun provideFilmSearchService(retrofit: Retrofit): FilmSearchService = retrofit.create(FilmSearchService::class.java)
+    fun provideFilmSearchService(retrofit: Retrofit): MovieSearchService =
+        retrofit.create(MovieSearchService::class.java)
 }
