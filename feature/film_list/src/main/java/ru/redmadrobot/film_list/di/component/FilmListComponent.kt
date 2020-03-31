@@ -4,7 +4,8 @@ import dagger.Component
 import ru.redmadrobot.common.di.AppProvider
 import ru.redmadrobot.core.android.AndroidToolsProvider
 import ru.redmadrobot.core.network.di.NetworkProvider
-import ru.redmadrobot.film_list.FilmListFragment
+import ru.redmadrobot.film_list.FilmListMainFragment
+import ru.redmadrobot.film_list.FilmListSearchFragment
 import ru.redmadrobot.film_list.di.module.FilmListViewModelModule
 import ru.redmadrobot.film_list.di.module.FilmSearchServiceModule
 
@@ -13,7 +14,8 @@ import ru.redmadrobot.film_list.di.module.FilmSearchServiceModule
     modules = [FilmListViewModelModule::class, FilmSearchServiceModule::class]
 )
 interface FilmListComponent {
-    fun inject(obj: FilmListFragment)
+    fun inject(obj: FilmListMainFragment)
+    fun inject(obj: FilmListSearchFragment)
 
     @Component.Factory
     interface Factory {

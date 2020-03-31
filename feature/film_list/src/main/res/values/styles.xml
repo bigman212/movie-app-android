@@ -8,12 +8,16 @@
 
         <item name="hintEnabled">false</item>
 
+        <!--        styles don't apply-->
         <!--        <item name="android:textColor">@color/searchInputIcon</item>-->
         <!--        <item name="android:textColorHint">@color/searchInputIcon</item>-->
 
 
         <item name="startIconTint">@color/searchInputIcon</item>
         <item name="startIconDrawable">@drawable/ic_search_24px</item>
+
+        <item name="endIconMode">clear_text</item>
+        <item name="endIconTint">@color/searchInputIcon</item>
 
         <item name="boxCornerRadiusBottomStart">@dimen/searchInputBorderSize</item>
         <item name="boxCornerRadiusBottomEnd">@dimen/searchInputBorderSize</item>

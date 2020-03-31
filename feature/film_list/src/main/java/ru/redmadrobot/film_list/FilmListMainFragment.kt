@@ -1,22 +1,26 @@
 package ru.redmadrobot.film_list
 
 import android.os.Bundle
+import android.text.InputType
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import kotlinx.android.synthetic.main.fragment_film_main_list.*
 import ru.redmadrobot.common.base.BaseFragment
 import ru.redmadrobot.film_list.di.component.FilmListComponent
 import javax.inject.Inject
 
-class FilmListFragment : BaseFragment() {
+class FilmListMainFragment : BaseFragment() {
     @Inject
     internal lateinit var viewModelFactory: ViewModelProvider.Factory
 
     private lateinit var viewModel: FilmListViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_film_list, container, false) as ViewGroup
+        return inflater.inflate(R.layout.fragment_film_main_list, container, false) as ViewGroup
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -25,6 +29,11 @@ class FilmListFragment : BaseFragment() {
         initDagger()
 //        initViewModel()
 //        initViews()
+
+        et_start_search.makeReadOnly()
+        et_start_search.setOnClickListener {
+            findNavController().navigate(FilmListMainFragmentDirections.toFilmListSearchFragment())
+        }
     }
 
     private fun initDagger() {
@@ -32,6 +41,12 @@ class FilmListFragment : BaseFragment() {
     }
 
     companion object {
-        fun newInstance() = FilmListFragment()
+        fun newInstance() = FilmListMainFragment()
+    }
+
+    private fun EditText.makeReadOnly() {
+        isFocusable = false
+        isFocusableInTouchMode = false
+        this.inputType = InputType.TYPE_NULL
     }
 }

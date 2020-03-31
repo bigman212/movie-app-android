@@ -3,11 +3,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/film_list_graph"
-    app:startDestination="@id/nav_film_list_fragment">
+    app:startDestination="@id/nav_film_list_main_fragment">
 
     <fragment
-        android:id="@+id/nav_film_list_fragment"
-        android:name="ru.redmadrobot.film_list.FilmListFragment"
+        android:id="@+id/nav_film_list_main_fragment"
+        android:name="ru.redmadrobot.film_list.FilmListMainFragment"
         android:label="FilmListFragment"
-        tools:layout="@layout/fragment_film_list" />
+        tools:layout="@layout/fragment_film_list_main">
+        <action
+            android:id="@+id/to_film_list_search_fragment"
+            app:destination="@id/nav_film_list_search_fragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_film_list_search_fragment"
+        android:name="ru.redmadrobot.film_list.FilmListSearchFragment"
+        android:label="FilmListFragment"
+        tools:layout="@layout/fragment_film_list_search" />
 </navigation>

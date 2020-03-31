@@ -13,7 +13,7 @@
         <action
             android:id="@+id/to_film_list_fragment"
             app:popUpTo="@id/nav_auth_fragment"
-            app:destination="@id/nav_film_list_fragment" />
+            app:destination="@id/nav_film_list_main_fragment" />
     </fragment>
 
 

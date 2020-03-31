@@ -20,9 +20,21 @@
 
     <fragment
         android:id="@+id/nav_film_list_fragment"
-        android:name="ru.redmadrobot.film_list.FilmListFragment"
+        android:name="ru.redmadrobot.film_list.FilmListMainFragment"
         android:label="FilmListFragment"
-        tools:layout="@layout/fragment_film_list" />
+        tools:layout="@layout/fragment_film_main_list">
+        <action
+            android:id="@+id/to_film_list_search_fragment"
+            app:destination="@id/nav_film_list_search_fragment"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_film_list_search_fragment"
+        android:name="ru.redmadrobot.film_list.FilmListSearchFragment"
+        android:label="FilmListFragment"
+        tools:layout="@layout/fragment_film_search_list" />
 
 
     <!--    <include app:graph="@navigation/film_list_graph" />-->
