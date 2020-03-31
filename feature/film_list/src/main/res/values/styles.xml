@@ -6,6 +6,12 @@
         <item name="boxBackgroundColor">@color/searchInputBackground</item>
         <item name="boxStrokeColor">@color/searchInputBackground</item>
 
+        <item name="hintEnabled">false</item>
+
+        <!--        <item name="android:textColor">@color/searchInputIcon</item>-->
+        <!--        <item name="android:textColorHint">@color/searchInputIcon</item>-->
+
+
         <item name="startIconTint">@color/searchInputIcon</item>
         <item name="startIconDrawable">@drawable/ic_search_24px</item>
 

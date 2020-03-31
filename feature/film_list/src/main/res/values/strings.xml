@@ -2,6 +2,7 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="film_list_find_any_film_text">Найдем фильм на любой ваш вкус</string>
+    <string name="film_search_find_any_film_text">Найдем фильм на любой ваш вкус</string>
+    <string name="film_search_input_hint">Поиск фильмов</string>
 
 </resources>

@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/ic_film_list_background_girl"
+    android:focusableInTouchMode="true"
     android:theme="@style/FilmListTheme"
     tools:context=".FilmListFragment">
 
@@ -15,7 +16,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="91dp"
         android:layout_marginEnd="109dp"
-        android:text="@string/film_list_find_any_film_text"
+        android:text="@string/film_search_find_any_film_text"
         android:textSize="36sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -37,8 +38,9 @@
             android:id="@+id/editText"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="Поиск фильмов"
-            android:textColor="#CCE7EDFF" />
+            android:hint="@string/film_search_input_hint"
+            android:textColor="@color/searchInputIcon"
+            android:textColorHint="@color/white" />
     </com.google.android.material.textfield.TextInputLayout>
 
 
