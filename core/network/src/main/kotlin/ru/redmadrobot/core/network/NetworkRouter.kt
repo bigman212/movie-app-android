@@ -18,4 +18,6 @@ object NetworkRouter {
 
     private const val movie = "$api_number/movie"
     const val MOVIES_POPULAR = "$movie/popular"
+
+    const val IMAGES = "https://image.tmdb.org/t/p/w500"
 }
