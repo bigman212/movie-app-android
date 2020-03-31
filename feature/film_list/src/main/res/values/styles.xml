@@ -1,0 +1,18 @@
+<resources>
+
+    <style name="FilmListTheme" parent="AppTheme"></style>
+
+    <style name="SearchTextInputStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxBackgroundColor">@color/searchInputBackground</item>
+        <item name="boxStrokeColor">@color/searchInputBackground</item>
+
+        <item name="startIconTint">@color/searchInputIcon</item>
+        <item name="startIconDrawable">@drawable/ic_search_24px</item>
+
+        <item name="boxCornerRadiusBottomStart">@dimen/searchInputBorderSize</item>
+        <item name="boxCornerRadiusBottomEnd">@dimen/searchInputBorderSize</item>
+        <item name="boxCornerRadiusTopEnd">@dimen/searchInputBorderSize</item>
+        <item name="boxCornerRadiusTopStart">@dimen/searchInputBorderSize</item>
+    </style>
+
+</resources>

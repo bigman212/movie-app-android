@@ -16,8 +16,7 @@ class FilmListFragment : BaseFragment() {
     private lateinit var viewModel: FilmListViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-//        return inflater.inflate(R.layout.fragment_film_list, container, false) as ViewGroup
-        return null
+        return inflater.inflate(R.layout.fragment_film_list, container, false) as ViewGroup
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
