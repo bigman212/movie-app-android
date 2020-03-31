@@ -60,8 +60,6 @@ dependencies {
             Dependencies.RxJava,
 
             Dependencies.Retrofit,
-
-            Dependencies.Tools.Timber,
     )
 
     kapt(

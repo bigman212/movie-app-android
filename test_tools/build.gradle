@@ -20,8 +20,6 @@ dependencies {
             Dependencies.Moshi.Moshi,
 
             TestDependencies.testImpl,
-
-            Dependencies.Tools.Timber,
     )
 
     kapt(

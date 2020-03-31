@@ -17,8 +17,6 @@ dependencies {
 
             Dependencies.Retrofit,
             Dependencies.Moshi.Moshi,
-
-            Dependencies.Tools.Timber,
     )
 
     kapt(

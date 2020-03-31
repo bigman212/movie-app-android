@@ -33,8 +33,6 @@ dependencies {
 
             Dependencies.Moshi.Moshi,
             Dependencies.Retrofit,
-
-            Dependencies.Tools.Timber
     )
 
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'

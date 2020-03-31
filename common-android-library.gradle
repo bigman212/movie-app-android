@@ -1,3 +1,4 @@
+import ru.redmadrobot.movie_app.Dependencies
 import ru.redmadrobot.movie_app.TestDependencies
 import ru.redmadrobot.movie_app.Versions
 
@@ -54,6 +55,12 @@ android {
 }
 
 dependencies {
+
+    implementation(
+            Dependencies.Tools.Timber,
+            Dependencies.Tools.Glide
+    )
+
     testImplementation(TestDependencies.testImpl)
     testRuntimeOnly(TestDependencies.testRuntime)
 

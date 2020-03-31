@@ -95,6 +95,7 @@ object Dependencies {
     private const val okhttp_logging_version = "4.4.0"
 
     private const val timber_version = "4.7.1"
+    private const val glide_version = "4.11.0"
 
     const val Kotlin = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 
@@ -142,5 +143,6 @@ object Dependencies {
 
     object Tools {
         const val Timber = "com.jakewharton.timber:timber:$timber_version"
+        const val Glide = "com.github.bumptech.glide:glide:$glide_version"
     }
 }
