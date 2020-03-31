@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_graph"
+    app:startDestination="@id/nav_auth_fragment">
+
+    <fragment
+        android:id="@+id/nav_auth_fragment"
+        android:name="ru.redmadrobot.auth.AuthFragment"
+        android:label="AuthFragment"
+        tools:layout="@layout/fragment_auth">
+        <action
+            android:id="@+id/to_film_list_fragment"
+            app:destination="@id/nav_film_list_fragment"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popUpTo="@id/nav_auth_fragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_film_list_fragment"
+        android:name="ru.redmadrobot.film_list.FilmListFragment"
+        android:label="FilmListFragment"
+        tools:layout="@layout/fragment_film_list" />
+
+
+    <!--    <include app:graph="@navigation/film_list_graph" />-->
+    <!--  destination
+    ru.redmadrobot.movie_app.debug:id/nav_film_list_fragment referenced from action
+     ru.redmadrobot.movie_app.debug:id/to_film_list_fragment is unknown to this NavController  -->
+    <!--    <include app:graph="@navigation/auth_graph" />-->
+
+</navigation>

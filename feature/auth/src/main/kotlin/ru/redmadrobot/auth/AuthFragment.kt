@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.textfield.TextInputEditText
 import kotlinx.android.synthetic.main.fragment_auth.*
 import ru.redmadrobot.auth.di.component.AuthComponent
@@ -106,7 +107,11 @@ class AuthFragment : BaseFragment(R.layout.fragment_auth) {
     }
 
     private fun renderAuthorized(authorized: Boolean) {
-        //TODO: goto next screen
+        if (authorized) {
+            val toFilmListFragment = AuthFragmentDirections.toFilmListFragment()
+
+            findNavController().navigate(toFilmListFragment)
+        }
     }
 
     private fun TextInputEditText.fieldValue(): String = text.toString()

@@ -77,7 +77,7 @@ object TestDependencies {
 }
 
 object Dependencies {
-    internal const val kotlin_version = "1.3.70"
+    internal const val kotlin_version = "1.3.71"
     private const val lifecycle_version = "2.2.0"
     private const val navigation_version = "2.2.0"
     private const val material_version = "1.1.0"
