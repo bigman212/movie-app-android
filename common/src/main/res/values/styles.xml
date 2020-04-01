@@ -4,6 +4,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:colorBackground">@color/colorBackground</item>
-        <item name="android:textColor">@color/white</item>
+        <item name="android:textColor">@color/mainTextColor</item>
+        <item name="android:textColorPrimary">@color/mainTextColor</item>
     </style>
 </resources>

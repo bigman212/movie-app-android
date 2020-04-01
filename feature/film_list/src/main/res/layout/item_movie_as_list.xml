@@ -2,8 +2,8 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_marginBottom="10dp"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="10dp">
 
     <ImageView
         android:id="@+id/img_movie_poster"
@@ -22,8 +22,9 @@
         android:lines="1"
         android:singleLine="true"
         android:text="Название фильма"
+        android:textColor="@color/white"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-
         app:layout_constraintStart_toEndOf="@+id/img_movie_poster"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -34,6 +35,8 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:text="DoLittle (2018)"
+        android:textColor="@color/additional_info"
+        android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/img_movie_poster"
         app:layout_constraintTop_toBottomOf="@+id/tv_movie_title" />
@@ -46,6 +49,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="65dp"
         android:text="фэнтези, комедия, боевик"
+        android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/img_movie_poster"
         app:layout_constraintTop_toBottomOf="@+id/tv_movie_title_small" />
@@ -57,6 +61,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:text="6.1"
+        android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/img_movie_poster"
         app:layout_constraintTop_toBottomOf="@+id/tv_movie_genre" />
 
@@ -66,6 +71,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:text="4 832"
+        android:textColor="@color/additional_info"
         android:textSize="12sp"
         app:layout_constraintBaseline_toBaselineOf="@+id/tv_movie_rating"
         app:layout_constraintStart_toEndOf="@+id/tv_movie_rating" />
@@ -76,6 +82,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:drawableStart="@drawable/ic_movie_duration"
+        android:drawablePadding="2dp"
         android:text="91 мин"
         android:textSize="12sp"
         app:layout_constraintBaseline_toBaselineOf="@+id/tv_movie_vote_count"

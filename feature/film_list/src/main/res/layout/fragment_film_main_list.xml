@@ -41,8 +41,8 @@
             android:transitionName="et_search_input"
             android:cursorVisible="false"
             android:hint="@string/film_search_input_hint"
-            android:textColor="@color/searchInputIcon"
-            android:textColorHint="@color/white" />
+            android:textColor="@color/mainTextColor"
+            android:textColorHint="@color/mainTextColor" />
     </com.google.android.material.textfield.TextInputLayout>
 
 
