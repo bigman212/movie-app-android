@@ -40,7 +40,7 @@ dependencies {
     implementation project(":core:network")
 
     implementation project(":feature:auth")
-    implementation project(":feature:film_list")
+    implementation project(':feature:movie_list')
 
     implementation(
             Dependencies.Kotlin,

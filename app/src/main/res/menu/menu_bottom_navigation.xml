@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/film_list_graph"
-        android:icon="@drawable/ic_menu_film"
+        android:id="@+id/movie_list_graph"
+        android:icon="@drawable/ic_menu_movies"
         android:title="Фильмы" />
     <item
         android:id="@+id/favorite_graph"

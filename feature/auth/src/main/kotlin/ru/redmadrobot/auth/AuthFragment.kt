@@ -108,8 +108,7 @@ class AuthFragment : BaseFragment(R.layout.fragment_auth) {
 
     private fun renderAuthorized(authorized: Boolean) {
         if (authorized) {
-            val toFilmListFragment = AuthFragmentDirections.toFilmListFragment()
-
+            val toFilmListFragment = AuthFragmentDirections.toMovieListMainFragment()
             findNavController().navigate(toFilmListFragment)
         }
     }

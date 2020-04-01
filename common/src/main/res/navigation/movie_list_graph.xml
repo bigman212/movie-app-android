@@ -2,21 +2,8 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main_graph"
-    app:startDestination="@id/nav_auth_fragment">
-
-    <fragment
-        android:id="@+id/nav_auth_fragment"
-        android:name="ru.redmadrobot.auth.AuthFragment"
-        android:label="AuthFragment"
-        tools:layout="@layout/fragment_auth">
-        <action
-            android:id="@+id/to_movie_list_main_fragment"
-            app:destination="@id/nav_movie_list_main_fragment"
-            app:enterAnim="@anim/fragment_fade_enter"
-            app:exitAnim="@anim/fragment_fade_exit"
-            app:popUpTo="@id/nav_auth_fragment" />
-    </fragment>
+    android:id="@+id/movie_list_graph"
+    app:startDestination="@id/nav_movie_list_main_fragment">
 
     <fragment
         android:id="@+id/nav_movie_list_main_fragment"
@@ -35,11 +22,4 @@
         android:name="ru.redmadrobot.movie_list.MovieListSearchFragment"
         android:label="MovieListSearchFragment"
         tools:layout="@layout/fragment_movie_search_list" />
-
-    <!--  destination
-ru.redmadrobot.movie_app.debug:id/nav_movie_list_main_fragment referenced from action
- ru.redmadrobot.movie_app.debug:id/to_movie_list_main_fragment is unknown to this NavController  -->
-        <include app:graph="@navigation/movie_list_graph" />
-        <include app:graph="@navigation/auth_graph" />
-
 </navigation>

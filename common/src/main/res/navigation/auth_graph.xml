@@ -11,28 +11,10 @@
         android:label="AuthFragment"
         tools:layout="@layout/fragment_auth">
         <action
-            android:id="@+id/to_film_list_fragment"
-            app:popUpTo="@id/nav_auth_fragment"
-            app:destination="@id/nav_film_list_main_fragment" />
+            android:id="@+id/to_movie_list_main_fragment"
+            app:destination="@id/nav_movie_list_main_fragment"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popUpTo="@id/nav_auth_fragment" />
     </fragment>
-
-
-    <!--    <fragment-->
-    <!--        android:id="@+id/home_fragment"-->
-    <!--        android:name="com.choryev.navigation_review.ui.fragment_navigation.home.HomeFragment"-->
-    <!--        tools:layout="@layout/fragment_home"-->
-    <!--        android:label="HomeFragment">-->
-    <!--        <action-->
-    <!--            android:id="@+id/to_home_inner_fragment"-->
-    <!--            app:destination="@+id/home_nested_fragment" />-->
-    <!--    </fragment>-->
-    <!--    <fragment-->
-    <!--        android:id="@+id/home_nested_fragment"-->
-    <!--        android:name="com.choryev.navigation_review.ui.fragment_navigation.home.HomeNestedFragment"-->
-    <!--        tools:layout="@layout/fragment_home_nested"-->
-    <!--        android:label="HomeInnerFragment">-->
-    <!--        <deepLink-->
-    <!--            android:id="@+id/deepLink"-->
-    <!--            app:uri="app://mytestapp/flag" />-->
-    <!--    </fragment>-->
 </navigation>

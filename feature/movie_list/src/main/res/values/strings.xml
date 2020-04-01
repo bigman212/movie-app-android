@@ -1,0 +1,8 @@
+<resources>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="movie_search_main_find_any_film">Найдем фильм на любой ваш вкус</string>
+    <string name="movie_search_input_hint">Поиск фильмов</string>
+
+</resources>

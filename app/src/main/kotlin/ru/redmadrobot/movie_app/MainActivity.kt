@@ -25,7 +25,7 @@ class MainActivity : BaseActivity(R.layout.activity_main) {
         bottomNavigationBarVisibility(findNavController)
 
         if (sessionRepo.sessionIdExists()) {
-            findNavController.navigate(AuthFragmentDirections.toFilmListFragment())
+            findNavController.navigate(AuthFragmentDirections.toMovieListMainFragment())
         }
     }
 
