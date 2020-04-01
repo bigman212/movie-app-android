@@ -8,10 +8,6 @@ import ru.redmadrobot.core.network.entities.WithPages
 import ru.redmadrobot.movie_list.Movie
 
 interface MovieSearchService {
-
     @GET(NetworkRouter.SEARCH_MOVIE)
     fun moviesByQuery(@Query("query") movieTitle: CharSequence): Single<WithPages<Movie>>
-
-    @GET(NetworkRouter.MOVIES_POPULAR)
-    fun popularMovies(): Single<WithPages<Movie>>
 }
