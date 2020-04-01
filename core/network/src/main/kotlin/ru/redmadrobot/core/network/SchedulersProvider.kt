@@ -1,5 +1,6 @@
 package ru.redmadrobot.core.network
 
+import io.reactivex.Completable
 import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -18,4 +19,8 @@ fun <T> Single<T>.scheduleIoToUi(schedulers: SchedulersProvider): Single<T> {
 
 fun <T> Single<T>.scheduleComputationToUi(schedulers: SchedulersProvider): Single<T> {
     return subscribeOn(schedulers.computation()).observeOn(schedulers.ui())
+}
+
+fun Completable.scheduleIoToUi(schedulers: SchedulersProvider): Completable {
+    return subscribeOn(schedulers.io()).observeOn(schedulers.ui())
 }

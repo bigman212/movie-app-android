@@ -18,4 +18,10 @@ class SessionIdRepository @Inject constructor(private val sharedPrefs: SharedPre
     fun getSessionId(): String? = sharedPrefs.getString(PREFS_SESSION_ID_KEY, null)
 
     fun sessionIdExists(): Boolean = sharedPrefs.contains(PREFS_SESSION_ID_KEY)
+
+    fun clear() {
+        sharedPrefs.edit()
+            .remove(PREFS_SESSION_ID_KEY)
+            .apply()
+    }
 }

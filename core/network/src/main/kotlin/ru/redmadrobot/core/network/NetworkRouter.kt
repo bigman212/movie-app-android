@@ -13,6 +13,8 @@ object NetworkRouter {
     const val AUTH_VALIDATE_TOKEN = "$auth/token/validate_with_login"
     const val AUTH_CREATE_SESSION_ID = "$auth/session/new"
 
+    const val AUTH_DELETE_SESSION = "$auth/session"
+
     private const val tv = "$api_number/tv"
     const val TV_POPULAR = "$tv/popular"
 
