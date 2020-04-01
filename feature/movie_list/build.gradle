@@ -37,5 +37,7 @@ dependencies {
             Dependencies.Moshi.KotlinCodeGen
     )
 
+    implementation 'com.jakewharton.rxbinding3:rxbinding:3.1.0'
+
     testImplementation project(":test_tools")
 }

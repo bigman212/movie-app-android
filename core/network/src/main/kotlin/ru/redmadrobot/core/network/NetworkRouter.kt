@@ -21,5 +21,8 @@ object NetworkRouter {
     private const val movie = "$api_number/movie"
     const val MOVIES_POPULAR = "$movie/popular"
 
+    private const val search = "$api_number/search"
+    const val SEARCH_MOVIE = "$search/movie"
+
     const val IMAGES = "https://image.tmdb.org/t/p/w500"
 }
