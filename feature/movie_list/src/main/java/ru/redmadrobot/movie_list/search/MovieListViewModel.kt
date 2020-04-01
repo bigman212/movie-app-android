@@ -1,4 +1,4 @@
-package ru.redmadrobot.movie_list
+package ru.redmadrobot.movie_list.search
 
 import ru.redmadrobot.common.base.BaseViewModel
 import javax.inject.Inject

@@ -4,7 +4,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.Reusable
 import retrofit2.Retrofit
-import ru.redmadrobot.movie_list.MovieSearchService
+import ru.redmadrobot.movie_list.data.MovieSearchService
 
 @Module
 object MovieSearchServiceModule {

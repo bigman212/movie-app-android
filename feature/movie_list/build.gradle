@@ -1,11 +1,8 @@
 import ru.redmadrobot.movie_app.Dependencies
-import ru.redmadrobot.movie_app.TestDependencies
 
 apply plugin: 'com.android.library'
 
 apply from: rootProject.file('common-android-library.gradle')
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
 
 dependencies {
     implementation project(":common")
@@ -35,7 +32,6 @@ dependencies {
             Dependencies.Retrofit,
     )
 
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     kapt(
             Dependencies.Dagger.Processor,
             Dependencies.Moshi.KotlinCodeGen

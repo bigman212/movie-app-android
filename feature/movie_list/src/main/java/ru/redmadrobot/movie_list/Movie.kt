@@ -1,4 +1,4 @@
-package ru.redmadrobot.movie_list.adapters
+package ru.redmadrobot.movie_list
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass

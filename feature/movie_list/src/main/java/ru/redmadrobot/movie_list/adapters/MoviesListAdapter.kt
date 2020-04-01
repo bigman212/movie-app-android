@@ -3,6 +3,7 @@ package ru.redmadrobot.movie_list.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import ru.redmadrobot.movie_list.Movie
 import ru.redmadrobot.movie_list.databinding.ItemMovieAsListBinding
 
 class MoviesListAdapter(private val movies: MutableList<Movie> = mutableListOf()) :

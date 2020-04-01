@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import ru.redmadrobot.common.extensions.year
 import ru.redmadrobot.core.network.NetworkRouter
+import ru.redmadrobot.movie_list.Movie
 import ru.redmadrobot.movie_list.R
 import ru.redmadrobot.movie_list.databinding.ItemMovieAsListBinding
 

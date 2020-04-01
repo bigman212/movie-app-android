@@ -1,4 +1,4 @@
-package ru.redmadrobot.movie_list
+package ru.redmadrobot.movie_list.search
 
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
@@ -7,7 +7,9 @@ import ru.redmadrobot.common.base.BaseFragment
 import ru.redmadrobot.common.extensions.viewBinding
 import ru.redmadrobot.core.network.SchedulersProvider
 import ru.redmadrobot.core.network.scheduleIoToUi
+import ru.redmadrobot.movie_list.R
 import ru.redmadrobot.movie_list.adapters.MoviesListAdapter
+import ru.redmadrobot.movie_list.data.MovieSearchService
 import ru.redmadrobot.movie_list.databinding.FragmentMovieSearchListBinding
 import ru.redmadrobot.movie_list.di.component.MovieListComponent
 import timber.log.Timber

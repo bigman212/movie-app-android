@@ -5,9 +5,9 @@ import ru.redmadrobot.common.di.AppProvider
 import ru.redmadrobot.core.android.AndroidToolsProvider
 import ru.redmadrobot.core.network.di.NetworkProvider
 import ru.redmadrobot.movie_list.MovieListMainFragment
-import ru.redmadrobot.movie_list.MovieListSearchFragment
 import ru.redmadrobot.movie_list.di.module.MovieListViewModelModule
 import ru.redmadrobot.movie_list.di.module.MovieSearchServiceModule
+import ru.redmadrobot.movie_list.search.MovieListSearchFragment
 
 @Component(
     dependencies = [NetworkProvider::class, AndroidToolsProvider::class],
