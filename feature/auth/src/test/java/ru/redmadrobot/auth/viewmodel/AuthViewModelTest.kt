@@ -85,11 +85,8 @@ internal class AuthViewModelTest : Spek({
             }
             val authViewModel = AuthViewModel(TestSchedulersProvider(backgroundScheduler = testScheduler), authUseCase)
 
-            Given("valid credentials") {
-                authViewModel.checkValuesAreValid("login", "password")
-            }
-
             When("useCase starts authorizing, but not finishes") {
+                authViewModel.checkValuesAreValid("login", "password")
                 authViewModel.onAuthorizeButtonClick("login", "password")
             }
             Then("state becomes Fetching") {
