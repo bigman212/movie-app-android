@@ -53,7 +53,9 @@ class ProfileFragment : BaseFragment(R.layout.fragment_profile) {
     }
 
     private fun renderError(error: String?) {
-        Toast.makeText(this.context, error, Toast.LENGTH_SHORT).show()
+        error?.let {
+            Toast.makeText(this.context, it, Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun renderFetching(isFetching: Boolean) {

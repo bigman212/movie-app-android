@@ -17,6 +17,7 @@ import ru.redmadrobot.auth.di.component.AuthComponent
 import ru.redmadrobot.auth.viewmodel.AuthViewModel
 import ru.redmadrobot.auth.viewmodel.AuthViewState
 import ru.redmadrobot.common.base.BaseFragment
+import ru.redmadrobot.common.extensions.hideKeyboard
 import ru.redmadrobot.common.extensions.isVisible
 import ru.redmadrobot.common.extensions.showLoading
 import javax.inject.Inject
@@ -80,6 +81,8 @@ class AuthFragment : BaseFragment(R.layout.fragment_auth) {
             val login = et_login.fieldValue()
             val password = et_password.fieldValue()
             viewModel.onAuthorizeButtonClick(login, password)
+
+            hideKeyboard(requireActivity().currentFocus)
         }
 
         et_login.doOnTextChanged { text, _, _, _ ->
