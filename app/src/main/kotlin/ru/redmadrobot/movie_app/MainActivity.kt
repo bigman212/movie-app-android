@@ -22,6 +22,8 @@ class MainActivity : BaseActivity(R.layout.activity_main) {
         super.onCreate(savedInstanceState)
         (appComponent as AppComponent).inject(this)
 
+//        supportFragmentManager.fragmentFactory = appComponent.fragmentFactory()
+
         val findNavController = findNavController(R.id.root_nav_host_fragment)
         menu_navigation.setupWithNavController(findNavController)
 

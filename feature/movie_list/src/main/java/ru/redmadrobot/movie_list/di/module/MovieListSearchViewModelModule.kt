@@ -4,12 +4,11 @@ import androidx.lifecycle.ViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
-import ru.redmadrobot.common.di.ViewModelFactoryModule
 import ru.redmadrobot.common.di.ViewModelKey
 import ru.redmadrobot.movie_list.search.MovieListSearchViewModel
 
-@Module(includes = [ViewModelFactoryModule::class])
-abstract class MovieListViewModelModule {
+@Module
+abstract class MovieListSearchViewModelModule {
     @Binds
     @IntoMap
     @ViewModelKey(MovieListSearchViewModel::class)
