@@ -3,6 +3,7 @@ package ru.redmadrobot.movie_app
 import android.os.Bundle
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
+import androidx.navigation.ui.setupWithNavController
 import kotlinx.android.synthetic.main.activity_main.*
 import ru.redmadrobot.auth.AuthFragmentDirections
 import ru.redmadrobot.common.base.BaseActivity
@@ -22,6 +23,8 @@ class MainActivity : BaseActivity(R.layout.activity_main) {
         (appComponent as AppComponent).inject(this)
 
         val findNavController = findNavController(R.id.root_nav_host_fragment)
+        menu_navigation.setupWithNavController(findNavController)
+
         bottomNavigationBarVisibility(findNavController)
 
         if (sessionRepo.sessionIdExists()) {

@@ -32,14 +32,28 @@
 
     <fragment
         android:id="@+id/nav_movie_list_search_fragment"
-        android:name="ru.redmadrobot.movie_list.MovieListSearchFragment"
+        android:name="ru.redmadrobot.movie_list.search.MovieListSearchFragment"
         android:label="MovieListSearchFragment"
         tools:layout="@layout/fragment_movie_search_list" />
+
+    <fragment
+        android:id="@+id/nav_profile_fragment"
+        android:name="ru.redmadrobot.profile.ProfileFragment"
+        android:label="ProfileFragment"
+        tools:layout="@layout/fragment_profile">
+
+        <action
+            android:id="@+id/to_auth_fragment"
+            app:destination="@id/nav_auth_fragment"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit" />
+    </fragment>
+
 
     <!--  destination
 ru.redmadrobot.movie_app.debug:id/nav_movie_list_main_fragment referenced from action
  ru.redmadrobot.movie_app.debug:id/to_movie_list_main_fragment is unknown to this NavController  -->
-        <include app:graph="@navigation/movie_list_graph" />
-        <include app:graph="@navigation/auth_graph" />
+    <!--        <include app:graph="@navigation/movie_list_graph" />-->
+    <!--        <include app:graph="@navigation/auth_graph" />-->
 
 </navigation>
