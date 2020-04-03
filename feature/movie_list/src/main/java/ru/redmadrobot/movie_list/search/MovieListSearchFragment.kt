@@ -19,6 +19,12 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class MovieListSearchFragment : BaseFragment(R.layout.fragment_movie_search_list) {
+    companion object {
+        fun newInstance() = MovieListSearchFragment()
+
+        private const val USER_INPUT_DEBOUNCE = 500L
+    }
+
     @Inject
     internal lateinit var viewModelFactory: ViewModelProvider.Factory
 
@@ -43,7 +49,7 @@ class MovieListSearchFragment : BaseFragment(R.layout.fragment_movie_search_list
         searchTextObserver = binding.etSearchInput.textChanges()
             .skipInitialValue()
             .map(CharSequence::trim)
-            .debounce(1, TimeUnit.SECONDS)
+            .debounce(USER_INPUT_DEBOUNCE, TimeUnit.MILLISECONDS)
             .subscribe(viewModel::onSearchMovieInputChanged)
     }
 
@@ -76,9 +82,5 @@ class MovieListSearchFragment : BaseFragment(R.layout.fragment_movie_search_list
     override fun onDestroy() {
         super.onDestroy()
         searchTextObserver.dispose()
-    }
-
-    companion object {
-        fun newInstance() = MovieListSearchFragment()
     }
 }

@@ -6,7 +6,7 @@ import ru.redmadrobot.profile.data.entities.DeleteSessionRequest
 import ru.redmadrobot.profile.data.entities.DeleteSessionResponse
 import javax.inject.Inject
 
-class ProfileRepository @Inject constructor(
+class ProfileUseCase @Inject constructor(
     private val sessionIdRepository: SessionIdRepository,
     private val profileService: ProfileService
 ) {

@@ -4,7 +4,6 @@ import androidx.lifecycle.MutableLiveData
 import io.reactivex.functions.BiFunction
 import ru.redmadrobot.auth.domain.usecase.AuthUseCase
 import ru.redmadrobot.common.base.BaseViewModel
-import ru.redmadrobot.common.vm.ErrorEvent
 import ru.redmadrobot.common.vm.Event
 import ru.redmadrobot.core.network.NetworkException
 import ru.redmadrobot.core.network.SchedulersProvider
@@ -61,7 +60,7 @@ class AuthViewModel
                 },
                 {
                     if (it is NetworkException.NoNetworkConnection) {
-                        events.offer(ErrorEvent(it.message))
+                        offerErrorEvent(it)
                     } else {
                         val stateError = it.message ?: "Неизвестная ошибка"
                         dispatch(AuthAction.Error(stateError))

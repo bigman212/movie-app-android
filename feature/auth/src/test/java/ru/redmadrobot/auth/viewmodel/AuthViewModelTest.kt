@@ -154,3 +154,4 @@ internal class AuthViewModelTest : Spek({
 private fun AuthViewModel.assertStateIs(expected: AuthViewState) {
     assertThat(expected).isEqualTo(viewState.value!!)
 }
+

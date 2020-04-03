@@ -1,11 +1,9 @@
 package ru.redmadrobot.movie_list.search
 
 import androidx.lifecycle.MutableLiveData
-import io.reactivex.subjects.PublishSubject
 import ru.redmadrobot.common.base.BaseViewModel
 import ru.redmadrobot.common.extensions.delegate
 import ru.redmadrobot.common.extensions.mapDistinct
-import ru.redmadrobot.common.vm.ErrorEvent
 import ru.redmadrobot.core.network.SchedulersProvider
 import ru.redmadrobot.core.network.scheduleIoToUi
 import timber.log.Timber
@@ -16,17 +14,15 @@ class MovieListSearchViewModel @Inject constructor(
     private val movieRepo: MovieRepository
 ) : BaseViewModel() {
 
-    private val liveState: MutableLiveData<MovieListSearchViewState> = MutableLiveData(createInitialState())
-    private var state: MovieListSearchViewState by liveState.delegate()
+    private val viewState = MutableLiveData(MovieListSearchViewState())
+    private var state: MovieListSearchViewState by viewState.delegate()
 
-    val isFetching = liveState.mapDistinct { it.isFetching }
-    val movies = liveState.mapDistinct { it.movies }
-
-    val movieTitlesSubject = PublishSubject.create<CharSequence>()
+    val isFetching = viewState.mapDistinct { it.isFetching }
+    val movies = viewState.mapDistinct { it.movies }
 
     fun onSearchMovieInputChanged(movieTitle: CharSequence) {
         if (movieTitle.isBlank()) {
-            liveState.postValue(state.noMoviesFoundState())
+            viewState.postValue(state.noMoviesFoundState())
         } else {
             if (state.isFetching) {
                 compositeDisposable.clear() // отменяем все текущие запросы
@@ -39,12 +35,10 @@ class MovieListSearchViewModel @Inject constructor(
                     },
                     {
                         Timber.e(it)
-                        events.offer(ErrorEvent(it.message ?: it.toString()))
+                        offerErrorEvent(it)
                     }
                 ).disposeOnCleared()
         }
     }
-
-    private fun createInitialState() = MovieListSearchViewState()
 }
 
