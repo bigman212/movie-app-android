@@ -17,4 +17,8 @@
             app:exitAnim="@anim/fragment_fade_exit"
             app:popUpTo="@id/nav_auth_fragment" />
     </fragment>
+
+    <action
+        android:id="@+id/to_auth_fragment_global"
+        app:destination="@id/nav_auth_fragment" />
 </navigation>

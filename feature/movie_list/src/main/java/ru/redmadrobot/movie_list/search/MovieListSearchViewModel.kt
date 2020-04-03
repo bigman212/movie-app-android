@@ -6,7 +6,6 @@ import ru.redmadrobot.common.base.BaseViewModel
 import ru.redmadrobot.common.extensions.delegate
 import ru.redmadrobot.common.extensions.mapDistinct
 import ru.redmadrobot.common.vm.ErrorEvent
-import ru.redmadrobot.common.vm.EventsQueue
 import ru.redmadrobot.core.network.SchedulersProvider
 import ru.redmadrobot.core.network.scheduleIoToUi
 import timber.log.Timber
@@ -22,8 +21,6 @@ class MovieListSearchViewModel @Inject constructor(
 
     val isFetching = liveState.mapDistinct { it.isFetching }
     val movies = liveState.mapDistinct { it.movies }
-
-    val events = EventsQueue()
 
     val movieTitlesSubject = PublishSubject.create<CharSequence>()
 

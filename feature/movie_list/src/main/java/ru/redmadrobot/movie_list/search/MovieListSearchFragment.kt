@@ -3,9 +3,11 @@ package ru.redmadrobot.movie_list.search
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.jakewharton.rxbinding3.widget.textChanges
 import io.reactivex.disposables.Disposable
 import ru.redmadrobot.common.base.BaseFragment
 import ru.redmadrobot.common.extensions.showKeyboard
+import ru.redmadrobot.common.extensions.showLoading
 import ru.redmadrobot.common.extensions.viewBinding
 import ru.redmadrobot.common.vm.observeEvents
 import ru.redmadrobot.movie_list.Movie

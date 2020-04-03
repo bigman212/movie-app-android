@@ -3,6 +3,7 @@ package ru.redmadrobot.movie_app.di
 import android.app.Application
 import dagger.Component
 import ru.redmadrobot.common.di.AppProvider
+import ru.redmadrobot.common.di.ViewModelFactoryModule
 import ru.redmadrobot.core.android.AndroidToolsComponent
 import ru.redmadrobot.core.android.AndroidToolsProvider
 import ru.redmadrobot.core.network.di.NetworkProvider
@@ -12,7 +13,8 @@ import javax.inject.Singleton
 
 @Singleton
 @Component(
-    dependencies = [NetworkProvider::class, AndroidToolsProvider::class]
+    dependencies = [NetworkProvider::class, AndroidToolsProvider::class],
+    modules = [MainViewModelModule::class, ViewModelFactoryModule::class]
 )
 interface AppComponent : AppProvider {
 

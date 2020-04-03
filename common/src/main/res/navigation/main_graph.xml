@@ -18,6 +18,10 @@
             app:popUpTo="@id/nav_auth_fragment" />
     </fragment>
 
+    <action
+        android:id="@+id/to_auth_fragment_global"
+        app:destination="@id/nav_auth_fragment" />
+
     <fragment
         android:id="@+id/nav_movie_list_main_fragment"
         android:name="ru.redmadrobot.movie_list.MovieListMainFragment"
