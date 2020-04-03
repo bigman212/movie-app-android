@@ -1,25 +1,18 @@
 package ru.redmadrobot.auth
 
-import android.content.res.Resources
-import android.content.res.TypedArray
 import android.os.Bundle
-import android.util.TypedValue
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
-import com.google.android.material.textfield.TextInputEditText
 import kotlinx.android.synthetic.main.fragment_auth.*
 import ru.redmadrobot.auth.di.component.AuthComponent
 import ru.redmadrobot.auth.viewmodel.AuthViewModel
-import ru.redmadrobot.auth.viewmodel.AuthViewState
 import ru.redmadrobot.common.base.BaseFragment
+import ru.redmadrobot.common.extensions.fieldValue
 import ru.redmadrobot.common.extensions.hideKeyboard
 import ru.redmadrobot.common.extensions.showLoading
+import ru.redmadrobot.common.vm.Event
+import ru.redmadrobot.common.vm.observeEvents
 import javax.inject.Inject
 
 class AuthFragment : BaseFragment(R.layout.fragment_auth) {
@@ -29,7 +22,6 @@ class AuthFragment : BaseFragment(R.layout.fragment_auth) {
 
     @Inject
     internal lateinit var viewModelFactory: ViewModelProvider.Factory
-
     private lateinit var viewModel: AuthViewModel
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -44,36 +36,15 @@ class AuthFragment : BaseFragment(R.layout.fragment_auth) {
         AuthComponent.init(appComponent).inject(this)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-//        val themedInflator = inflater.cloneInContext(wrapContextTheme(activity, R.style.AuthFragmentTheme))
-        requireActivity().theme?.applyStyle(R.style.AuthFragmentTheme, true)
-        return inflater.inflate(R.layout.fragment_auth, container, false) as ViewGroup
-    }
-
-//    fun wrapContextTheme(activity: Activity?, @StyleRes styleRes: Int): Context? {
-//        val contextThemeWrapper = ContextThemeWrapper(activity, styleRes)
-//
-//        //Sets the navigation bar and statusbar color
-//        (fetchPrimaryDarkColor(contextThemeWrapper.theme), activity)
-//        return contextThemeWrapper
-//    }
-
-    fun fetchPrimaryDarkColor(context: Resources.Theme): Int {
-        val typedValue = TypedValue()
-        val a: TypedArray = context.obtainStyledAttributes(typedValue.data, intArrayOf(R.attr.colorPrimaryDark))
-        val color = a.getColor(0, 0)
-        a.recycle()
-        return color
-    }
-
     private fun initViewModel() {
         viewModel = ViewModelProvider(this, viewModelFactory)[AuthViewModel::class.java]
-        viewModel.viewState.observe(viewLifecycleOwner, Observer { t: AuthViewState ->
-            renderLoading(t.isFetching)
-            renderAuthorized(t.isAuthorized)
-            renderButtonChanged(t.isButtonEnabled)
-            renderError(t.errorMessage)
-        })
+
+        observe(viewModel.viewState) {
+            renderLoading(it.isFetching)
+            renderButtonChanged(it.isButtonEnabled)
+            renderErrorView(it.errorMessage)
+        }
+        observeEvents(viewModel.events, ::onEvent)
     }
 
     private fun initViews() {
@@ -100,7 +71,7 @@ class AuthFragment : BaseFragment(R.layout.fragment_auth) {
 
     private fun renderLoading(loading: Boolean) = auth_progress_bar.showLoading(loading)
 
-    private fun renderError(errorMessage: String?) {
+    private fun renderErrorView(errorMessage: String?) {
         tv_error.text = errorMessage
         tv_error.isVisible = errorMessage != null
     }
@@ -109,13 +80,10 @@ class AuthFragment : BaseFragment(R.layout.fragment_auth) {
         btn_submit.isEnabled = isEnabled
     }
 
-    private fun renderAuthorized(authorized: Boolean) {
-        if (authorized) {
-            val toFilmListFragment = AuthFragmentDirections.toMovieListMainFragment()
-            findNavController().navigate(toFilmListFragment)
+    override fun onEvent(event: Event) {
+        super.onEvent(event)
+        if (event is AuthViewModel.AuthorizedEvent) {
+            navigateTo(AuthFragmentDirections.toMovieListMainFragment())
         }
     }
-
-    private fun TextInputEditText.fieldValue(): String = text.toString()
-
 }
