@@ -7,6 +7,7 @@ import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -18,7 +19,6 @@ import ru.redmadrobot.auth.viewmodel.AuthViewModel
 import ru.redmadrobot.auth.viewmodel.AuthViewState
 import ru.redmadrobot.common.base.BaseFragment
 import ru.redmadrobot.common.extensions.hideKeyboard
-import ru.redmadrobot.common.extensions.isVisible
 import ru.redmadrobot.common.extensions.showLoading
 import javax.inject.Inject
 
@@ -102,7 +102,7 @@ class AuthFragment : BaseFragment(R.layout.fragment_auth) {
 
     private fun renderError(errorMessage: String?) {
         tv_error.text = errorMessage
-        tv_error.isVisible(errorMessage != null)
+        tv_error.isVisible = errorMessage != null
     }
 
     private fun renderButtonChanged(isEnabled: Boolean) {

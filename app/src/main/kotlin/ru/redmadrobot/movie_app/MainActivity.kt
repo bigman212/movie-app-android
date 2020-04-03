@@ -1,15 +1,14 @@
 package ru.redmadrobot.movie_app
 
 import android.os.Bundle
+import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import kotlinx.android.synthetic.main.activity_main.*
 import ru.redmadrobot.common.base.BaseActivity
-import ru.redmadrobot.common.extensions.gone
 import ru.redmadrobot.common.extensions.observe
-import ru.redmadrobot.common.extensions.visible
 import ru.redmadrobot.common.vm.Event
 import ru.redmadrobot.common.vm.EventsQueue
 import ru.redmadrobot.movie_app.di.AppComponent
@@ -51,8 +50,8 @@ class MainActivity : BaseActivity(R.layout.activity_main) {
     private fun setupBottomNavigationBarVisibility(navController: NavController) {
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
-                R.id.nav_auth_fragment -> menu_navigation.gone()
-                else -> menu_navigation.visible()
+                R.id.nav_auth_fragment -> menu_navigation.isVisible = false
+                else -> menu_navigation.isVisible = true
             }
         }
     }
