@@ -40,6 +40,5 @@ dependencies {
             Dependencies.Moshi.KotlinCodeGen
     )
 
-    testImplementation(TestDependencies.unitTest)
-    androidTestImplementation(TestDependencies.androidTest)
+    testImplementation project(":test_tools")
 }

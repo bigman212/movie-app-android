@@ -6,12 +6,12 @@ import androidx.lifecycle.MutableLiveData
 import io.reactivex.functions.BiFunction
 import ru.redmadrobot.auth.domain.usecase.AuthUseCase
 import ru.redmadrobot.common.base.BaseViewModel
-import ru.redmadrobot.common.extensions.ioSubscribe
-import ru.redmadrobot.common.extensions.uiObserve
+import ru.redmadrobot.core.network.SchedulersProvider
+import ru.redmadrobot.core.network.scheduleIoToUi
 import javax.inject.Inject
 
 class AuthViewModel
-@Inject constructor(private val useCase: AuthUseCase) : BaseViewModel() {
+@Inject constructor(private val schedulers: SchedulersProvider, private val useCase: AuthUseCase) : BaseViewModel() {
 
     val viewState = MutableLiveData(AuthViewState())
 
@@ -41,8 +41,7 @@ class AuthViewModel
 
     fun onAuthorizeButtonClick(loginFieldValue: String, passwordFieldValue: String) {
         useCase.login(loginFieldValue, passwordFieldValue)
-            .ioSubscribe()
-            .uiObserve()
+            .scheduleIoToUi(schedulers)
             .doOnSubscribe {
                 dispatch(AuthAction.EnableButton(false))
                 dispatch(AuthAction.Fetching)
@@ -53,7 +52,8 @@ class AuthViewModel
                     dispatch(AuthAction.Authorize)
                 },
                 {
-                    dispatch(AuthAction.Error(it.message))
+                    val stateError = it.message ?: "Неизвестная ошибка"
+                    dispatch(AuthAction.Error(stateError))
                 }
             )
             .disposeOnCleared()

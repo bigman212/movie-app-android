@@ -14,18 +14,60 @@ object Versions {
 
 object TestDependencies {
     // Не нужно выносить версии наружу, все зависимости подлючаются двумя переменными
+    private const val junit5_version = "5.6.0"
+    private const val junit4_version = "4.13"
+
+    private const val mockito_core_version = "2.18.0"
+    private const val mockito_kotlin_version = "2.2.0"
+
+    private const val spek_version = "2.0.10"
+
+    private const val mockwebserver_version = "4.4.0"
+
+    private const val assertj_version = "3.15.0"
+
+    val MockitoWebServer = "com.squareup.okhttp3:mockwebserver:$mockwebserver_version"
+
+    val testImpl = listOf(
+        // junit5
+        "org.junit.jupiter:junit-jupiter-api:$junit5_version",
+        "org.junit.jupiter:junit-jupiter-params:$junit5_version",
+        "org.junit.platform:junit-platform-runner:1.6.1",
+        "junit:junit:$junit4_version",
+
+        // mockito
+        "org.mockito:mockito-core:$mockito_core_version",
+        "com.nhaarman.mockitokotlin2:mockito-kotlin:$mockito_kotlin_version",
+
+        // spek
+        "org.spekframework.spek2:spek-dsl-jvm:$spek_version",
+        "org.spekframework.spek2:spek-runner-junit5:$spek_version",
+
+        "com.squareup.okhttp3:mockwebserver:$mockwebserver_version",
+
+        "org.assertj:assertj-core:$assertj_version",
+
+        "org.jetbrains.kotlin:kotlin-reflect:${Dependencies.kotlin_version}",
+        "org.jetbrains.kotlin:kotlin-test:${Dependencies.kotlin_version}"
+    )
+
+    val testRuntime = listOf(
+        "org.junit.jupiter:junit-jupiter-engine:$junit5_version",
+        "org.junit.vintage:junit-vintage-engine:$junit5_version",
+        // spek JUnit test engine
+        "org.spekframework.spek2:spek-runner-junit5:$spek_version"
+    )
+
+    private const val junit5_android_version = "1.0.0"
     private const val test_runner_version = "1.0.2"
     private const val espresso_core_version = "3.0.2"
-    private const val junit_version = "4.12"
-    private const val mockito_core_version = "2.18.0"
-    private const val kotlin_mockito_version = "2.1.0"
-    private const val android_arch_core_testing_version = "2.0.1"
 
-    val unitTest = listOf(
-        "junit:junit:$junit_version",
-        "org.mockito:mockito-core:$mockito_core_version",
-        "androidx.arch.core:core-testing:$android_arch_core_testing_version",
-        "com.nhaarman.mockitokotlin2:mockito-kotlin:$kotlin_mockito_version"
+    val androidTestImpl = listOf(
+        "de.mannodermaus.junit5:android-test-core:$junit5_android_version"
+    )
+
+    val androidTestRuntime = listOf(
+        "de.mannodermaus.junit5:android-test-runner:$junit5_android_version"
     )
 
     val androidTest = listOf(
@@ -35,7 +77,7 @@ object TestDependencies {
 }
 
 object Dependencies {
-    private const val kotlin_version = "1.3.70"
+    internal const val kotlin_version = "1.3.70"
     private const val lifecycle_version = "2.2.0"
     private const val navigation_version = "2.2.0"
     private const val material_version = "1.1.0"
