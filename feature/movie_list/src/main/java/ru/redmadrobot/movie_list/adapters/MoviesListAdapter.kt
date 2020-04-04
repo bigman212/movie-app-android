@@ -15,9 +15,7 @@ class MoviesListAdapter(private val movies: MutableList<Movie> = mutableListOf()
         return MovieViewHolder(itemPersonBinding)
     }
 
-    override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
-        holder.bind(movies[position])
-    }
+    override fun onBindViewHolder(holder: MovieViewHolder, position: Int) = holder.bind(movies[position])
 
     fun addAll(newMovies: List<Movie>) {
         movies.clear()
@@ -26,5 +24,4 @@ class MoviesListAdapter(private val movies: MutableList<Movie> = mutableListOf()
     }
 
     override fun getItemCount(): Int = movies.size
-
 }

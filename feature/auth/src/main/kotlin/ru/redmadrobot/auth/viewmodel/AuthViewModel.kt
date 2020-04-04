@@ -8,6 +8,7 @@ import ru.redmadrobot.common.vm.Event
 import ru.redmadrobot.core.network.NetworkException
 import ru.redmadrobot.core.network.SchedulersProvider
 import ru.redmadrobot.core.network.scheduleIoToUi
+import timber.log.Timber
 import javax.inject.Inject
 
 class AuthViewModel
@@ -59,6 +60,7 @@ class AuthViewModel
                     dispatch(AuthAction.Authorize)
                 },
                 {
+                    Timber.e(it)
                     if (it is NetworkException.NoNetworkConnection) {
                         offerErrorEvent(it)
                     } else {

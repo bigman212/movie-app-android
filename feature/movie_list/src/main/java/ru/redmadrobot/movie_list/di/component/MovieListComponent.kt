@@ -2,6 +2,7 @@ package ru.redmadrobot.movie_list.di.component
 
 import dagger.Component
 import ru.redmadrobot.common.di.AppProvider
+import ru.redmadrobot.common.di.GenreServiceModule
 import ru.redmadrobot.common.di.ViewModelFactoryModule
 import ru.redmadrobot.core.android.AndroidToolsProvider
 import ru.redmadrobot.core.network.di.NetworkProvider
@@ -15,7 +16,8 @@ import ru.redmadrobot.movie_list.search.MovieListSearchFragment
     modules = [
         MovieSearchServiceModule::class,
         MovieListSearchViewModelModule::class,
-        ViewModelFactoryModule::class
+        ViewModelFactoryModule::class,
+        GenreServiceModule::class
     ]
 )
 interface MovieListComponent {

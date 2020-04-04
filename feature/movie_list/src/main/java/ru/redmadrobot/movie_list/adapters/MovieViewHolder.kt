@@ -3,6 +3,7 @@ package ru.redmadrobot.movie_list.adapters
 import android.annotation.SuppressLint
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import ru.redmadrobot.common.data.entity.Genre
 import ru.redmadrobot.common.extensions.year
 import ru.redmadrobot.core.network.NetworkRouter
 import ru.redmadrobot.movie_list.Movie
@@ -22,9 +23,17 @@ class MovieViewHolder(private val itemViewBinding: ItemMovieAsListBinding) :
         itemViewBinding.tvMovieTitle.text = movie.title
         itemViewBinding.tvMovieTitleSmall.text = "${movie.originalTitle} (${movie.releaseDate.year()})"
 
-        itemViewBinding.tvMovieGenre.text = movie.genreIds.toString()
+        itemViewBinding.tvMovieGenre.text = generateGenresString(movie.genres)
 
         itemViewBinding.tvMovieRating.text = movie.voteAverage.toString()
         itemViewBinding.tvMovieVoteCount.text = movie.voteCount.toString()
+    }
+
+    private fun generateGenresString(movieGenres: List<Genre>): String? {
+        return movieGenres
+            .map(Genre::name)
+            .takeIf { it.isNotEmpty() }
+            ?.reduce { acc, s -> "$acc, $s" }
+            ?: itemView.context.getString(R.string.genres_not_loaded)
     }
 }

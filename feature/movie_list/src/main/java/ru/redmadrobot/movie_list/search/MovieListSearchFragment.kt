@@ -1,6 +1,8 @@
 package ru.redmadrobot.movie_list.search
 
 import android.os.Bundle
+import androidx.core.view.isGone
+import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.jakewharton.rxbinding3.widget.textChanges
@@ -9,8 +11,8 @@ import ru.redmadrobot.common.base.BaseFragment
 import ru.redmadrobot.common.extensions.showKeyboard
 import ru.redmadrobot.common.extensions.showLoading
 import ru.redmadrobot.common.extensions.viewBinding
+import ru.redmadrobot.common.vm.Event
 import ru.redmadrobot.common.vm.observeEvents
-import ru.redmadrobot.movie_list.Movie
 import ru.redmadrobot.movie_list.R
 import ru.redmadrobot.movie_list.adapters.MoviesListAdapter
 import ru.redmadrobot.movie_list.databinding.FragmentMovieSearchListBinding
@@ -42,15 +44,7 @@ class MovieListSearchFragment : BaseFragment(R.layout.fragment_movie_search_list
         initDagger()
         initMovieList()
         initViewModel()
-
-        binding.etSearchInput.requestFocus()
-        showKeyboard()
-
-        searchTextObserver = binding.etSearchInput.textChanges()
-            .skipInitialValue()
-            .map(CharSequence::trim)
-            .debounce(USER_INPUT_DEBOUNCE, TimeUnit.MILLISECONDS)
-            .subscribe(viewModel::onSearchMovieInputChanged)
+        initViews()
     }
 
     private fun initDagger() {
@@ -67,7 +61,6 @@ class MovieListSearchFragment : BaseFragment(R.layout.fragment_movie_search_list
         viewModel = ViewModelProvider(this, viewModelFactory)[MovieListSearchViewModel::class.java]
 
         observe(viewModel.isFetching, ::renderFetching)
-        observe(viewModel.movies, ::renderMovies)
         observeEvents(viewModel.events, ::onEvent)
     }
 
@@ -75,8 +68,27 @@ class MovieListSearchFragment : BaseFragment(R.layout.fragment_movie_search_list
         binding.progressBar.showLoading(isFetching)
     }
 
-    private fun renderMovies(movies: List<Movie>) {
-        adapter.addAll(movies)
+    override fun onEvent(event: Event) {
+        super.onEvent(event)
+        if (event is MovieListSearchViewModel.MovieSearchFinishedEvent) {
+            adapter.addAll(event.moviesFound)
+
+            val noMoviesFound = event.moviesFound.isEmpty()
+            binding.rvMoviesList.isGone = noMoviesFound
+            binding.groupNoMoviesFound.isVisible = noMoviesFound
+        }
+    }
+
+    private fun initViews() {
+        binding.etSearchInput.requestFocus()
+        showKeyboard()
+
+        searchTextObserver = binding.etSearchInput.textChanges()
+            .skipInitialValue()
+            .map(CharSequence::trim)
+            .filter(CharSequence::isNotBlank)
+            .debounce(USER_INPUT_DEBOUNCE, TimeUnit.MILLISECONDS)
+            .subscribe(viewModel::onSearchMovieInputChanged)
     }
 
     override fun onDestroy() {

@@ -2,8 +2,11 @@ package ru.redmadrobot.movie_list
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
+import ru.redmadrobot.common.data.entity.Genre
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Calendar
+import java.util.Date
+import java.util.Locale
 
 @JsonClass(generateAdapter = true)
 data class Movie(
@@ -21,6 +24,9 @@ data class Movie(
 
     @field:Json(name = "genre_ids")
     val genreIds: List<Int>,
+
+    @Transient
+    val genres: List<Genre> = mutableListOf(),
 
     @field:Json(name = "id")
     val id: Int,
