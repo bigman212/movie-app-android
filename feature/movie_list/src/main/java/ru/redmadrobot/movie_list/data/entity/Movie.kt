@@ -1,4 +1,4 @@
-package ru.redmadrobot.movie_list
+package ru.redmadrobot.movie_list.data.entity
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
@@ -53,7 +53,10 @@ data class Movie(
     val isVideo: Boolean,
 
     @field:Json(name = "vote_average")
-    val voteAverage: Double
+    val voteAverage: Double,
+
+    @Transient
+    val runtime: Int = 0
 ) {
     val releaseDate: Calendar = parseReleaseDate()
 

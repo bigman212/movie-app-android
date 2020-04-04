@@ -1,13 +1,15 @@
 package ru.redmadrobot.movie_list.search
 
 import androidx.lifecycle.MutableLiveData
+import io.reactivex.Observable
 import ru.redmadrobot.common.base.BaseViewModel
 import ru.redmadrobot.common.extensions.delegate
 import ru.redmadrobot.common.extensions.mapDistinct
+import ru.redmadrobot.common.extensions.uiObserve
 import ru.redmadrobot.common.vm.Event
 import ru.redmadrobot.core.network.SchedulersProvider
-import ru.redmadrobot.core.network.scheduleIoToUi
-import ru.redmadrobot.movie_list.Movie
+import ru.redmadrobot.movie_list.data.entity.Movie
+import ru.redmadrobot.movie_list.data.entity.MovieDetail
 import ru.redmadrobot.movie_list.domain.MovieSearchUseCase
 import timber.log.Timber
 import javax.inject.Inject
@@ -18,6 +20,7 @@ class MovieListSearchViewModel @Inject constructor(
 ) : BaseViewModel() {
 
     class MovieSearchFinishedEvent(val moviesFound: List<Movie>) : Event
+    class MovieSearchRuntimeFetchedEvent(val fetchedMovie: MovieDetail) : Event
 
     private val viewState = MutableLiveData(MovieListSearchViewState())
     private var state: MovieListSearchViewState by viewState.delegate()
@@ -30,11 +33,19 @@ class MovieListSearchViewModel @Inject constructor(
         }
         searchUseCase.searchMovie(movieTitle)
             .doOnSubscribe { state = state.fetchingState() }
-            .scheduleIoToUi(schedulersProvider)
             .doOnEvent { _, _ -> state = state.fetchingFinishedState() }
+            .uiObserve()
+            .doOnSuccess { events.offer(MovieSearchFinishedEvent(it)) }
+            .observeOn(schedulersProvider.io())
+            .flattenAsObservable { it }
+            .flatMap {
+                searchUseCase.fetchMovieDetails(it.id)
+//                    .onErrorResumeNext(Observable.empty()) // при возникновении ошибки пропускаем и идем альше
+            }
+            .scheduleIoToUi(schedulersProvider)
             .subscribe(
                 {
-                    events.offer(MovieSearchFinishedEvent(it))
+                    events.offer(MovieSearchRuntimeFetchedEvent(it))
                 },
                 {
                     Timber.e(it)
@@ -42,5 +53,9 @@ class MovieListSearchViewModel @Inject constructor(
                 }
             ).disposeOnCleared()
     }
+}
+
+private fun <T> Observable<T>.scheduleIoToUi(schedulers: SchedulersProvider): Observable<T> {
+    return subscribeOn(schedulers.io()).observeOn(schedulers.ui())
 }
 

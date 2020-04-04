@@ -2,8 +2,9 @@ package ru.redmadrobot.movie_list.search
 
 import io.reactivex.Single
 import ru.redmadrobot.core.network.entities.WithPages
-import ru.redmadrobot.movie_list.Movie
 import ru.redmadrobot.movie_list.data.MovieSearchService
+import ru.redmadrobot.movie_list.data.entity.Movie
+import ru.redmadrobot.movie_list.data.entity.MovieDetail
 import javax.inject.Inject
 
 class MovieRepository @Inject constructor(
@@ -13,5 +14,9 @@ class MovieRepository @Inject constructor(
         return api
             .moviesByQuery(name)
             .map(WithPages<Movie>::results)
+    }
+
+    fun movieDetailsById(movieId: Int): Single<MovieDetail> {
+        return api.movieDetail(movieId)
     }
 }

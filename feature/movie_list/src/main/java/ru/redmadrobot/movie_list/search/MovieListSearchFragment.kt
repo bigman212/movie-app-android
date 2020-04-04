@@ -15,6 +15,7 @@ import ru.redmadrobot.common.vm.Event
 import ru.redmadrobot.common.vm.observeEvents
 import ru.redmadrobot.movie_list.R
 import ru.redmadrobot.movie_list.adapters.MoviesListAdapter
+import ru.redmadrobot.movie_list.data.entity.Movie
 import ru.redmadrobot.movie_list.databinding.FragmentMovieSearchListBinding
 import ru.redmadrobot.movie_list.di.component.MovieListComponent
 import java.util.concurrent.TimeUnit
@@ -70,12 +71,10 @@ class MovieListSearchFragment : BaseFragment(R.layout.fragment_movie_search_list
 
     override fun onEvent(event: Event) {
         super.onEvent(event)
-        if (event is MovieListSearchViewModel.MovieSearchFinishedEvent) {
-            adapter.addAll(event.moviesFound)
-
-            val noMoviesFound = event.moviesFound.isEmpty()
-            binding.rvMoviesList.isGone = noMoviesFound
-            binding.groupNoMoviesFound.isVisible = noMoviesFound
+        when (event) {
+            is MovieListSearchViewModel.MovieSearchFinishedEvent -> showMoviesFound(event.moviesFound)
+            is MovieListSearchViewModel.MovieSearchRuntimeFetchedEvent ->
+                adapter.updateMovieRuntime(event.fetchedMovie.id, event.fetchedMovie.runtime ?: 0)
         }
     }
 
@@ -89,6 +88,14 @@ class MovieListSearchFragment : BaseFragment(R.layout.fragment_movie_search_list
             .filter(CharSequence::isNotBlank)
             .debounce(USER_INPUT_DEBOUNCE, TimeUnit.MILLISECONDS)
             .subscribe(viewModel::onSearchMovieInputChanged)
+    }
+
+    private fun showMoviesFound(moviesFound: List<Movie>) {
+        adapter.replaceAllItems(moviesFound)
+
+        val noMoviesFound = moviesFound.isEmpty()
+        binding.rvMoviesList.isGone = noMoviesFound
+        binding.groupNoMoviesFound.isVisible = noMoviesFound
     }
 
     override fun onDestroy() {

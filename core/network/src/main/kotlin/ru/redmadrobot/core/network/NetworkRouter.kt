@@ -20,6 +20,7 @@ object NetworkRouter {
 
     private const val movie = "$api_number/movie"
     const val MOVIES_POPULAR = "$movie/popular"
+    const val MOVIE_DETAILS = "$movie/{movie_id}"
 
     private const val search = "$api_number/search"
     const val SEARCH_MOVIE = "$search/movie"

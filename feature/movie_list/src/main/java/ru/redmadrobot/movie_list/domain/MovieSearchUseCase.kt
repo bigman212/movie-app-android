@@ -1,9 +1,11 @@
 package ru.redmadrobot.movie_list.domain
 
+import io.reactivex.Observable
 import io.reactivex.Single
 import ru.redmadrobot.common.data.GenresRepository
 import ru.redmadrobot.common.data.entity.Genre
-import ru.redmadrobot.movie_list.Movie
+import ru.redmadrobot.movie_list.data.entity.Movie
+import ru.redmadrobot.movie_list.data.entity.MovieDetail
 import ru.redmadrobot.movie_list.search.MovieRepository
 import javax.inject.Inject
 
@@ -20,6 +22,11 @@ class MovieSearchUseCase @Inject constructor(
                 movie.copy(genres = movieGenres)
             }
             .toList()
+    }
+
+    fun fetchMovieDetails(movieId: Int): Observable<MovieDetail> {
+        return moviesRepo.movieDetailsById(movieId)
+            .toObservable()
     }
 
     private fun genreFromId(genreId: Int): Genre? = genresRepo.genreById(genreId)
