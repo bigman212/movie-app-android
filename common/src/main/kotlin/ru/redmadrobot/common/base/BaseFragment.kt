@@ -1,5 +1,6 @@
 package ru.redmadrobot.common.base
 
+import android.view.View
 import android.widget.Toast
 import androidx.annotation.CallSuper
 import androidx.annotation.LayoutRes
@@ -26,6 +27,8 @@ open class BaseFragment : Fragment {
         private val EXIT_DEFAULT_ANIMATION = R.anim.nav_default_exit_anim
         private val POP_ENTER_DEFAULT_ANIMATION = R.anim.nav_default_pop_enter_anim
         private val POP_EXIT_DEFAULT_ANIMATION = R.anim.nav_default_pop_exit_anim
+
+        private const val DEFAULT_ANIMATION = -1
     }
 
     protected val appComponent: AppProvider by lazy {
@@ -45,7 +48,8 @@ open class BaseFragment : Fragment {
     }
 
     private fun showError(errorMessage: CharSequence) {
-        Snackbar.make(requireView(), errorMessage, Snackbar.LENGTH_SHORT).show()
+        val contentView = requireActivity().findViewById<View>(android.R.id.content)
+        Snackbar.make(contentView, errorMessage, Snackbar.LENGTH_SHORT).show()
     }
 
     inline fun <T, LD : LiveData<T>> observe(liveData: LD, crossinline block: (T) -> Unit) {
@@ -71,11 +75,11 @@ open class BaseFragment : Fragment {
         }
 
         with(currentNavOptions) {
-            val enterAnimation = enterAnim.takeIf { it != ENTER_DEFAULT_ANIMATION } ?: ENTER_DEFAULT_ANIMATION
-            val exitAnimation = exitAnim.takeIf { it != EXIT_DEFAULT_ANIMATION } ?: EXIT_DEFAULT_ANIMATION
+            val enterAnimation = enterAnim.takeIf { it != DEFAULT_ANIMATION } ?: ENTER_DEFAULT_ANIMATION
+            val exitAnimation = exitAnim.takeIf { it != DEFAULT_ANIMATION } ?: EXIT_DEFAULT_ANIMATION
             val popEnterAnimation =
-                popEnterAnim.takeIf { it != POP_ENTER_DEFAULT_ANIMATION } ?: POP_ENTER_DEFAULT_ANIMATION
-            val popExitAnimation = popExitAnim.takeIf { it != POP_EXIT_DEFAULT_ANIMATION } ?: POP_EXIT_DEFAULT_ANIMATION
+                popEnterAnim.takeIf { it != DEFAULT_ANIMATION } ?: POP_ENTER_DEFAULT_ANIMATION
+            val popExitAnimation = popExitAnim.takeIf { it != DEFAULT_ANIMATION } ?: POP_EXIT_DEFAULT_ANIMATION
 
             return NavOptions.Builder()
                 .setEnterAnim(enterAnimation)

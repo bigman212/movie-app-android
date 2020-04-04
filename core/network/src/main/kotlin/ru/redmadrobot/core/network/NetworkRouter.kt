@@ -24,5 +24,8 @@ object NetworkRouter {
     private const val search = "$api_number/search"
     const val SEARCH_MOVIE = "$search/movie"
 
+    private const val genre = "$api_number/genre"
+    const val GENRE_MOVIE_ALL = "$genre/movie/list"
+
     const val IMAGES = "https://image.tmdb.org/t/p/w500"
 }

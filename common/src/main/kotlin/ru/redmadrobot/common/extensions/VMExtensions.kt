@@ -1,11 +1,11 @@
 package ru.redmadrobot.common.extensions
 
+import android.os.Looper
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.Transformations
-
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
 
@@ -21,7 +21,11 @@ import kotlin.reflect.KProperty
 fun <T : Any> MutableLiveData<T>.delegate(): ReadWriteProperty<Any, T> {
     return object : ReadWriteProperty<Any, T> {
         override fun setValue(thisRef: Any, property: KProperty<*>, value: T) {
-            this@delegate.value = value // или postValue? :hmm:
+            if (Thread.currentThread() == Looper.getMainLooper().thread) {
+                this@delegate.value = value // или postValue? :hmm:
+            } else {
+                this@delegate.postValue(value)
+            }
         }
 
         override fun getValue(thisRef: Any, property: KProperty<*>): T {

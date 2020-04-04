@@ -32,6 +32,7 @@ dependencies {
     )
 
     kapt(
-            Dependencies.Dagger.Processor
+            Dependencies.Dagger.Processor,
+            Dependencies.Moshi.KotlinCodeGen
     )
 }
