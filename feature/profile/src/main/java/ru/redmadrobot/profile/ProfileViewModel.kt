@@ -22,10 +22,10 @@ class ProfileViewModel @Inject constructor(
     fun onLogoutButtonClicked() {
         profileRepo.logout()
             .doOnSubscribe {
-                state = state.fetchingState().buttonChangedState(false)
+                state = state.fetchingState()
             }
             .scheduleIoToUi(schedulersProvider)
-            .doOnEvent { state = state.buttonChangedState(true) }
+            .doOnEvent { state = state.fetchingFinishedState() }
             .subscribe(
                 {
                     events.offer(LogoutEvent)

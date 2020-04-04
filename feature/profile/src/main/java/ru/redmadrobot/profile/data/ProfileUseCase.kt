@@ -15,15 +15,14 @@ class ProfileUseCase @Inject constructor(
 
         return if (sessionId != null) {
             profileService.deleteSession(DeleteSessionRequest(sessionId))
-                .map(this::deleteLocalSessionId)
-                .flatMapCompletable {
-                    Completable.complete()
+                .flatMapCompletable { response ->
+                    Completable.fromAction { deleteLocalSessionId(response) }
                 }
+                .onErrorComplete()
         } else Completable.complete()
     }
 
-    private fun deleteLocalSessionId(response: DeleteSessionResponse): DeleteSessionResponse {
+    private fun deleteLocalSessionId(response: DeleteSessionResponse) {
         if (response.sessionIsDeleted) sessionIdRepository.clear()
-        return response
     }
 }
