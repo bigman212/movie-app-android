@@ -22,11 +22,10 @@ class MainActivity : BaseActivity(R.layout.activity_main) {
     private lateinit var viewModel: MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
         (appComponent as AppComponent).inject(this)
-
 //        оставлено для будущей реализации инъекции фрагментов через конструктор
-//        supportFragmentManager.fragmentFactory = appComponent.fragmentFactory()
+        supportFragmentManager.fragmentFactory = appComponent.fragmentFactory()
+        super.onCreate(savedInstanceState)
 
         val navController = findNavController(R.id.root_nav_host_fragment)
         menu_navigation.setupWithNavController(navController)

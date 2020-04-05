@@ -1,4 +1,4 @@
-package ru.redmadrobot.common.di
+package ru.redmadrobot.common.di.genre
 
 import dagger.Module
 import dagger.Provides

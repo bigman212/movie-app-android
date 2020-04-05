@@ -2,8 +2,8 @@ package ru.redmadrobot.movie_list.di.component
 
 import dagger.Component
 import ru.redmadrobot.common.di.AppProvider
-import ru.redmadrobot.common.di.GenreServiceModule
-import ru.redmadrobot.common.di.ViewModelFactoryModule
+import ru.redmadrobot.common.di.genre.GenreServiceModule
+import ru.redmadrobot.common.di.vm.ViewModelFactoryModule
 import ru.redmadrobot.core.android.AndroidToolsProvider
 import ru.redmadrobot.core.network.di.NetworkProvider
 import ru.redmadrobot.movie_list.MovieListMainFragment
