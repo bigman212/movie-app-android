@@ -40,7 +40,7 @@ class MovieListSearchViewModel @Inject constructor(
             .flattenAsObservable { it }
             .flatMap {
                 searchUseCase.fetchMovieDetails(it.id)
-//                    .onErrorResumeNext(Observable.empty()) // при возникновении ошибки пропускаем и идем альше
+                    .onErrorResumeNext(Observable.empty()) // при возникновении ошибки пропускаем и идем альше
             }
             .scheduleIoToUi(schedulersProvider)
             .subscribe(

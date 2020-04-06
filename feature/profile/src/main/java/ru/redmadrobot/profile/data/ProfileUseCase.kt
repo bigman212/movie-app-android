@@ -1,6 +1,7 @@
 package ru.redmadrobot.profile.data
 
 import io.reactivex.Completable
+import ru.redmadrobot.common.extensions.flatMapCompletableAction
 import ru.redmadrobot.core.network.SessionIdRepository
 import ru.redmadrobot.profile.data.entities.DeleteSessionRequest
 import ru.redmadrobot.profile.data.entities.DeleteSessionResponse
@@ -15,9 +16,7 @@ class ProfileUseCase @Inject constructor(
 
         return if (sessionId != null) {
             profileService.deleteSession(DeleteSessionRequest(sessionId))
-                .flatMapCompletable { response ->
-                    Completable.fromAction { deleteLocalSessionId(response) }
-                }
+                .flatMapCompletableAction(this::deleteLocalSessionId)
                 .onErrorComplete()
         } else Completable.complete()
     }

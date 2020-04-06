@@ -1,7 +1,10 @@
 package ru.redmadrobot.common.vm
 
+import android.app.Activity
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import ru.redmadrobot.common.extensions.observe
 import java.util.LinkedList
 import java.util.Queue
@@ -16,11 +19,19 @@ class EventsQueue : MutableLiveData<Queue<Event>>() {
 }
 
 fun Fragment.observeEvents(eventsQueue: EventsQueue, eventHandler: (Event) -> Unit) {
-    observe(eventsQueue) { queue: Queue<Event>? ->
-        while (queue != null && queue.isNotEmpty()) {
+    observe(eventsQueue) { queue: Queue<Event> ->
+        while (queue.isNotEmpty()) {
             eventHandler(queue.remove())
         }
     }
+}
+
+fun Activity.observeEvents(eventsQueue: EventsQueue, eventHandler: (Event) -> Unit) {
+    eventsQueue.observe(this as LifecycleOwner, Observer { queue: Queue<Event> ->
+        while (queue.isNotEmpty()) {
+            eventHandler(queue.remove())
+        }
+    })
 }
 
 

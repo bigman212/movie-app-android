@@ -15,6 +15,7 @@ import ru.redmadrobot.common.di.DaggerApplication
 import ru.redmadrobot.common.vm.ErrorEvent
 import ru.redmadrobot.common.vm.Event
 import ru.redmadrobot.common.vm.MessageEvent
+import ru.redmadrobot.common.vm.NavigateToEvent
 
 open class BaseFragment : Fragment {
     constructor() : super()
@@ -38,6 +39,9 @@ open class BaseFragment : Fragment {
         when (event) {
             is MessageEvent -> showMessage(event.message)
             is ErrorEvent -> showError(event.errorMessage)
+            is NavigateToEvent -> {
+                findNavController().navigate(event.direction)
+            }
         }
     }
 

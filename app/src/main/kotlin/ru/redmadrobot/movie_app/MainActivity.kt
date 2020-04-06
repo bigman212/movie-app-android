@@ -4,16 +4,16 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.observe
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import kotlinx.android.synthetic.main.activity_main.*
 import ru.redmadrobot.common.base.BaseActivity
 import ru.redmadrobot.common.vm.Event
-import ru.redmadrobot.common.vm.EventsQueue
+import ru.redmadrobot.common.vm.NavigateToEvent
+import ru.redmadrobot.common.vm.observeEvents
 import ru.redmadrobot.movie_app.di.AppComponent
-import java.util.Queue
+import timber.log.Timber
 import javax.inject.Inject
 
 class MainActivity : BaseActivity(R.layout.activity_main) {
@@ -30,17 +30,15 @@ class MainActivity : BaseActivity(R.layout.activity_main) {
         menu_navigation.setupWithNavController(navController)
         setupBottomNavigationBarVisibility(navController)
 
-        observeEvents(viewModel.events) {
-            if (it is MainViewModel.NavigateToStartLocation) navController.navigate(it.destination)
-        }
+        observeEvents(viewModel.events, ::onEvent)
         viewModel.requestStartLocationEvent()
     }
 
-    private fun observeEvents(eventsQueue: EventsQueue, eventHandler: (Event) -> Unit) {
-        eventsQueue.observe(this) { queue: Queue<Event> ->
-            while (queue.isNotEmpty()) {
-                eventHandler(queue.remove())
-            }
+    private fun onEvent(event: Event) {
+        if (event is NavigateToEvent) {
+            findNavController(R.id.root_nav_host_fragment).navigate(event.direction)
+        } else {
+            Timber.e(IllegalArgumentException("Unknown Event Type"))
         }
     }
 

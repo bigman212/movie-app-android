@@ -1,6 +1,7 @@
 package ru.redmadrobot.common.data
 
 import android.content.SharedPreferences
+import androidx.core.content.edit
 import dagger.Reusable
 import io.reactivex.Completable
 import ru.redmadrobot.common.data.entity.Genre
@@ -26,10 +27,11 @@ class GenresRepository @Inject constructor(
             val prefsKey = prefsKeyFromId(genreToSave.id)
             val prefsValue = genreToSave.name
 
-            if (sharedPrefs.contains(prefsKey).not()) {
-                sharedPrefs.edit()
-                    .putString(prefsKey, prefsValue)
-                    .apply()
+            if (!sharedPrefs.contains(prefsKey)) {
+                sharedPrefs.edit {
+                    putString(prefsKey, prefsValue)
+                }
+
                 Timber.d("$genreToSave saved to sharedPrefs")
             }
         }
