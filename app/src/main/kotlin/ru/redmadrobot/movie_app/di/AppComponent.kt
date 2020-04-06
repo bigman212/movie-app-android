@@ -3,8 +3,6 @@ package ru.redmadrobot.movie_app.di
 import android.app.Application
 import dagger.Component
 import ru.redmadrobot.common.di.AppProvider
-import ru.redmadrobot.common.di.fragment.InjectFragmentFactoryModule
-import ru.redmadrobot.common.di.vm.ViewModelFactoryModule
 import ru.redmadrobot.core.android.AndroidToolsComponent
 import ru.redmadrobot.core.android.AndroidToolsProvider
 import ru.redmadrobot.core.network.di.NetworkProvider
@@ -16,9 +14,7 @@ import javax.inject.Singleton
 @Component(
     dependencies = [NetworkProvider::class, AndroidToolsProvider::class],
     modules = [
-        ViewModelFactoryModule::class,
-        MainViewModelModule::class,
-        InjectFragmentFactoryModule::class
+        MainViewModelModule::class
     ]
 )
 interface AppComponent : AppProvider {

@@ -99,10 +99,10 @@ object Dependencies {
 
     const val Kotlin = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 
-    object Lifecycle {
-        const val ViewModel = "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
-        const val Extensions = "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
-    }
+    val Lifecycle = listOf(
+        "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version",
+        "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
+    )
 
     object Navigation {
         const val Fragment = "androidx.navigation:navigation-fragment-ktx:$navigation_version"
@@ -111,9 +111,10 @@ object Dependencies {
 
     const val Material = "com.google.android.material:material:$material_version"
 
-    object AndroidKtx {
-        const val Core = "androidx.core:core-ktx:$android_ktx_version"
-    }
+    val AndroidKtx = listOf(
+        "androidx.core:core-ktx:$android_ktx_version",
+        "androidx.fragment:fragment-ktx:$android_ktx_version"
+    )
 
     const val Constraint_layout = "androidx.constraintlayout:constraintlayout:$constraint_layout_version"
 

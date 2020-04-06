@@ -3,11 +3,8 @@ package ru.redmadrobot.auth
 import android.os.Bundle
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelStoreOwner
 import kotlinx.android.synthetic.main.fragment_auth.*
 import ru.redmadrobot.auth.di.component.AuthComponent
 import ru.redmadrobot.auth.viewmodel.AuthViewModel
@@ -18,14 +15,15 @@ import ru.redmadrobot.common.extensions.showLoading
 import ru.redmadrobot.common.vm.Event
 import ru.redmadrobot.common.vm.observeEvents
 import javax.inject.Inject
-import javax.inject.Provider
 
-class AuthFragment @Inject constructor(private val provider: Provider<AuthViewModel>) :
-    BaseFragment(R.layout.fragment_auth) {
+class AuthFragment : BaseFragment(R.layout.fragment_auth) {
+    companion object {
+        fun newInstance() = AuthFragment()
+    }
 
-    //    @Inject
-//    internal lateinit var viewModelFactory: ViewModelProvider.Factory
-    private val viewModel: AuthViewModel by viewModelWithProvider { provider.get() }
+    @Inject
+    internal lateinit var viewModelFactory: ViewModelProvider.Factory
+    private val viewModel: AuthViewModel by viewModels { viewModelFactory }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -35,25 +33,11 @@ class AuthFragment @Inject constructor(private val provider: Provider<AuthViewMo
         initViews()
     }
 
-    private inline fun <reified T : ViewModel> Fragment.viewModelWithProvider(
-        noinline ownerProducer: () -> ViewModelStoreOwner = { this },
-        crossinline provider: () -> T
-    ) = viewModels<T>(ownerProducer) {
-        object : ViewModelProvider.Factory {
-            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                @Suppress("UNCHECKED_CAST")
-                return provider.invoke() as T
-            }
-        }
-    }
-
     private fun initDagger() {
         AuthComponent.init(appComponent).inject(this)
     }
 
     private fun initViewModel() {
-//        viewModel = ViewModelProvider(this, viewModelFactory)[AuthViewModel::class.java]
-
         observe(viewModel.viewState) {
             renderLoading(it.isFetching)
             renderButtonChanged(it.isButtonEnabled)

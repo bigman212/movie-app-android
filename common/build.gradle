@@ -11,8 +11,7 @@ dependencies {
     implementation(
             Dependencies.Kotlin,
 
-            Dependencies.Lifecycle.ViewModel,
-            Dependencies.Lifecycle.Extensions,
+            Dependencies.Lifecycle,
 
             Dependencies.Material,
 
@@ -20,6 +19,8 @@ dependencies {
             Dependencies.Navigation.UI_KTX,
 
             Dependencies.Constraint_layout,
+
+            Dependencies.AndroidKtx,
 
             Dependencies.Dagger.Dagger,
 

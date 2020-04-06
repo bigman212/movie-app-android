@@ -46,8 +46,7 @@ dependencies {
     implementation(
             Dependencies.Kotlin,
 
-            Dependencies.Lifecycle.ViewModel,
-            Dependencies.Lifecycle.Extensions,
+            Dependencies.Lifecycle,
 
             Dependencies.Material,
 

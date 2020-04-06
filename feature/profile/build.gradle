@@ -14,15 +14,14 @@ dependencies {
     implementation(
             Dependencies.Kotlin,
 
-            Dependencies.Lifecycle.ViewModel,
-            Dependencies.Lifecycle.Extensions,
+            Dependencies.Lifecycle,
 
             Dependencies.Material,
 
             Dependencies.Navigation.Fragment,
             Dependencies.Navigation.UI_KTX,
 
-            Dependencies.AndroidKtx.Core,
+            Dependencies.AndroidKtx,
 
             Dependencies.Constraint_layout,
 

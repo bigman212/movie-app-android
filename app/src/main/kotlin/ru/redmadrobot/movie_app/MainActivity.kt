@@ -1,6 +1,7 @@
 package ru.redmadrobot.movie_app
 
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
@@ -19,19 +20,16 @@ class MainActivity : BaseActivity(R.layout.activity_main) {
     @Inject
     internal lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    private lateinit var viewModel: MainViewModel
+    private val viewModel: MainViewModel by viewModels { viewModelFactory }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        (appComponent as AppComponent).inject(this)
-//        оставлено для будущей реализации инъекции фрагментов через конструктор
-        supportFragmentManager.fragmentFactory = appComponent.fragmentFactory()
         super.onCreate(savedInstanceState)
+        (appComponent as AppComponent).inject(this)
 
         val navController = findNavController(R.id.root_nav_host_fragment)
         menu_navigation.setupWithNavController(navController)
         setupBottomNavigationBarVisibility(navController)
 
-        viewModel = ViewModelProvider(this, viewModelFactory)[MainViewModel::class.java]
         observeEvents(viewModel.events) {
             if (it is MainViewModel.NavigateToStartLocation) navController.navigate(it.destination)
         }

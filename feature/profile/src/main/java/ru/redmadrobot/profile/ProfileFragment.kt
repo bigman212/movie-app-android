@@ -1,6 +1,7 @@
 package ru.redmadrobot.profile
 
 import android.os.Bundle
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import ru.redmadrobot.auth.AuthFragmentDirections
 import ru.redmadrobot.common.base.BaseFragment
@@ -23,7 +24,7 @@ class ProfileFragment : BaseFragment(R.layout.fragment_profile) {
     @Inject
     internal lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    private lateinit var viewModel: ProfileViewModel
+    private val viewModel: ProfileViewModel by viewModels { viewModelFactory }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -42,7 +43,6 @@ class ProfileFragment : BaseFragment(R.layout.fragment_profile) {
     }
 
     private fun initViewModel() {
-        viewModel = ViewModelProvider(this, viewModelFactory)[ProfileViewModel::class.java]
         observe(viewModel.viewState) {
             renderFetching(it.isFetching)
             renderLogoutButtonState(it.isLogoutButtonEnabled)
