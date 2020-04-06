@@ -5,6 +5,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import ru.redmadrobot.auth.AuthFragmentDirections
 import ru.redmadrobot.common.base.BaseFragment
+import ru.redmadrobot.common.extensions.observe
 import ru.redmadrobot.common.extensions.showLoading
 import ru.redmadrobot.common.extensions.viewBinding
 import ru.redmadrobot.common.vm.Event

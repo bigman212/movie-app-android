@@ -4,12 +4,12 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.observe
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import kotlinx.android.synthetic.main.activity_main.*
 import ru.redmadrobot.common.base.BaseActivity
-import ru.redmadrobot.common.extensions.observe
 import ru.redmadrobot.common.vm.Event
 import ru.redmadrobot.common.vm.EventsQueue
 import ru.redmadrobot.movie_app.di.AppComponent
@@ -37,8 +37,8 @@ class MainActivity : BaseActivity(R.layout.activity_main) {
     }
 
     private fun observeEvents(eventsQueue: EventsQueue, eventHandler: (Event) -> Unit) {
-        eventsQueue.observe(this) { queue: Queue<Event>? ->
-            while (queue != null && queue.isNotEmpty()) {
+        eventsQueue.observe(this) { queue: Queue<Event> ->
+            while (queue.isNotEmpty()) {
                 eventHandler(queue.remove())
             }
         }

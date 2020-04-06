@@ -5,7 +5,6 @@ import android.widget.Toast
 import androidx.annotation.CallSuper
 import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.LiveData
 import androidx.navigation.NavDirections
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
@@ -13,7 +12,6 @@ import com.google.android.material.snackbar.Snackbar
 import ru.redmadrobot.common.R
 import ru.redmadrobot.common.di.AppProvider
 import ru.redmadrobot.common.di.DaggerApplication
-import ru.redmadrobot.common.extensions.observe
 import ru.redmadrobot.common.vm.ErrorEvent
 import ru.redmadrobot.common.vm.Event
 import ru.redmadrobot.common.vm.MessageEvent
@@ -50,12 +48,6 @@ open class BaseFragment : Fragment {
     private fun showError(errorMessage: CharSequence) {
         val contentView = requireActivity().findViewById<View>(android.R.id.content)
         Snackbar.make(contentView, errorMessage, Snackbar.LENGTH_SHORT).show()
-    }
-
-    inline fun <T, LD : LiveData<T>> observe(liveData: LD, crossinline block: (T) -> Unit) {
-        liveData.observe(viewLifecycleOwner) {
-            block.invoke(it)
-        }
     }
 
     protected fun navigateTo(direction: NavDirections, navOptions: NavOptions? = null) {

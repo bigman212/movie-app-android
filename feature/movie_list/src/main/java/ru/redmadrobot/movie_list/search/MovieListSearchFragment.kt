@@ -3,11 +3,13 @@ package ru.redmadrobot.movie_list.search
 import android.os.Bundle
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.jakewharton.rxbinding3.widget.textChanges
 import io.reactivex.disposables.Disposable
 import ru.redmadrobot.common.base.BaseFragment
+import ru.redmadrobot.common.extensions.observe
 import ru.redmadrobot.common.extensions.showKeyboard
 import ru.redmadrobot.common.extensions.showLoading
 import ru.redmadrobot.common.extensions.viewBinding
@@ -31,7 +33,7 @@ class MovieListSearchFragment : BaseFragment(R.layout.fragment_movie_search_list
     @Inject
     internal lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    private lateinit var viewModel: MovieListSearchViewModel
+    private val viewModel: MovieListSearchViewModel by viewModels { viewModelFactory }
 
     private val binding: FragmentMovieSearchListBinding by viewBinding()
 
@@ -59,8 +61,6 @@ class MovieListSearchFragment : BaseFragment(R.layout.fragment_movie_search_list
     }
 
     private fun initViewModel() {
-        viewModel = ViewModelProvider(this, viewModelFactory)[MovieListSearchViewModel::class.java]
-
         observe(viewModel.isFetching, ::renderFetching)
         observeEvents(viewModel.events, ::onEvent)
     }

@@ -16,11 +16,12 @@ class EventsQueue : MutableLiveData<Queue<Event>>() {
 }
 
 fun Fragment.observeEvents(eventsQueue: EventsQueue, eventHandler: (Event) -> Unit) {
-    eventsQueue.observe(viewLifecycleOwner) { queue: Queue<Event>? ->
+    observe(eventsQueue) { queue: Queue<Event>? ->
         while (queue != null && queue.isNotEmpty()) {
             eventHandler(queue.remove())
         }
     }
 }
+
 
 

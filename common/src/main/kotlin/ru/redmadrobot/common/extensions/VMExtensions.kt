@@ -1,11 +1,12 @@
 package ru.redmadrobot.common.extensions
 
 import android.os.Looper
-import androidx.lifecycle.LifecycleOwner
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
-import androidx.lifecycle.Transformations
+import androidx.lifecycle.distinctUntilChanged
+import androidx.lifecycle.map
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
 
@@ -36,18 +37,8 @@ fun <T : Any> MutableLiveData<T>.delegate(): ReadWriteProperty<Any, T> {
 
 private fun <T : Any> LiveData<T>.requireValue(): T = checkNotNull(value)
 
-fun <T> LiveData<T>.observe(owner: LifecycleOwner, observer: (T) -> Unit) {
-    observe(owner, Observer {
-        observer.invoke(it)
-    })
-}
-
-private fun <X, Y> LiveData<X>.map(transform: (X) -> Y): LiveData<Y> {
-    return Transformations.map(this, transform)
-}
-
-private fun <T> LiveData<T>.distinctUntilChanged(): LiveData<T> {
-    return Transformations.distinctUntilChanged(this)
+inline fun <T> Fragment.observe(liveData: LiveData<T>, crossinline block: (T) -> Unit) {
+    liveData.observe(viewLifecycleOwner, Observer { block.invoke(it) })
 }
 
 fun <X, Y> LiveData<X>.mapDistinct(transform: (X) -> Y): LiveData<Y> {

@@ -11,6 +11,7 @@ import ru.redmadrobot.auth.viewmodel.AuthViewModel
 import ru.redmadrobot.common.base.BaseFragment
 import ru.redmadrobot.common.extensions.fieldValue
 import ru.redmadrobot.common.extensions.hideKeyboard
+import ru.redmadrobot.common.extensions.observe
 import ru.redmadrobot.common.extensions.showLoading
 import ru.redmadrobot.common.vm.Event
 import ru.redmadrobot.common.vm.observeEvents
