@@ -7,4 +7,5 @@
     <string name="network_invalid_credentials">Неправильный логин или пароль</string>
     <string name="network_error_auth_gone_wrong">Сбой при авторизации, попробуйте позднее</string>
     <string name="network_error_unauthorized">Отсутствует доступ к ресурсу</string>
+    <string name="network_error_invalid_id">ID не найден</string>
 </resources>

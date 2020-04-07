@@ -1,4 +1,4 @@
-package ru.redmadrobot.common.di
+package ru.redmadrobot.common.di.vm
 
 import androidx.lifecycle.ViewModelProvider
 import dagger.Binds

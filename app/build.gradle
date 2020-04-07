@@ -40,12 +40,13 @@ dependencies {
     implementation project(":core:network")
 
     implementation project(":feature:auth")
+    implementation project(':feature:movie_list')
+    implementation project(':feature:profile')
 
     implementation(
             Dependencies.Kotlin,
 
-            Dependencies.Lifecycle.ViewModel,
-            Dependencies.Lifecycle.Extensions,
+            Dependencies.Lifecycle,
 
             Dependencies.Material,
 
@@ -59,8 +60,6 @@ dependencies {
             Dependencies.RxJava,
 
             Dependencies.Retrofit,
-
-            Dependencies.Tools.Timber,
     )
 
     kapt(

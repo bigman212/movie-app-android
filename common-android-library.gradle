@@ -1,9 +1,12 @@
+import ru.redmadrobot.movie_app.Dependencies
 import ru.redmadrobot.movie_app.TestDependencies
 import ru.redmadrobot.movie_app.Versions
 
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+
+apply plugin: "androidx.navigation.safeargs.kotlin"
 
 apply plugin: 'de.mannodermaus.android-junit5'
 
@@ -15,6 +18,8 @@ android {
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         testInstrumentationRunnerArgument "runnerBuilder", "de.mannodermaus.junit5.AndroidJUnit5Builder"
+
+        vectorDrawables.useSupportLibrary = true
     }
 
     compileOptions {
@@ -28,6 +33,10 @@ android {
 
     sourceSets.each {
         it.java.srcDirs += "src/$it.name/kotlin"
+    }
+
+    viewBinding {
+        enabled = true
     }
 
     testOptions {
@@ -46,6 +55,12 @@ android {
 }
 
 dependencies {
+
+    implementation(
+            Dependencies.Tools.Timber,
+            Dependencies.Tools.Glide
+    )
+
     testImplementation(TestDependencies.testImpl)
     testRuntimeOnly(TestDependencies.testRuntime)
 

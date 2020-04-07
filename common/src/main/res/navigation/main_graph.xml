@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_graph"
+    app:startDestination="@id/nav_auth_fragment">
+
+    <fragment
+        android:id="@+id/nav_auth_fragment"
+        android:name="ru.redmadrobot.auth.AuthFragment"
+        android:label="AuthFragment"
+        tools:layout="@layout/fragment_auth">
+        <action
+            android:id="@+id/to_movie_list_main_fragment"
+            app:destination="@id/nav_movie_list_main_fragment"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popUpTo="@id/nav_auth_fragment" />
+    </fragment>
+
+    <action
+        android:id="@+id/to_auth_fragment_global"
+        app:destination="@id/nav_auth_fragment" />
+
+    <fragment
+        android:id="@+id/nav_movie_list_main_fragment"
+        android:name="ru.redmadrobot.movie_list.MovieListMainFragment"
+        android:label="MovieListMainFragment"
+        tools:layout="@layout/fragment_movie_main_list">
+        <action
+            android:id="@+id/to_movie_list_search_fragment"
+            app:destination="@id/nav_movie_list_search_fragment"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_movie_list_search_fragment"
+        android:name="ru.redmadrobot.movie_list.search.MovieListSearchFragment"
+        android:label="MovieListSearchFragment"
+        tools:layout="@layout/fragment_movie_search_list" />
+
+    <fragment
+        android:id="@+id/nav_profile_fragment"
+        android:name="ru.redmadrobot.profile.ProfileFragment"
+        android:label="ProfileFragment"
+        tools:layout="@layout/fragment_profile">
+
+        <action
+            android:id="@+id/to_auth_fragment"
+            app:destination="@id/nav_auth_fragment"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit" />
+    </fragment>
+
+
+    <!--  destination
+ru.redmadrobot.movie_app.debug:id/nav_movie_list_main_fragment referenced from action
+ ru.redmadrobot.movie_app.debug:id/to_movie_list_main_fragment is unknown to this NavController  -->
+    <!--        <include app:graph="@navigation/movie_list_graph" />-->
+    <!--        <include app:graph="@navigation/auth_graph" />-->
+
+</navigation>

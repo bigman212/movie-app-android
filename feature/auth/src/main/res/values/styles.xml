@@ -1,6 +1,6 @@
 <resources>
 
-    <style name="AuthActivityTheme" parent="AppTheme">
+    <style name="AuthFragmentTheme" parent="AppTheme">
         <item name="textInputStyle">@style/AuthTextInput</item>
         <item name="materialButtonStyle">@style/AuthButton</item>
     </style>

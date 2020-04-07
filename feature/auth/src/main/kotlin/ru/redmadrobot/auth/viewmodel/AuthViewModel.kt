@@ -1,27 +1,35 @@
 package ru.redmadrobot.auth.viewmodel
 
-import android.annotation.SuppressLint
-import android.util.Patterns
 import androidx.lifecycle.MutableLiveData
 import io.reactivex.functions.BiFunction
 import ru.redmadrobot.auth.domain.usecase.AuthUseCase
 import ru.redmadrobot.common.base.BaseViewModel
+import ru.redmadrobot.common.vm.Event
+import ru.redmadrobot.core.network.NetworkException
 import ru.redmadrobot.core.network.SchedulersProvider
 import ru.redmadrobot.core.network.scheduleIoToUi
+import timber.log.Timber
 import javax.inject.Inject
 
 class AuthViewModel
 @Inject constructor(private val schedulers: SchedulersProvider, private val useCase: AuthUseCase) : BaseViewModel() {
+
+    object AuthorizedEvent : Event
 
     val viewState = MutableLiveData(AuthViewState())
 
     private val reducer = BiFunction { previousState: AuthViewState, action: AuthAction ->
         when (action) {
             is AuthAction.Fetching -> previousState.fetchingState()
-            is AuthAction.Authorize -> previousState.authorizedState()
+            is AuthAction.Authorize -> {
+                events.offer(AuthorizedEvent)
+                previousState.authorizedState()
+            }
             is AuthAction.EnableButton -> previousState.buttonChangedState(action.shouldBeEnabled)
 
-            is AuthAction.Error -> previousState.errorState(action.uxError)
+            is AuthAction.Error -> {
+                previousState.errorState(action.uxError)
+            }
         }
     }
 
@@ -52,13 +60,15 @@ class AuthViewModel
                     dispatch(AuthAction.Authorize)
                 },
                 {
-                    val stateError = it.message ?: "Неизвестная ошибка"
-                    dispatch(AuthAction.Error(stateError))
+                    Timber.e(it)
+                    if (it is NetworkException.NoNetworkConnection) {
+                        offerErrorEvent(it)
+                    } else {
+                        val stateError = it.message ?: "Неизвестная ошибка"
+                        dispatch(AuthAction.Error(stateError))
+                    }
                 }
             )
             .disposeOnCleared()
     }
-
-    @SuppressLint("NewApi")
-    private fun String.isEmail(): Boolean = Patterns.EMAIL_ADDRESS.matcher(this).matches()
 }

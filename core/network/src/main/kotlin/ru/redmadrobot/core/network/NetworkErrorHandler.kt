@@ -21,6 +21,8 @@ class NetworkErrorHandler @Inject constructor(context: Context, val moshi: Moshi
 
         const val SESSION_DENIED = 17 // истек срок годности session_id
 
+        const val INVALID_ID = 6
+
         const val UNKNOWN_ERROR = -1 // неизвестная ошибка
     }
 
@@ -65,6 +67,7 @@ class NetworkErrorHandler @Inject constructor(context: Context, val moshi: Moshi
             ErrorStatusCode.INVALID_CREDENTIALS -> contextString(R.string.network_invalid_credentials)
             ErrorStatusCode.INVALID_REQUEST_TOKEN -> contextString(R.string.network_error_invalid_api_key)
             ErrorStatusCode.SESSION_DENIED -> contextString(R.string.network_error_session_denied)
+            ErrorStatusCode.INVALID_ID -> contextString(R.string.network_error_invalid_id)
             else -> contextString(R.string.network_error_unknown)
         }
     }

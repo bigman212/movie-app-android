@@ -1,0 +1,42 @@
+import ru.redmadrobot.movie_app.Dependencies
+
+apply plugin: 'com.android.library'
+
+apply from: rootProject.file('common-android-library.gradle')
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
+dependencies {
+    implementation project(":common")
+    implementation project(":core:android")
+    implementation project(":core:network")
+
+    implementation(
+            Dependencies.Kotlin,
+
+            Dependencies.Lifecycle,
+
+            Dependencies.Material,
+
+            Dependencies.Navigation.Fragment,
+            Dependencies.Navigation.UI_KTX,
+
+            Dependencies.AndroidKtx,
+
+            Dependencies.Constraint_layout,
+
+            Dependencies.Dagger.Dagger,
+
+            Dependencies.RxJava,
+
+            Dependencies.Moshi.Moshi,
+            Dependencies.Retrofit,
+    )
+
+    kapt(
+            Dependencies.Dagger.Processor,
+            Dependencies.Moshi.KotlinCodeGen
+    )
+
+    testImplementation project(":test_tools")
+}

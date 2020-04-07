@@ -77,7 +77,7 @@ object TestDependencies {
 }
 
 object Dependencies {
-    internal const val kotlin_version = "1.3.70"
+    internal const val kotlin_version = "1.3.71"
     private const val lifecycle_version = "2.2.0"
     private const val navigation_version = "2.2.0"
     private const val material_version = "1.1.0"
@@ -95,13 +95,14 @@ object Dependencies {
     private const val okhttp_logging_version = "4.4.0"
 
     private const val timber_version = "4.7.1"
+    private const val glide_version = "4.11.0"
 
     const val Kotlin = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 
-    object Lifecycle {
-        const val ViewModel = "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
-        const val Extensions = "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
-    }
+    val Lifecycle = listOf(
+        "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version",
+        "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
+    )
 
     object Navigation {
         const val Fragment = "androidx.navigation:navigation-fragment-ktx:$navigation_version"
@@ -110,9 +111,10 @@ object Dependencies {
 
     const val Material = "com.google.android.material:material:$material_version"
 
-    object AndroidKtx {
-        const val Core = "androidx.core:core-ktx:$android_ktx_version"
-    }
+    val AndroidKtx = listOf(
+        "androidx.core:core-ktx:$android_ktx_version",
+        "androidx.fragment:fragment-ktx:$android_ktx_version"
+    )
 
     const val Constraint_layout = "androidx.constraintlayout:constraintlayout:$constraint_layout_version"
 
@@ -142,5 +144,6 @@ object Dependencies {
 
     object Tools {
         const val Timber = "com.jakewharton.timber:timber:$timber_version"
+        const val Glide = "com.github.bumptech.glide:glide:$glide_version"
     }
 }

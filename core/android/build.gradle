@@ -8,6 +8,8 @@ dependencies {
     implementation(
             Dependencies.Kotlin,
 
+            Dependencies.Lifecycle,
+
             Dependencies.Navigation.Fragment,
             Dependencies.Navigation.UI_KTX,
 
@@ -17,8 +19,6 @@ dependencies {
 
             Dependencies.Retrofit,
             Dependencies.Moshi.Moshi,
-
-            Dependencies.Tools.Timber,
     )
 
     kapt(

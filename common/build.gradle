@@ -11,8 +11,7 @@ dependencies {
     implementation(
             Dependencies.Kotlin,
 
-            Dependencies.Lifecycle.ViewModel,
-            Dependencies.Lifecycle.Extensions,
+            Dependencies.Lifecycle,
 
             Dependencies.Material,
 
@@ -21,14 +20,20 @@ dependencies {
 
             Dependencies.Constraint_layout,
 
+            Dependencies.AndroidKtx,
+
             Dependencies.Dagger.Dagger,
 
             Dependencies.RxJava,
+
+            Dependencies.Moshi.Moshi,
+            Dependencies.Retrofit,
 
             Dependencies.Tools.Timber,
     )
 
     kapt(
-            Dependencies.Dagger.Processor
+            Dependencies.Dagger.Processor,
+            Dependencies.Moshi.KotlinCodeGen
     )
 }
