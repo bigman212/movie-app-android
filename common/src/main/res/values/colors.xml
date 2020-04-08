@@ -13,4 +13,18 @@
 
     <color name="mainTextColor">#E7EDFF</color>
 
+    <color name="color_primary">#6C63FF</color>
+    <color name="color_primary_variant">#E6282C3F</color>
+
+    <color name="color_on_primary">#DADADA</color>
+
+    <color name="color_on_accent">#E7EDFF</color>
+
+    <color name="color_accent">#FE4E27</color>
+
+    <color name="color_background">#191A25</color>
+
+    <color name="color_error">#E1172F</color>
+
+
 </resources>

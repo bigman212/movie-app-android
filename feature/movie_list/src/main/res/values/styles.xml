@@ -1,6 +1,5 @@
 <resources>
 
-    <style name="MovieListTheme" parent="AppTheme"></style>
 
     <style name="SearchTextInputStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <item name="boxBackgroundColor">@color/movieSearchInputBackground</item>

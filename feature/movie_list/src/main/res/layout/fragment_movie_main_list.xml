@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     android:background="@drawable/ic_movie_list_background_girl"
     android:focusableInTouchMode="true"
-    android:theme="@style/MovieListTheme"
     tools:context=".MovieListMainFragment">
 
     <TextView
