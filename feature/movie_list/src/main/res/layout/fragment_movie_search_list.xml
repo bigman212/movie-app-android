@@ -7,12 +7,13 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/text_input_search"
-        style="@style/SearchTextInputStyle"
+        style="@style/Widget.MovieSearch.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="8dp"
+        app:hintEnabled="false"
         app:layout_constraintEnd_toStartOf="@+id/btn_change_content_style"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -22,9 +23,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="@string/movie_search_input_hint"
-            android:textColor="#E7EDFF"
             android:lines="1"
             android:singleLine="true"
+            android:textColor="#E7EDFF"
             android:textColorHint="#E7EDFF"
             android:transitionName="et_search_input" />
     </com.google.android.material.textfield.TextInputLayout>

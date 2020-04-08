@@ -3,18 +3,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="10dp">
+    android:layout_marginBottom="20dp">
 
     <ImageView
         android:id="@+id/img_movie_poster"
         android:layout_width="84dp"
-        android:layout_height="106dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_movie_list_background_girl" />
 
     <TextView
         android:id="@+id/tv_movie_title"
+        style="@style/TextAppearance.App.Headline6"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -22,31 +24,29 @@
         android:lines="1"
         android:singleLine="true"
         android:text="Название фильма"
-        android:textColor="@color/white"
-        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/img_movie_poster"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tv_movie_title_small"
+        style="@style/TextAppearance.App.Caption"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:text="DoLittle (2018)"
-        android:textColor="@color/additionalInfo"
-        android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/img_movie_poster"
         app:layout_constraintTop_toBottomOf="@+id/tv_movie_title" />
 
     <TextView
         android:id="@+id/tv_movie_genre"
+        style="@style/TextAppearance.App.Body2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="65dp"
         android:text="фэнтези, комедия, боевик"
         android:textSize="12sp"
@@ -56,35 +56,34 @@
 
     <TextView
         android:id="@+id/tv_movie_rating"
+        style="@style/TextAppearance.App.Headline6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:text="6.1"
-        android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/img_movie_poster"
         app:layout_constraintTop_toBottomOf="@+id/tv_movie_genre" />
 
     <TextView
         android:id="@+id/tv_movie_vote_count"
+        style="@style/TextAppearance.App.Caption"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:text="4 832"
-        android:textColor="@color/additionalInfo"
-        android:textSize="12sp"
         app:layout_constraintBaseline_toBaselineOf="@+id/tv_movie_rating"
         app:layout_constraintStart_toEndOf="@+id/tv_movie_rating" />
 
     <TextView
         android:id="@+id/tv_movie_duration"
+        style="@style/TextAppearance.App.Body2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:drawableStart="@drawable/ic_movie_duration"
         android:drawablePadding="2dp"
         android:text="91 мин"
-        android:textSize="12sp"
         app:layout_constraintBaseline_toBaselineOf="@+id/tv_movie_vote_count"
         app:layout_constraintStart_toEndOf="@+id/tv_movie_vote_count" />
 </androidx.constraintlayout.widget.ConstraintLayout>

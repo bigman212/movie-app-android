@@ -10,23 +10,23 @@
 
     <TextView
         android:id="@+id/textView"
+        style="@style/TextAppearance.App.Headline4"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="90dp"
         android:text="@string/movie_search_main_find_any_film"
-        android:textSize="36sp"
         app:layout_constraintEnd_toStartOf="@+id/guideline"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/text_input_start_search"
-        style="@style/SearchTextInputStyle"
+        style="@style/Widget.MovieSearch.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="32dp"
         app:layout_constraintEnd_toStartOf="@+id/guideline"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView">
@@ -37,8 +37,6 @@
             android:layout_height="match_parent"
             android:cursorVisible="false"
             android:hint="@string/movie_search_input_hint"
-            android:textColor="@color/mainTextColor"
-            android:textColorHint="@color/mainTextColor"
             android:transitionName="et_search_input" />
     </com.google.android.material.textfield.TextInputLayout>
 

@@ -42,7 +42,7 @@
 
         <item name="colorError">@color/color_error</item>
 
-        <item name="iconTint">#DADADA</item>
+        <item name="iconTint">?attr/colorOnSurface</item>
 
         <item name="textInputStyle">@style/Widget.App.TextInputLayout.OutlinedBox</item>
         <item name="materialButtonStyle">@style/Widget.App.Button</item>
