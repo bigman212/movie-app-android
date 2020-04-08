@@ -8,6 +8,7 @@ buildscript {
         google()
         jcenter()
         maven { url 'https://maven.google.com' }
+        maven { url 'https://dl.bintray.com/lisawray/maven' }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.6.1'
@@ -34,6 +35,7 @@ allprojects {
         google()
         jcenter()
         maven { url 'https://maven.google.com' }
+        maven { url 'https://dl.bintray.com/lisawray/maven' }
     }
 
     apply from: "$rootDir/detekt.gradle"

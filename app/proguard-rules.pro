@@ -44,5 +44,10 @@
   public *;
 }
 
+-keepclassmembers class ** implements androidx.viewbinding.ViewBinding {
+   public static *** inflate(...);
+   public static *** bind(***);
+}
+
 # for DexGuard only
 -keepresourcexmlelements manifest/application/meta-data@value=GlideModule

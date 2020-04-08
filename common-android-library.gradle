@@ -58,7 +58,8 @@ dependencies {
 
     implementation(
             Dependencies.Tools.Timber,
-            Dependencies.Tools.Glide
+            Dependencies.Tools.Glide,
+            Dependencies.Tools.Groupie
     )
 
     testImplementation(TestDependencies.testImpl)
