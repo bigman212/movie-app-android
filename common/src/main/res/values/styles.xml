@@ -3,14 +3,15 @@
         <item name="colorPrimary">@color/color_primary</item>
         <item name="colorOnPrimary">@color/color_on_primary</item>
         <item name="colorPrimaryVariant">@color/color_primary_variant</item>
+        <item name="android:textColorPrimary">?attr/colorOnSurface</item>
+
         <item name="colorAccent">@color/color_accent</item>
         <item name="colorOnSecondary">@color/color_on_accent</item>
 
-        <item name="colorOnSurface">#656D8A</item>
+        <item name="colorOnSurface">@color/color_on_surface</item>
 
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
 
-        <item name="android:textColorPrimary">@color/white</item>
         <item name="textAppearanceHeadline1">@style/TextAppearance.App.Headline1</item>
         <item name="textAppearanceHeadline2">@style/TextAppearance.App.Headline2</item>
         <item name="textAppearanceHeadline3">@style/TextAppearance.App.Headline3</item>

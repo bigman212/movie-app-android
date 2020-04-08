@@ -22,6 +22,8 @@
 
     <color name="color_accent">#FE4E27</color>
 
+    <color name="color_on_surface">#656D8A</color>
+
     <color name="color_background">#191A25</color>
 
     <color name="color_error">#E1172F</color>
