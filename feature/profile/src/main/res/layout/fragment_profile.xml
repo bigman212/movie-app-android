@@ -19,7 +19,7 @@
 
     <TextView
         android:id="@+id/tv_full_name"
-        style="@style/FullNameTextView"
+        style="@style/TextAppearance.App.Headline4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -30,10 +30,10 @@
 
     <TextView
         android:id="@+id/tv_email"
-        style="@style/EmailTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        style="@style/Widget.Profile.TextView"
         android:text="@string/profile_email_placeholder"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -41,8 +41,8 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_logout"
-        style="@style/LogoutButton"
         android:layout_width="0dp"
+        style="@style/Widget.Profile.Button"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"

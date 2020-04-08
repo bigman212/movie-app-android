@@ -18,6 +18,8 @@
 
         <item name="colorOnSurface">#656D8A</item>
 
+        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+
         <item name="android:textColorPrimary">@color/white</item>
         <item name="textAppearanceHeadline1">@style/TextAppearance.App.Headline1</item>
         <item name="textAppearanceHeadline2">@style/TextAppearance.App.Headline2</item>
@@ -43,6 +45,7 @@
         <item name="iconTint">#DADADA</item>
 
         <item name="textInputStyle">@style/Widget.App.TextInputLayout.OutlinedBox</item>
+        <item name="materialButtonStyle">@style/Widget.App.Button</item>
 
         <item name="android:windowBackground">@color/color_background</item>
 
@@ -50,6 +53,12 @@
 
     <style name="ShapeAppearance.App.SmallComponent" parent="ShapeAppearance.MaterialComponents.SmallComponent">
         <item name="cornerSize">8dp</item>
+    </style>
+
+    <style name="Widget.App.Button" parent="Widget.MaterialComponents.Button">
+        <item name="textAllCaps">false</item>
+        <item name="android:padding">15dp</item>
+        <item name="android:textColor">?attr/colorPrimary</item>
     </style>
 
     <style name="Widget.App.TextInputLayout.OutlinedBox" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">

@@ -1,7 +1,5 @@
 <resources>
     <style name="Widget.Auth.Button" parent="Widget.MaterialComponents.Button">
-        <item name="textAllCaps">false</item>
-        <item name="android:padding">15dp</item>
         <item name="backgroundTint">@color/auth_button_background_color</item>
     </style>
 </resources>
