@@ -2,6 +2,7 @@ package ru.redmadrobot.movie_list.data.entity
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
+import ru.redmadrobot.common.adapters.Movie
 import ru.redmadrobot.common.data.entity.Genre
 
 @JsonClass(generateAdapter = true)
@@ -76,12 +77,33 @@ data class MovieDetail(
     val hasVideo: Boolean,
 
     @field:Json(name = "vote_average")
-    val voteAverage: Float,
+    val voteAverage: Double,
 
     @field:Json(name = "vote_count")
     val voteCount: Int
 ) {
     enum class Status {
         Rumored, Planned, In_Production, Post_Production, Released, Canceled
+    }
+
+    fun toMovie(): Movie {
+        return Movie(
+            posterPath = posterPath,
+            isForAdults = isAdult,
+            overview = overview ?: "",
+            releaseDateAsStr = releaseDate,
+            genreIds = genres.map(Genre::id),
+            genres = genres,
+            id = id,
+            originalTitle = originalTitle,
+            originalLanguage = originalLanguage,
+            title = title,
+            backdropPath = backdropPath,
+            popularity = popularity,
+            voteCount = voteCount,
+            isVideo = false,
+            voteAverage = voteAverage,
+            runtime = runtime!!
+        )
     }
 }

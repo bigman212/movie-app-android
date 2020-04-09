@@ -2,14 +2,11 @@ package ru.redmadrobot.movie_list.search
 
 import androidx.lifecycle.MutableLiveData
 import io.reactivex.Observable
+import ru.redmadrobot.common.adapters.Movie
 import ru.redmadrobot.common.base.BaseViewModel
 import ru.redmadrobot.common.extensions.delegate
-import ru.redmadrobot.common.extensions.mapDistinct
-import ru.redmadrobot.common.extensions.uiObserve
-import ru.redmadrobot.common.vm.Event
 import ru.redmadrobot.core.network.SchedulersProvider
-import ru.redmadrobot.movie_list.data.entity.Movie
-import ru.redmadrobot.movie_list.data.entity.MovieDetail
+import ru.redmadrobot.core.network.scheduleIoToUi
 import ru.redmadrobot.movie_list.domain.MovieSearchUseCase
 import timber.log.Timber
 import javax.inject.Inject
@@ -19,33 +16,37 @@ class MovieListSearchViewModel @Inject constructor(
     private val searchUseCase: MovieSearchUseCase
 ) : BaseViewModel() {
 
-    class MovieSearchFinishedEvent(val moviesFound: List<Movie>) : Event
-    class MovieSearchRuntimeFetchedEvent(val fetchedMovie: MovieDetail) : Event
+    sealed class ScreenState {
+        data class Content(val data: List<Movie>) : ScreenState()
+        object Loading : ScreenState()
 
-    private val viewState = MutableLiveData(MovieListSearchViewState())
-    private var state: MovieListSearchViewState by viewState.delegate()
+        object Empty : ScreenState()
 
-    val isFetching = viewState.mapDistinct { it.isFetching }
+        companion object {
+            fun initial(): ScreenState = Content(listOf())
+        }
+    }
+
+    val viewState: MutableLiveData<ScreenState> = MutableLiveData(ScreenState.initial())
+    private var state: ScreenState by viewState.delegate()
 
     fun onSearchMovieInputChanged(movieTitle: CharSequence) {
-        if (state.isFetching) {
+        if (state == ScreenState.Loading) {
             compositeDisposable.dispose() // отменяем все текущие запросы
         }
         searchUseCase.searchMovie(movieTitle)
-            .doOnSubscribe { state = state.fetchingState() }
-            .doOnEvent { _, _ -> state = state.fetchingFinishedState() }
-            .uiObserve()
-            .doOnSuccess { events.offer(MovieSearchFinishedEvent(it)) }
-            .observeOn(schedulersProvider.io())
+            .doOnSubscribe { state = ScreenState.Loading }
             .flattenAsObservable { it }
-            .flatMap {
-                searchUseCase.fetchMovieDetails(it.id)
-                    .onErrorResumeNext(Observable.empty()) // при возникновении ошибки пропускаем и идем альше
+            .flatMap { movie: Movie ->
+                searchUseCase.fetchMovieDetails(movie.id)
+                    .map { movie.copy(runtime = it.runtime ?: 0) }
+                    .onErrorReturnItem(movie) // при возникновении ошибки пропускаем и идем альше
             }
+            .toList()
             .scheduleIoToUi(schedulersProvider)
             .subscribe(
-                {
-                    events.offer(MovieSearchRuntimeFetchedEvent(it))
+                { movies ->
+                    state = if (movies.isEmpty()) ScreenState.Empty else ScreenState.Content(movies)
                 },
                 {
                     Timber.e(it)

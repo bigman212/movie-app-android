@@ -7,4 +7,8 @@
     <string name="common_invalid_credentials">Неправильный логин или пароль</string>
     <string name="common_error_auth_gone_wrong">Сбой при авторизации, попробуйте позднее</string>
     <string name="common_error_unauthorized">Отсутствует доступ к ресурсу</string>
+
+    <string name="genres_not_loaded">Жанры отсутствуют</string>
+    <string name="item_movie_duration_unknown">Продолжительность неизвестна</string>
+    <string name="item_movie_duration_format">%d мин.</string>
 </resources>

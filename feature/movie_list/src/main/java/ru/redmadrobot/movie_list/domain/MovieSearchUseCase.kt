@@ -2,9 +2,9 @@ package ru.redmadrobot.movie_list.domain
 
 import io.reactivex.Observable
 import io.reactivex.Single
+import ru.redmadrobot.common.adapters.Movie
 import ru.redmadrobot.common.data.GenresRepository
 import ru.redmadrobot.common.data.entity.Genre
-import ru.redmadrobot.movie_list.data.entity.Movie
 import ru.redmadrobot.movie_list.data.entity.MovieDetail
 import ru.redmadrobot.movie_list.search.MovieRepository
 import javax.inject.Inject

@@ -4,9 +4,9 @@ import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
+import ru.redmadrobot.common.adapters.Movie
 import ru.redmadrobot.core.network.NetworkRouter
 import ru.redmadrobot.core.network.entities.WithPages
-import ru.redmadrobot.movie_list.data.entity.Movie
 import ru.redmadrobot.movie_list.data.entity.MovieDetail
 
 interface MovieSearchService {

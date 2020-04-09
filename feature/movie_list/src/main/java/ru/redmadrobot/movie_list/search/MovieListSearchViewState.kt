@@ -1,6 +1,6 @@
 package ru.redmadrobot.movie_list.search
 
-import ru.redmadrobot.movie_list.data.entity.Movie
+import ru.redmadrobot.common.adapters.Movie
 
 data class MovieListSearchViewState(
     val isFetching: Boolean = false,

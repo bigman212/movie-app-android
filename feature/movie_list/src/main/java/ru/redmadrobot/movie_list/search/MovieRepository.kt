@@ -1,9 +1,9 @@
 package ru.redmadrobot.movie_list.search
 
 import io.reactivex.Single
+import ru.redmadrobot.common.adapters.Movie
 import ru.redmadrobot.core.network.entities.WithPages
 import ru.redmadrobot.movie_list.data.MovieSearchService
-import ru.redmadrobot.movie_list.data.entity.Movie
 import ru.redmadrobot.movie_list.data.entity.MovieDetail
 import javax.inject.Inject
 
