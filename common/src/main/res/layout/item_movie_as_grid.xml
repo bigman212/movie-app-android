@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginBottom="20dp">
+    android:layout_height="wrap_content">
 
     <ImageView
         android:id="@+id/img_movie_poster"
@@ -25,7 +24,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/img_movie_poster"
-        tools:text="Очень большой заголовок фильма который не помещается на одну строку" />
+        tools:text="@string/sample_movie_large_title" />
 
     <TextView
         android:id="@+id/tv_movie_title_small"
@@ -33,23 +32,22 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="DoLittle (2018)"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_movie_title" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_movie_title"
+        tools:text="@string/sample_movie_original_title" />
 
     <TextView
         android:id="@+id/tv_movie_genre"
-        style="@style/TextAppearance.App.Body2"
+        style="@style/TextAppearance.App.Body3"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:lines="2"
-        android:text="фэнтези, комедия, боевик пук пук"
-        android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_movie_title_small" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_movie_title_small"
+        tools:text="@string/sample_movie_genres" />
 
     <TextView
         android:id="@+id/tv_movie_rating"
@@ -57,10 +55,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="6.1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_movie_genre" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_movie_genre"
+        tools:text="@string/sample_movie_rating" />
 
     <TextView
         android:id="@+id/tv_movie_vote_count"
@@ -68,18 +66,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:text="4 832"
         app:layout_constraintBaseline_toBaselineOf="@+id/tv_movie_rating"
-        app:layout_constraintStart_toEndOf="@+id/tv_movie_rating" />
+        app:layout_constraintStart_toEndOf="@+id/tv_movie_rating"
+        tools:text="@string/sample_movie_votes" />
 
     <TextView
         android:id="@+id/tv_movie_duration"
-        style="@style/TextAppearance.App.Body2"
+        style="@style/TextAppearance.App.MovieDurationText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:drawableStart="@drawable/ic_movie_duration"
-        android:drawablePadding="2dp"
-        android:text="91 мин"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:text="@string/sample_movie_duration" />
 </androidx.constraintlayout.widget.ConstraintLayout>

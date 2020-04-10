@@ -21,13 +21,12 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_search_input"
+            style="@style/Widget.MovieSearch.EditText"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="@string/movie_search_input_hint"
             android:lines="1"
             android:singleLine="true"
-            android:textColor="#E7EDFF"
-            android:textColorHint="#E7EDFF"
             android:transitionName="et_search_input" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -55,6 +54,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_input_search"
+
         tools:listitem="@layout/item_movie_as_grid"
         tools:visibility="visible" />
 
@@ -63,6 +63,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:visibility="gone"
 
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -96,6 +97,5 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.85" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

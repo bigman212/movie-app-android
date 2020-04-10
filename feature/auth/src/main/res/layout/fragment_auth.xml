@@ -44,6 +44,7 @@
             app:layout_constraintEnd_toStartOf="@+id/guideline_right"
             app:layout_constraintStart_toStartOf="@+id/guideline_left"
             app:layout_constraintTop_toBottomOf="@+id/text_welcome_body">
+
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_login"
                 android:layout_width="match_parent"
@@ -77,16 +78,17 @@
 
         <TextView
             android:id="@+id/tv_error"
+            style="@style/TextAppearance.App.Error"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="25dp"
             android:text="@string/common_error_unknown"
-            android:textColor="@color/colorError"
             android:visibility="invisible"
 
             app:layout_constraintEnd_toStartOf="@+id/guideline_right"
             app:layout_constraintStart_toStartOf="@+id/guideline_left"
-            app:layout_constraintTop_toBottomOf="@+id/txt_input_password" />
+            app:layout_constraintTop_toBottomOf="@+id/txt_input_password"
+            tools:visibility="visible" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_submit"
@@ -94,7 +96,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
-            android:text="@string/btn_enter"
+            android:text="@string/btn_login"
 
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/guideline_right"

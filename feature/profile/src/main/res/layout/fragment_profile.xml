@@ -13,6 +13,7 @@
         android:layout_marginTop="130dp"
         android:src="@drawable/ic_profile_default_avatar"
         android:textAlignment="center"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -23,31 +24,34 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="@string/profile_full_name_placeholder"
+        android:text="@string/sample_profile_full_name"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/img_avatar" />
 
     <TextView
         android:id="@+id/tv_email"
+        style="@style/Widget.Profile.TextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        style="@style/Widget.Profile.TextView"
-        android:text="@string/profile_email_placeholder"
+        android:text="@string/sample_profile_email"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_full_name" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_logout"
-        android:layout_width="0dp"
         style="@style/Widget.Profile.Button"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="24dp"
         android:text="@string/profile_logout"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -58,6 +62,7 @@
         android:layout_height="wrap_content"
         android:indeterminate="true"
         android:visibility="gone"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
