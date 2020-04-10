@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <declare-styleable name="StubView">
+        <attr name="stubTitle" format="string" />
+        <attr name="stubDescription" format="string" />
+        <attr name="stubIcon" format="reference" />
+        <attr name="addButtonCaption" format="string" />
+    </declare-styleable>
+</resources>

@@ -77,7 +77,7 @@ class MovieListSearchFragment : BaseFragment(R.layout.fragment_movie_search_list
 
     private fun renderEmpty(isEmpty: Boolean) {
         binding.rvMoviesList.isGone = isEmpty
-        binding.groupNoMoviesFound.isVisible = isEmpty
+        binding.viewSearchStub.isVisible = isEmpty
     }
 
     private fun renderContent(moviesFound: List<Movie>) {
