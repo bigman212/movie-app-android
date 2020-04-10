@@ -9,7 +9,7 @@
     <string name="common_error_unauthorized">Отсутствует доступ к ресурсу</string>
 
     <string name="genres_not_loaded">Жанры отсутствуют</string>
-    <string name="item_movie_duration_unknown">Продолжительность неизвестна</string>
+    <string name="item_movie_duration_unknown">неизв.</string>
     <string name="item_movie_duration_format">%d мин.</string>
     <string name="view_stub_try_again">Попробовать еще раз</string>
 </resources>

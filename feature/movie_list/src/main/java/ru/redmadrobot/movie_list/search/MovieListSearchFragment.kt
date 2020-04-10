@@ -5,11 +5,14 @@ import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.jakewharton.rxbinding3.widget.textChanges
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import io.reactivex.disposables.Disposable
+import kotlinx.android.synthetic.main.fragment_movie_search_list.*
+import ru.redmadrobot.common.adapters.MovieGridItem
 import ru.redmadrobot.common.adapters.MovieListItem
 import ru.redmadrobot.common.base.BaseFragment
 import ru.redmadrobot.common.data.movie.entity.Movie
@@ -38,7 +41,8 @@ class MovieListSearchFragment : BaseFragment(R.layout.fragment_movie_search_list
 
     private val binding: FragmentMovieSearchListBinding by viewBinding()
 
-    private val adapter: GroupAdapter<GroupieViewHolder> = GroupAdapter()
+    private val adapterGrid = GroupAdapter<GroupieViewHolder>().apply { spanCount = 2 }
+    private val adapterList = GroupAdapter<GroupieViewHolder>()
 
     private lateinit var searchTextObserver: Disposable
 
@@ -57,7 +61,7 @@ class MovieListSearchFragment : BaseFragment(R.layout.fragment_movie_search_list
 
     private fun initMovieList() {
         binding.rvMoviesList.layoutManager = LinearLayoutManager(context)
-        binding.rvMoviesList.adapter = adapter
+        binding.rvMoviesList.adapter = adapterList
     }
 
     private fun initViewModel() {
@@ -81,13 +85,14 @@ class MovieListSearchFragment : BaseFragment(R.layout.fragment_movie_search_list
     }
 
     private fun renderContent(moviesFound: List<Movie>) {
-        val movieAdapterItems = moviesFound.map { movie ->
-            MovieListItem(movie) { clickedItem ->
-                val directions = MovieListSearchFragmentDirections.toMovieDetailFragment(clickedItem.id)
-                navigateTo(directions)
-            }
+        val onMovieClicked = { clickedItem: Movie ->
+            val directions = MovieListSearchFragmentDirections.toMovieDetailFragment(clickedItem.id)
+            navigateTo(directions)
         }
-        adapter.update(movieAdapterItems)
+        val movieAdapterListItems = moviesFound.map { movie -> MovieListItem(movie, onMovieClicked) }
+        val movieAdapterGridItems = moviesFound.map { movie -> MovieGridItem(movie, onMovieClicked) }
+        adapterList.update(movieAdapterListItems)
+        adapterGrid.update(movieAdapterGridItems)
     }
 
     private fun initViews() {
@@ -100,6 +105,24 @@ class MovieListSearchFragment : BaseFragment(R.layout.fragment_movie_search_list
             .filter(CharSequence::isNotBlank)
             .debounce(USER_INPUT_DEBOUNCE, TimeUnit.MILLISECONDS)
             .subscribe(viewModel::onSearchMovieInputChanged)
+
+        btn_change_content_style.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                changeContentToGrid()
+            } else {
+                changeContentToList()
+            }
+        }
+    }
+
+    private fun changeContentToGrid() {
+        binding.rvMoviesList.layoutManager = GridLayoutManager(requireContext(), adapterGrid.spanCount)
+        binding.rvMoviesList.adapter = adapterGrid
+    }
+
+    private fun changeContentToList() {
+        binding.rvMoviesList.layoutManager = LinearLayoutManager(requireContext())
+        binding.rvMoviesList.adapter = adapterList
     }
 
     override fun onDestroy() {

@@ -47,6 +47,7 @@
         android:id="@+id/rv_movies_list"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
         android:visibility="visible"
 
@@ -54,9 +55,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_input_search"
-
-        tools:listitem="@layout/item_movie_as_list"
-        tools:visibility="gone" />
+        tools:listitem="@layout/item_movie_as_grid"
+        tools:visibility="visible" />
 
     <ru.redmadrobot.common.view.StubView
         android:id="@+id/view_search_stub"

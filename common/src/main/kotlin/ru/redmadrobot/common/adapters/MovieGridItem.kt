@@ -6,23 +6,23 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import ru.redmadrobot.common.R
 import ru.redmadrobot.common.data.movie.entity.Movie
-import ru.redmadrobot.common.databinding.ItemMovieAsListBinding
+import ru.redmadrobot.common.databinding.ItemMovieAsGridBinding
 import ru.redmadrobot.common.extensions.context
 import ru.redmadrobot.common.extensions.year
 import ru.redmadrobot.core.network.NetworkRouter
 
-data class MovieListItem(private val movie: Movie, val onClickListener: (item: Movie) -> Unit) :
-    MovieItem<ItemMovieAsListBinding>() {
+data class MovieGridItem(private val movie: Movie, private val onClickListener: (item: Movie) -> Unit) :
+    MovieItem<ItemMovieAsGridBinding>() {
 
-    override fun initializeViewBinding(view: View): ItemMovieAsListBinding = ItemMovieAsListBinding.bind(view)
+    override fun initializeViewBinding(view: View): ItemMovieAsGridBinding = ItemMovieAsGridBinding.bind(view)
 
     override fun getId(): Long = movie.id.toLong()
 
-    override fun getLayout(): Int = R.layout.item_movie_as_list
+    override fun getLayout(): Int = R.layout.item_movie_as_grid
 
     @SuppressLint("SetTextI18n") // originalText не переводится
-    override fun bind(viewBinding: ItemMovieAsListBinding, position: Int) {
-        Glide.with(viewBinding.root.context)
+    override fun bind(viewBinding: ItemMovieAsGridBinding, position: Int) {
+        Glide.with(viewBinding.context())
             .load(NetworkRouter.IMAGES + movie.posterPath)
             .placeholder(R.drawable.ic_movie_list_background_girl)
             .transform(RoundedCorners(POSTER_CORNERS_RADIUS))

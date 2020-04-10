@@ -38,7 +38,7 @@ class MovieDetailFragment : BaseFragment(R.layout.fragment_movie_detail) {
 
     private val args: MovieDetailFragmentArgs by navArgs()
 
-    private val adapter = GroupAdapter<GroupieViewHolder>()
+    private val contentAdapter = GroupAdapter<GroupieViewHolder>()
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -76,7 +76,7 @@ class MovieDetailFragment : BaseFragment(R.layout.fragment_movie_detail) {
             dividerItemDecoration.setDrawable(requireActivity().getDrawable(R.drawable.divider)!!)
             binding.rvMovieContent.addItemDecoration(dividerItemDecoration)
 
-            binding.rvMovieContent.adapter = adapter
+            this.adapter = contentAdapter
         }
     }
 
@@ -94,7 +94,7 @@ class MovieDetailFragment : BaseFragment(R.layout.fragment_movie_detail) {
             val section = Section()
             section.setHeader(MovieDetailHeaderItem(state.data))
             section.add(MovieDetailBodyItem(state.data.overview ?: "No overview found"))
-            adapter.add(section)
+            contentAdapter.add(section)
         }
     }
 }

@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Widget.MovieDetail.Toolbar" parent="Widget.MaterialComponents.Toolbar">
-        <item name="colorControlNormal">@color/light</item>
-        <item name="android:colorControlNormal">@color/light</item>
+    <style name="Widget.MovieDetail.Toolbar.Button.Navigation.Tinted" parent="Widget.AppCompat.Toolbar.Button.Navigation">
         <item name="iconTint">@color/light</item>
-        <item name="android:colorPrimary">@color/light</item>
-        <item name="colorOnPrimary">@color/light</item>
     </style>
 </resources>
