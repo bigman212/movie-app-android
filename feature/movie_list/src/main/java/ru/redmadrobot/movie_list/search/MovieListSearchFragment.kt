@@ -56,7 +56,7 @@ class MovieListSearchFragment : BaseFragment(R.layout.fragment_movie_search_list
     }
 
     private fun initMovieList() {
-        binding.rvMoviesList.layoutManager = LinearLayoutManager(this.context)
+        binding.rvMoviesList.layoutManager = LinearLayoutManager(context)
         binding.rvMoviesList.adapter = adapter
     }
 
@@ -81,7 +81,12 @@ class MovieListSearchFragment : BaseFragment(R.layout.fragment_movie_search_list
     }
 
     private fun renderContent(moviesFound: List<Movie>) {
-        val movieAdapterItems = moviesFound.map(::MovieListItem)
+        val movieAdapterItems = moviesFound.map { movie ->
+            MovieListItem(movie) { clickedItem ->
+                val directions = MovieListSearchFragmentDirections.toMovieDetailFragment(clickedItem.id)
+                navigateTo(directions)
+            }
+        }
         adapter.update(movieAdapterItems)
     }
 

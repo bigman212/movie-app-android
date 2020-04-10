@@ -10,10 +10,12 @@ import ru.redmadrobot.common.R
 import ru.redmadrobot.common.data.genre.Genre
 import ru.redmadrobot.common.data.movie.entity.Movie
 import ru.redmadrobot.common.databinding.ItemMovieAsListBinding
+import ru.redmadrobot.common.extensions.context
 import ru.redmadrobot.common.extensions.year
 import ru.redmadrobot.core.network.NetworkRouter
 
-data class MovieListItem(private val movie: Movie) : BindableItem<ItemMovieAsListBinding>() {
+data class MovieListItem(private val movie: Movie, val clickListener: (item: Movie) -> Unit) :
+    BindableItem<ItemMovieAsListBinding>() {
     companion object {
         private const val POSTER_CORNERS_RADIUS = 8
     }
@@ -43,6 +45,8 @@ data class MovieListItem(private val movie: Movie) : BindableItem<ItemMovieAsLis
         viewBinding.tvMovieVoteCount.text = movie.voteCount.toString()
 
         viewBinding.tvMovieDuration.text = generateDurationString(viewBinding.context(), movie.runtime)
+
+        viewBinding.root.setOnClickListener { clickListener(movie) }
     }
 
     override fun getLayout(): Int = R.layout.item_movie_as_list
@@ -61,6 +65,4 @@ data class MovieListItem(private val movie: Movie) : BindableItem<ItemMovieAsLis
         }
         return context.getString(R.string.item_movie_duration_format, duration)
     }
-
-    private fun ItemMovieAsListBinding.context(): Context = root.context
 }

@@ -19,6 +19,8 @@ class MovieDetailViewModel @Inject constructor(
         data class Content(val data: MovieDetail) : ScreenState()
         object Loading : ScreenState()
 
+        object Empty : ScreenState()
+
         companion object {
             fun initial(): ScreenState = Loading
         }
@@ -27,14 +29,13 @@ class MovieDetailViewModel @Inject constructor(
     val viewState: MutableLiveData<ScreenState> = MutableLiveData(ScreenState.initial())
     private var state: ScreenState by viewState.delegate()
 
-    fun onFragmentCreated(id: Int) {
+    fun fetchMovie(id: Int) {
         movieRepo.movieDetailsById(id)
             .scheduleIoToUi(schedulersProvider)
             .subscribe(
-                { movie ->
-                    state = ScreenState.Content(movie)
-                },
+                { movie -> state = ScreenState.Content(movie) },
                 {
+                    state = ScreenState.Empty
                     Timber.e(it)
                     offerErrorEvent(it)
                 }

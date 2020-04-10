@@ -41,6 +41,7 @@ dependencies {
 
     implementation project(":feature:auth")
     implementation project(':feature:movie_list')
+    implementation project(":feature:movie_detail")
     implementation project(':feature:profile')
 
     implementation(

@@ -40,6 +40,8 @@
 
         <item name="android:windowBackground">@color/bg_black</item>
 
+        <item name="android:listDivider">@drawable/divider</item>
+
     </style>
 
     <style name="ShapeAppearance.App.SmallComponent" parent="ShapeAppearance.MaterialComponents.SmallComponent">
