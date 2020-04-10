@@ -62,7 +62,10 @@ dependencies {
             Dependencies.Retrofit,
     )
 
+    compileOnly(Dependencies.Dagger.AssistedInject)
+
     kapt(
-            Dependencies.Dagger.Processor
+            Dependencies.Dagger.Processor,
+            Dependencies.Dagger.AssistedInjectProcessor,
     )
 }

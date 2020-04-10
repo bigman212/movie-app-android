@@ -25,16 +25,18 @@ dependencies {
 
             Dependencies.Dagger.Dagger,
 
+
             Dependencies.RxJava,
 
             Dependencies.Moshi.Moshi,
             Dependencies.Retrofit,
-
-            Dependencies.Tools.RxBinding
     )
+
+    compileOnly(Dependencies.Dagger.AssistedInject)
 
     kapt(
             Dependencies.Dagger.Processor,
+            Dependencies.Dagger.AssistedInjectProcessor,
             Dependencies.Moshi.KotlinCodeGen
     )
 

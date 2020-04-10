@@ -86,6 +86,7 @@ object Dependencies {
     private const val android_ktx_version = "1.2.0"
 
     private const val dagger_version = "2.26"
+    private const val assisted_inject_version = "0.5.2"
 
     private const val rxjava_version = "2.2.18"
     private const val rxandroid_version = "2.1.1"
@@ -97,6 +98,7 @@ object Dependencies {
     private const val timber_version = "4.7.1"
     private const val glide_version = "4.11.0"
     private const val groupie_version = "2.8.0"
+    private const val rx_view_binding = "3.1.0"
 
     const val Kotlin = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 
@@ -122,6 +124,10 @@ object Dependencies {
     object Dagger {
         const val Dagger = "com.google.dagger:dagger:$dagger_version"
         const val Processor = "com.google.dagger:dagger-compiler:$dagger_version"
+
+        const val AssistedInject = "com.squareup.inject:assisted-inject-annotations-dagger2:$assisted_inject_version"
+        const val AssistedInjectProcessor =
+            "com.squareup.inject:assisted-inject-processor-dagger2:$assisted_inject_version"
     }
 
     val RxJava = listOf(
@@ -150,5 +156,6 @@ object Dependencies {
             "com.xwray:groupie:$groupie_version",
             "com.xwray:groupie-viewbinding:$groupie_version"
         )
+        const val RxBinding = "com.jakewharton.rxbinding3:rxbinding:$rx_view_binding"
     }
 }
