@@ -3,6 +3,8 @@ package ru.redmadrobot.common.data.movie.entity
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 import ru.redmadrobot.common.data.genre.Genre
+import timber.log.Timber
+import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
@@ -62,7 +64,12 @@ data class Movie(
 
     private fun parseReleaseDate(): Calendar {
         val format = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-        val date = format.parse(releaseDateAsStr) ?: Date()
+        val date = try {
+            format.parse(releaseDateAsStr)
+        } catch (ex: ParseException) {
+            Timber.i(ex)
+            Date()
+        }
 
         return Calendar.getInstance().apply {
             time = date

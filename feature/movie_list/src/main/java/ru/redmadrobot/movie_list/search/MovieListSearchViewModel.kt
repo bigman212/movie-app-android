@@ -31,8 +31,8 @@ class MovieListSearchViewModel @Inject constructor(
     private var state: ScreenState by viewState.delegate()
 
     fun onSearchMovieInputChanged(movieTitle: CharSequence) {
-        if (state == ScreenState.Loading) {
-            compositeDisposable.dispose() // отменяем все текущие запросы
+        if (state == ScreenState.Loading && !compositeDisposable.isDisposed) {
+            compositeDisposable.clear() // отменяем все текущие запросы используя именно clear, а не dispose
         }
         searchUseCase.searchMovie(movieTitle)
             .doOnSubscribe { state = ScreenState.Loading }
