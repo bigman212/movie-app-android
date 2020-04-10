@@ -2,12 +2,12 @@ package ru.redmadrobot.movie_list.search
 
 import androidx.lifecycle.MutableLiveData
 import io.reactivex.Observable
-import ru.redmadrobot.common.adapters.Movie
 import ru.redmadrobot.common.base.BaseViewModel
+import ru.redmadrobot.common.data.movie.entity.Movie
 import ru.redmadrobot.common.extensions.delegate
 import ru.redmadrobot.core.network.SchedulersProvider
 import ru.redmadrobot.core.network.scheduleIoToUi
-import ru.redmadrobot.movie_list.domain.MovieSearchUseCase
+import ru.redmadrobot.movie_list.search.domain.MovieSearchUseCase
 import timber.log.Timber
 import javax.inject.Inject
 

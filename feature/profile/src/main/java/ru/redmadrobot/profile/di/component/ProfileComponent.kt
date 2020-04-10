@@ -5,12 +5,12 @@ import ru.redmadrobot.common.di.AppProvider
 import ru.redmadrobot.core.android.AndroidToolsProvider
 import ru.redmadrobot.core.network.di.NetworkProvider
 import ru.redmadrobot.profile.ProfileFragment
-import ru.redmadrobot.profile.di.module.ProfileServiceModule
+import ru.redmadrobot.profile.di.module.ProfileApiModule
 import ru.redmadrobot.profile.di.module.ProfileViewModelModule
 
 @Component(
     dependencies = [NetworkProvider::class, AndroidToolsProvider::class],
-    modules = [ProfileViewModelModule::class, ProfileServiceModule::class]
+    modules = [ProfileViewModelModule::class, ProfileApiModule::class]
 )
 interface ProfileComponent {
     fun inject(obj: ProfileFragment)

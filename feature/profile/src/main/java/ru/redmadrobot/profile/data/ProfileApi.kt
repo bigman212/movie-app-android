@@ -7,7 +7,7 @@ import ru.redmadrobot.core.network.NetworkRouter
 import ru.redmadrobot.profile.data.entities.DeleteSessionRequest
 import ru.redmadrobot.profile.data.entities.DeleteSessionResponse
 
-interface ProfileService {
+interface ProfileApi {
     /**
      * If you would like to delete (or "logout") from a session, call this method with a valid session ID.
      */

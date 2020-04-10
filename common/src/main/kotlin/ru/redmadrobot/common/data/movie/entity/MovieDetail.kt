@@ -1,9 +1,8 @@
-package ru.redmadrobot.movie_list.data.entity
+package ru.redmadrobot.common.data.movie.entity
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
-import ru.redmadrobot.common.adapters.Movie
-import ru.redmadrobot.common.data.entity.Genre
+import ru.redmadrobot.common.data.genre.Genre
 
 @JsonClass(generateAdapter = true)
 data class MovieDetail(

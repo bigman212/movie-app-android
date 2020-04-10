@@ -1,17 +1,16 @@
-package ru.redmadrobot.common.data
+package ru.redmadrobot.common.data.genre
 
 import android.content.SharedPreferences
 import androidx.core.content.edit
 import dagger.Reusable
 import io.reactivex.Completable
-import ru.redmadrobot.common.data.entity.Genre
 import timber.log.Timber
 import javax.inject.Inject
 
 @Reusable
 class GenresRepository @Inject constructor(
     private val sharedPrefs: SharedPreferences,
-    private val genreService: GenreService
+    private val genreService: GenreApi
 ) {
     private fun prefsKeyFromId(genreId: Int) = "genre_$genreId"
 

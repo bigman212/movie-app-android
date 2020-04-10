@@ -1,4 +1,4 @@
-package ru.redmadrobot.common.data.entity
+package ru.redmadrobot.common.data.genre
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass

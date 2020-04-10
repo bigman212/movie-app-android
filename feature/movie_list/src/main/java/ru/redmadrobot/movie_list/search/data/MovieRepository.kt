@@ -1,14 +1,14 @@
-package ru.redmadrobot.movie_list.search
+package ru.redmadrobot.movie_list.search.data
 
 import io.reactivex.Single
-import ru.redmadrobot.common.adapters.Movie
+import ru.redmadrobot.common.data.movie.MovieApi
+import ru.redmadrobot.common.data.movie.entity.Movie
+import ru.redmadrobot.common.data.movie.entity.MovieDetail
 import ru.redmadrobot.core.network.entities.WithPages
-import ru.redmadrobot.movie_list.data.MovieSearchService
-import ru.redmadrobot.movie_list.data.entity.MovieDetail
 import javax.inject.Inject
 
 class MovieRepository @Inject constructor(
-    private val api: MovieSearchService
+    private val api: MovieApi
 ) {
     fun findByTitle(name: CharSequence): Single<List<Movie>> {
         return api

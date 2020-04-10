@@ -1,12 +1,12 @@
-package ru.redmadrobot.movie_list.domain
+package ru.redmadrobot.movie_list.search.domain
 
 import io.reactivex.Observable
 import io.reactivex.Single
-import ru.redmadrobot.common.adapters.Movie
-import ru.redmadrobot.common.data.GenresRepository
-import ru.redmadrobot.common.data.entity.Genre
-import ru.redmadrobot.movie_list.data.entity.MovieDetail
-import ru.redmadrobot.movie_list.search.MovieRepository
+import ru.redmadrobot.common.data.genre.Genre
+import ru.redmadrobot.common.data.genre.GenresRepository
+import ru.redmadrobot.common.data.movie.entity.Movie
+import ru.redmadrobot.common.data.movie.entity.MovieDetail
+import ru.redmadrobot.movie_list.search.data.MovieRepository
 import javax.inject.Inject
 
 class MovieSearchUseCase @Inject constructor(

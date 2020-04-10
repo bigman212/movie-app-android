@@ -2,10 +2,10 @@ package ru.redmadrobot.auth.di.component
 
 import dagger.Component
 import ru.redmadrobot.auth.AuthFragment
-import ru.redmadrobot.auth.di.module.AuthServiceModule
+import ru.redmadrobot.auth.di.module.AuthApiModule
 import ru.redmadrobot.auth.di.module.AuthViewModelModule
 import ru.redmadrobot.common.di.AppProvider
-import ru.redmadrobot.common.di.genre.GenreServiceModule
+import ru.redmadrobot.common.di.genre.GenreApiModule
 import ru.redmadrobot.core.android.AndroidToolsProvider
 import ru.redmadrobot.core.network.di.NetworkProvider
 
@@ -16,8 +16,8 @@ import ru.redmadrobot.core.network.di.NetworkProvider
     ],
     modules = [
         AuthViewModelModule::class,
-        AuthServiceModule::class,
-        GenreServiceModule::class
+        AuthApiModule::class,
+        GenreApiModule::class
     ]
 )
 interface AuthComponent {

@@ -1,14 +1,12 @@
-package ru.redmadrobot.common.data.entity
+package ru.redmadrobot.common.data.movie.entity
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
-data class Genre(
-    @field:Json(name = "id")
-    val id: Int,
-
+data class ProductionCountry(
+    @field:Json(name = "iso_3166_1")
+    val iso3166_1: String,
     @field:Json(name = "name")
     val name: String
 )
-

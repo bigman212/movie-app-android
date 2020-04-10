@@ -10,9 +10,9 @@ import com.jakewharton.rxbinding3.widget.textChanges
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import io.reactivex.disposables.Disposable
-import ru.redmadrobot.common.adapters.Movie
 import ru.redmadrobot.common.adapters.MovieListItem
 import ru.redmadrobot.common.base.BaseFragment
+import ru.redmadrobot.common.data.movie.entity.Movie
 import ru.redmadrobot.common.extensions.observe
 import ru.redmadrobot.common.extensions.showKeyboard
 import ru.redmadrobot.common.extensions.showLoading

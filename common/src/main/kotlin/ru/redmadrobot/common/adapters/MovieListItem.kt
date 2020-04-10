@@ -7,7 +7,8 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.xwray.groupie.viewbinding.BindableItem
 import ru.redmadrobot.common.R
-import ru.redmadrobot.common.data.entity.Genre
+import ru.redmadrobot.common.data.genre.Genre
+import ru.redmadrobot.common.data.movie.entity.Movie
 import ru.redmadrobot.common.databinding.ItemMovieAsListBinding
 import ru.redmadrobot.common.extensions.year
 import ru.redmadrobot.core.network.NetworkRouter

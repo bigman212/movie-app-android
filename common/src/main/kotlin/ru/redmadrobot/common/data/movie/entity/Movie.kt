@@ -1,8 +1,8 @@
-package ru.redmadrobot.common.adapters
+package ru.redmadrobot.common.data.movie.entity
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
-import ru.redmadrobot.common.data.entity.Genre
+import ru.redmadrobot.common.data.genre.Genre
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date

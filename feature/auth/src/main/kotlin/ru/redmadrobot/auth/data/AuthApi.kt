@@ -10,7 +10,7 @@ import ru.redmadrobot.auth.data.entities.response.SessionIdResponse
 import ru.redmadrobot.auth.data.entities.response.TokenResponse
 import ru.redmadrobot.core.network.NetworkRouter
 
-interface AuthService {
+interface AuthApi {
     // порядок авторизации:
     // 1. /authentication/token/new
     // 2. /authentication/token/validate_with_login

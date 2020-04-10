@@ -9,7 +9,7 @@ import javax.inject.Inject
 
 class ProfileUseCase @Inject constructor(
     private val sessionIdRepository: SessionIdRepository,
-    private val profileService: ProfileService
+    private val profileService: ProfileApi
 ) {
     fun logout(): Completable {
         val sessionId = sessionIdRepository.getSessionId()

@@ -1,4 +1,4 @@
-package ru.redmadrobot.movie_list.data.entity
+package ru.redmadrobot.common.data.movie.entity
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
