@@ -13,20 +13,20 @@
 
     <color name="mainTextColor">#E7EDFF</color>
 
-    <color name="color_primary">#6C63FF</color>
-    <color name="color_primary_variant">#E6282C3F</color>
+    <color name="purpure">#6C63FF</color>
+    <color name="light_bg_black">#E6282C3F</color>
 
-    <color name="color_on_primary">#DADADA</color>
+    <color name="dark_light">#DADADA</color>
 
-    <color name="color_on_accent">#E7EDFF</color>
+    <color name="light">#E7EDFF</color>
 
-    <color name="color_accent">#FE4E27</color>
+    <color name="orange">#FE4E27</color>
 
-    <color name="color_on_surface">#656D8A</color>
+    <color name="gray">#656D8A</color>
 
-    <color name="color_background">#191A25</color>
+    <color name="bg_black">#191A25</color>
 
-    <color name="color_error">#E1172F</color>
+    <color name="red">#E1172F</color>
 
 
 </resources>

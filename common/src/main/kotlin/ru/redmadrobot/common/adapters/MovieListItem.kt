@@ -24,7 +24,7 @@ data class MovieListItem(private val movie: Movie) : BindableItem<ItemMovieAsLis
 
     override fun getId(): Long = movie.id.toLong()
 
-    @SuppressLint("SetTextI18n") // original Text не переводится
+    @SuppressLint("SetTextI18n") // originalText не переводится
     override fun bind(viewBinding: ItemMovieAsListBinding, position: Int) {
         Glide.with(viewBinding.root.context)
             .load(NetworkRouter.IMAGES + movie.posterPath)
