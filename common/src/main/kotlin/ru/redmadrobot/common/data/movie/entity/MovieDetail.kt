@@ -3,6 +3,7 @@ package ru.redmadrobot.common.data.movie.entity
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 import ru.redmadrobot.common.data.genre.Genre
+import ru.redmadrobot.common.utils.DateUtils
 
 @JsonClass(generateAdapter = true)
 data class MovieDetail(
@@ -52,7 +53,7 @@ data class MovieDetail(
     val productionCountries: List<ProductionCountry>,
 
     @field:Json(name = "release_date")
-    val releaseDate: String,
+    val releaseDateAsStr: String,
 
     @field:Json(name = "revenue")
     val revenue: Int,
@@ -81,6 +82,8 @@ data class MovieDetail(
     @field:Json(name = "vote_count")
     val voteCount: Int
 ) {
+    val releaseDate = DateUtils.dateStrToCalendar(releaseDateAsStr)
+
     enum class Status {
         Rumored, Planned, In_Production, Post_Production, Released, Canceled
     }
@@ -90,7 +93,7 @@ data class MovieDetail(
             posterPath = posterPath,
             isForAdults = isAdult,
             overview = overview ?: "",
-            releaseDateAsStr = releaseDate,
+            releaseDateAsStr = releaseDateAsStr,
             genreIds = genres.map(Genre::id),
             genres = genres,
             id = id,
