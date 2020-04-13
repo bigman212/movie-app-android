@@ -18,7 +18,6 @@ import ru.redmadrobot.common.base.BaseFragment
 import ru.redmadrobot.common.data.movie.entity.Movie
 import ru.redmadrobot.common.extensions.observe
 import ru.redmadrobot.common.extensions.showKeyboard
-import ru.redmadrobot.common.extensions.showLoading
 import ru.redmadrobot.common.extensions.viewBinding
 import ru.redmadrobot.common.vm.observeEvents
 import ru.redmadrobot.movie_list.R
@@ -77,7 +76,9 @@ class MovieListSearchFragment : BaseFragment(R.layout.fragment_movie_search_list
         }
     }
 
-    private fun renderFetching(isFetching: Boolean) = binding.progressBar.showLoading(isFetching)
+    private fun renderFetching(isFetching: Boolean) {
+        binding.progressBar.isVisible = isFetching
+    }
 
     private fun renderEmpty(isEmpty: Boolean) {
         binding.rvMoviesList.isGone = isEmpty

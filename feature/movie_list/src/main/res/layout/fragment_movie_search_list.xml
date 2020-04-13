@@ -55,8 +55,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_input_search"
 
+        tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         tools:listitem="@layout/item_movie_as_grid"
-        tools:visibility="visible" />
+        tools:spanCount="2" />
 
     <ru.redmadrobot.common.view.StubView
         android:id="@+id/view_search_stub"
@@ -73,16 +74,20 @@
         app:stubIcon="@drawable/ic_ufo"
         app:stubTitle="@string/movies_no_movies_found" />
 
-    <ProgressBar
+    <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/progress_bar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:indeterminate="true"
 
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+
+        app:lottie_autoPlay="true"
+        app:lottie_fileName="anim_search_rotation.json"
+        app:lottie_loop="true"
+        app:lottie_speed="1" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline2"

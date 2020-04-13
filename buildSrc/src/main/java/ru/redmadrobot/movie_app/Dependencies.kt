@@ -99,6 +99,7 @@ object Dependencies {
     private const val glide_version = "4.11.0"
     private const val groupie_version = "2.8.0"
     private const val rx_view_binding = "3.1.0"
+    private const val lottie_version = "3.0.0"
 
     const val Kotlin = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 
@@ -157,5 +158,6 @@ object Dependencies {
             "com.xwray:groupie-viewbinding:$groupie_version"
         )
         const val RxBinding = "com.jakewharton.rxbinding3:rxbinding:$rx_view_binding"
+        const val Lottie = "com.airbnb.android:lottie:$lottie_version"
     }
 }
