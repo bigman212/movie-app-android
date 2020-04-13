@@ -9,7 +9,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
@@ -18,6 +17,8 @@ import ru.redmadrobot.common.base.BaseFragment
 import ru.redmadrobot.common.extensions.observe
 import ru.redmadrobot.common.extensions.viewBinding
 import ru.redmadrobot.common.vm.observeEvents
+import ru.redmadrobot.movie_detail.adapters.MovieDetailBodyItem
+import ru.redmadrobot.movie_detail.adapters.MovieDetailHeaderItem
 import ru.redmadrobot.movie_detail.databinding.FragmentMovieDetailBinding
 import ru.redmadrobot.movie_detail.di.component.MovieDetailComponent
 import javax.inject.Inject
@@ -71,11 +72,6 @@ class MovieDetailFragment : BaseFragment(R.layout.fragment_movie_detail) {
 
         with(binding.rvMovieContent) {
             layoutManager = LinearLayoutManager(context)
-
-            val dividerItemDecoration = DividerItemDecoration(context, DividerItemDecoration.HORIZONTAL)
-            dividerItemDecoration.setDrawable(requireActivity().getDrawable(R.drawable.divider)!!)
-            binding.rvMovieContent.addItemDecoration(dividerItemDecoration)
-
             this.adapter = contentAdapter
         }
     }
@@ -93,7 +89,11 @@ class MovieDetailFragment : BaseFragment(R.layout.fragment_movie_detail) {
         if (state is MovieDetailViewModel.ScreenState.Content) {
             val section = Section()
             section.setHeader(MovieDetailHeaderItem(state.data))
-            section.add(MovieDetailBodyItem(state.data.overview ?: "No overview found"))
+            section.add(
+                MovieDetailBodyItem(
+                    state.data.overview ?: "No overview found"
+                )
+            )
             contentAdapter.add(section)
         }
     }

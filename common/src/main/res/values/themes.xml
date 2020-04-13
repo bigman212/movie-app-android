@@ -41,8 +41,5 @@
         <item name="materialButtonStyle">@style/Widget.App.Button</item>
 
         <item name="android:windowBackground">@color/bg_black</item>
-
-        <item name="android:listDivider">@drawable/divider</item>
-
     </style>
 </resources>

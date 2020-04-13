@@ -1,4 +1,4 @@
-package ru.redmadrobot.movie_detail
+package ru.redmadrobot.movie_detail.adapters
 
 import android.annotation.SuppressLint
 import android.view.View
@@ -9,6 +9,7 @@ import ru.redmadrobot.common.data.genre.Genre
 import ru.redmadrobot.common.data.movie.entity.MovieDetail
 import ru.redmadrobot.common.extensions.context
 import ru.redmadrobot.core.network.NetworkRouter
+import ru.redmadrobot.movie_detail.R
 import ru.redmadrobot.movie_detail.databinding.ItemDetailedMovieHeaderBinding
 
 data class MovieDetailHeaderItem(private val movie: MovieDetail) : BindableItem<ItemDetailedMovieHeaderBinding>() {

@@ -1,7 +1,8 @@
-package ru.redmadrobot.movie_detail
+package ru.redmadrobot.movie_detail.adapters
 
 import android.view.View
 import com.xwray.groupie.viewbinding.BindableItem
+import ru.redmadrobot.movie_detail.R
 import ru.redmadrobot.movie_detail.databinding.ItemDetailedMovieDescriptionBinding
 
 data class MovieDetailBodyItem(private val description: String) : BindableItem<ItemDetailedMovieDescriptionBinding>() {
@@ -15,7 +16,8 @@ data class MovieDetailBodyItem(private val description: String) : BindableItem<I
         viewBinding.tvMovieDescription.text = description
     }
 
-    override fun getLayout(): Int = R.layout.item_detailed_movie_description
+    override fun getLayout(): Int =
+        R.layout.item_detailed_movie_description
 
 }
 
