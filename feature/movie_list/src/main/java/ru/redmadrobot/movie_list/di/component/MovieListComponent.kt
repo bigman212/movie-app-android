@@ -8,14 +8,15 @@ import ru.redmadrobot.common.di.vm.ViewModelFactoryModule
 import ru.redmadrobot.core.android.AndroidToolsProvider
 import ru.redmadrobot.core.network.di.NetworkProvider
 import ru.redmadrobot.movie_list.MovieListMainFragment
-import ru.redmadrobot.movie_list.di.module.MovieListSearchViewModelModule
+import ru.redmadrobot.movie_list.di.module.MovieListViewModelModule
+import ru.redmadrobot.movie_list.favorite.FavoritesFragment
 import ru.redmadrobot.movie_list.search.MovieListSearchFragment
 
 @Component(
     dependencies = [NetworkProvider::class, AndroidToolsProvider::class],
     modules = [
         MovieApiModule::class,
-        MovieListSearchViewModelModule::class,
+        MovieListViewModelModule::class,
         ViewModelFactoryModule::class,
         GenreApiModule::class
     ]
@@ -23,6 +24,9 @@ import ru.redmadrobot.movie_list.search.MovieListSearchFragment
 interface MovieListComponent {
     fun inject(obj: MovieListMainFragment)
     fun inject(obj: MovieListSearchFragment)
+
+    fun inject(obj: FavoritesFragment)
+
 
     @Component.Factory
     interface Factory {
