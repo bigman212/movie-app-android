@@ -28,5 +28,12 @@ object NetworkRouter {
     private const val genre = "$api_number/genre"
     const val GENRE_MOVIE_ALL = "$genre/movie/list"
 
+    private const val account = "$api_number/account"
+    const val ACCOUNT_DETAILS = account
+
+    private const val favorite = "$account/{account_id}/favorite"
+    const val FAVORITE = "$favorite/"
+    const val FAVORITE_MOVIES = "$favorite/movies"
+
     const val IMAGES = "https://image.tmdb.org/t/p/w500"
 }

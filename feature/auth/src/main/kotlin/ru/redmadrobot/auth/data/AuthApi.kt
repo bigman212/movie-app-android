@@ -4,8 +4,10 @@ import io.reactivex.Single
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.Query
 import ru.redmadrobot.auth.data.entities.request.SessionIdRequest
 import ru.redmadrobot.auth.data.entities.request.ValidateTokenRequest
+import ru.redmadrobot.auth.data.entities.response.AccountDetailsResponse
 import ru.redmadrobot.auth.data.entities.response.SessionIdResponse
 import ru.redmadrobot.auth.data.entities.response.TokenResponse
 import ru.redmadrobot.core.network.NetworkRouter
@@ -38,4 +40,6 @@ interface AuthApi {
     @POST(NetworkRouter.AUTH_CREATE_SESSION_ID)
     fun createSessionId(@Body body: SessionIdRequest): Single<SessionIdResponse>
 
+    @GET(NetworkRouter.ACCOUNT_DETAILS)
+    fun accountDetails(@Query("session_id") sessionId: CharSequence): Single<AccountDetailsResponse>
 }
