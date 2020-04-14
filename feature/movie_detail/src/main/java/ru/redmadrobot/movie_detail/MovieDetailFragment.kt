@@ -63,7 +63,8 @@ class MovieDetailFragment : BaseFragment(R.layout.fragment_movie_detail) {
             setNavigationIcon(R.drawable.ic_arrow_back)
 
             setOnMenuItemClickListener { item ->
-                if (item.itemId == R.id.action_ff) {
+                viewModel.onFavoriteButtonClicked(args.movieId)
+                if (item.itemId == R.id.action_ff) { // вынести как ивент
                     item.setIcon(R.drawable.ic_favorite_checked)
                 }
                 true

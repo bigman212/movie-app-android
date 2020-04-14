@@ -1,11 +1,15 @@
 package ru.redmadrobot.common.data.movie
 
 import io.reactivex.Single
+import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.POST
 import retrofit2.http.Path
 import retrofit2.http.Query
+import ru.redmadrobot.common.data.movie.entity.MarkMovieFavoriteRequest
 import ru.redmadrobot.common.data.movie.entity.Movie
 import ru.redmadrobot.common.data.movie.entity.MovieDetail
+import ru.redmadrobot.core.network.ErrorResponse
 import ru.redmadrobot.core.network.NetworkRouter
 import ru.redmadrobot.core.network.entities.WithPages
 
@@ -22,4 +26,10 @@ interface MovieApi {
         @Query("session_id") sessionId: CharSequence
     ): Single<WithPages<Movie>>
 
+    @POST(NetworkRouter.FAVORITE)
+    fun markMovieAsFavorite(
+        @Path("account_id") accountId: Int,
+        @Query("session_id") sessionId: CharSequence,
+        @Body body: MarkMovieFavoriteRequest
+    ): Single<ErrorResponse>
 }
