@@ -5,74 +5,60 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-<!--    <com.google.android.material.textfield.TextInputLayout-->
-<!--        android:id="@+id/text_input_search"-->
-<!--        style="@style/Widget.MovieSearch.TextInputLayout.OutlinedBox"-->
-<!--        android:layout_width="0dp"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginStart="16dp"-->
-<!--        android:layout_marginTop="24dp"-->
-<!--        android:layout_marginEnd="8dp"-->
-<!--        app:hintEnabled="false"-->
 
-<!--        app:layout_constraintEnd_toStartOf="@+id/btn_change_content_style"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent">-->
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar_favorites"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
 
-<!--        <com.google.android.material.textfield.TextInputEditText-->
-<!--            android:id="@+id/et_search_input"-->
-<!--            style="@style/Widget.MovieSearch.EditText"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:hint="@string/movie_search_input_hint"-->
-<!--            android:lines="1"-->
-<!--            android:singleLine="true"-->
-<!--            android:transitionName="et_search_input" />-->
-<!--    </com.google.android.material.textfield.TextInputLayout>-->
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
 
-    <ToggleButton
-        android:id="@+id/btn_change_content_style"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginEnd="16dp"
-        android:background="@drawable/ic_content_style"
-        android:textOff=""
-        android:textOn=""
 
-        app:layout_constraintBaseline_toBaselineOf="@+id/text_input_search"
-        app:layout_constraintEnd_toEndOf="parent" />
+        android:theme="@style/Widget.App.Toolbar.Tinted"
+        app:menu="@menu/menu_favorites_toolbar"
+        app:navigationIcon="@drawable/ic_arrow_back" />
+
+    <TextView
+        android:id="@+id/textView2"
+        style="@style/TextAppearance.App.Headline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/favorites_screen_title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_favorites" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_movies_list"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
-        android:visibility="visible"
+        android:layout_marginTop="16dp"
 
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_input_search"
 
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2"
         tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         tools:listitem="@layout/item_movie_as_grid"
         tools:spanCount="2" />
 
-    <ru.redmadrobot.common.view.StubView
-        android:id="@+id/view_search_stub"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:visibility="gone"
 
+    <include
+        android:id="@+id/view_stub_no_favorites_found"
+        layout="@layout/view_no_favorites_found"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-
-        app:stubIcon="@drawable/ic_ufo"
-        app:stubTitle="@string/movies_no_movies_found" />
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/progress_bar"

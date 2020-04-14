@@ -1,6 +1,8 @@
 package ru.redmadrobot.movie_list.favorite
 
 import android.os.Bundle
+import android.view.MenuItem
+import androidx.appcompat.widget.SearchView
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
@@ -9,7 +11,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
-import io.reactivex.disposables.Disposable
 import ru.redmadrobot.common.adapters.MovieGridItem
 import ru.redmadrobot.common.adapters.MovieListItem
 import ru.redmadrobot.common.base.BaseFragment
@@ -36,8 +37,7 @@ class FavoritesFragment : BaseFragment(R.layout.fragment_favorites) {
 
     private val adapterGrid = GroupAdapter<GroupieViewHolder>().apply { spanCount = 2 }
     private val adapterList = GroupAdapter<GroupieViewHolder>()
-
-    private lateinit var searchTextObserver: Disposable
+    private var contentStyleGrid = false
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -46,6 +46,8 @@ class FavoritesFragment : BaseFragment(R.layout.fragment_favorites) {
         initMovieList()
         initViewModel()
         initViews()
+
+        viewModel.fetchFavorites()
     }
 
     private fun initDagger() {
@@ -76,12 +78,12 @@ class FavoritesFragment : BaseFragment(R.layout.fragment_favorites) {
 
     private fun renderEmpty(isEmpty: Boolean) {
         binding.rvMoviesList.isGone = isEmpty
-        binding.viewSearchStub.isVisible = isEmpty
+        binding.viewStubNoFavoritesFound.root.isVisible = isEmpty
     }
 
     private fun renderContent(moviesFound: List<Movie>) {
         val onMovieClicked = { clickedItem: Movie ->
-            val directions = FavoriteFragmentDirections.toMovieDetailFragment(clickedItem.id)
+            val directions = FavoritesFragmentDirections.toMovieDetailFragment(clickedItem.id)
             navigateTo(directions)
         }
         val movieAdapterListItems = moviesFound.map { movie -> MovieListItem(movie, onMovieClicked) }
@@ -91,20 +93,31 @@ class FavoritesFragment : BaseFragment(R.layout.fragment_favorites) {
     }
 
     private fun initViews() {
-//        binding.etSearchInput.requestFocus()
-//        showKeyboard()
-//
-//        searchTextObserver = binding.etSearchInput.textChanges()
-//        btn_change_content_style.setOnCheckedChangeListener { _, isChecked ->
-//            if (isChecked) {
-//                changeContentToGrid()
-//            } else {
-//                changeContentToList()
-//            }
-//        }
+        val menu = binding.toolbarFavorites.menu
+        val searchItem: MenuItem = menu.findItem(R.id.action_search)
+        val searchView = searchItem.actionView as SearchView
+        searchView.queryHint = getString(R.string.favorites_search_hint)
+
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String): Boolean = TODO()
+            override fun onQueryTextChange(newText: String): Boolean = TODO()
+        })
+
+        val changeContentStyleItem: MenuItem = menu.findItem(R.id.action_change_content_style)
+
+        changeContentStyleItem.setOnMenuItemClickListener {
+            if (contentStyleGrid) {
+                changeContentToList()
+            } else {
+                changeContentToGrid()
+            }
+            contentStyleGrid = !contentStyleGrid
+            true
+        }
     }
 
     private fun changeContentToGrid() {
+
         binding.rvMoviesList.layoutManager = GridLayoutManager(requireContext(), adapterGrid.spanCount)
         binding.rvMoviesList.adapter = adapterGrid
     }
@@ -112,10 +125,5 @@ class FavoritesFragment : BaseFragment(R.layout.fragment_favorites) {
     private fun changeContentToList() {
         binding.rvMoviesList.layoutManager = LinearLayoutManager(requireContext())
         binding.rvMoviesList.adapter = adapterList
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        searchTextObserver.dispose()
     }
 }

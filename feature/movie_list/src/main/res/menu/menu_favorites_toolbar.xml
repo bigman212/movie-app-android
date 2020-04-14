@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="ru.redmadrobot.movie_list.favorite.FavoritesFragment">
+    <item
+        android:id="@+id/action_search"
+        android:title=""
+        app:actionViewClass="androidx.appcompat.widget.SearchView"
+        app:showAsAction="always"
+        tools:ignore="AlwaysShowAction" />
+
+    <item
+        android:id="@+id/action_change_content_style"
+        android:title=""
+        android:icon="@drawable/ic_content_style"
+        app:showAsAction="always" />
+</menu>

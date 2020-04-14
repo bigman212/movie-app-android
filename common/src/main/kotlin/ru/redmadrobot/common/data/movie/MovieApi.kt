@@ -15,4 +15,11 @@ interface MovieApi {
 
     @GET(NetworkRouter.MOVIE_DETAILS)
     fun movieDetail(@Path("movie_id") movieId: Int): Single<MovieDetail>
+
+    @GET(NetworkRouter.FAVORITE_MOVIES)
+    fun favoriteMovies(
+        @Path("account_id") accountId: Int,
+        @Query("session_id") sessionId: CharSequence
+    ): Single<WithPages<Movie>>
+
 }

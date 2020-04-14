@@ -27,4 +27,12 @@
     <style name="TextAppearance.App.Error" parent="TextAppearance.App.Body2">
         <item name="android:textColor">@color/red</item>
     </style>
+
+    <style name="Widget.App.Toolbar.Tinted" parent="Widget.AppCompat.SearchView">
+        <item name="iconTint">@color/light</item>
+        <item name="searchHintIcon">@null</item>
+        <item name="android:textColor">@color/light</item>
+        <item name="android:textColorPrimary">@color/light</item>
+        <item name="android:textColorSecondary">@color/light</item>
+    </style>
 </resources>

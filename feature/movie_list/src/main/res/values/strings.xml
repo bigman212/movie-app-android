@@ -5,4 +5,8 @@
     <string name="movie_search_main_find_any_film">Найдем любой фильм на ваш вкус</string>
     <string name="movie_search_input_hint">Поиск фильмов</string>
     <string name="movies_no_movies_found">По вашему запросу ничего не найдено :(</string>
+    <string name="favorites_search_hint">Найти фильм</string>
+    <string name="favorites_screen_title">Избранное</string>
+    <string name="favorites_no_items">Вы не добавили ни одного фильма</string>
+    <string name="favorites_find_movies">Найти любимые фильмы</string>
 </resources>

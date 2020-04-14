@@ -9,7 +9,7 @@
         android:id="@+id/toolbar_movie_detail"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:theme="@style/Widget.MovieDetail.Toolbar.Button.Navigation.Tinted"
+        android:theme="@style/Widget.App.Toolbar.Tinted"
 
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

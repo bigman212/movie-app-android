@@ -55,7 +55,7 @@
 
     <fragment
         android:id="@+id/favorites_fragment"
-        android:name="ru.redmadrobot.movie_list.favorite.FavoriteFragment"
+        android:name="ru.redmadrobot.movie_list.favorite.FavoritesFragment"
         tools:layout="@layout/fragment_favorites">
         <action
             android:id="@+id/to_movie_detail_fragment"
