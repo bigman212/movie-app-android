@@ -7,6 +7,7 @@ import ru.redmadrobot.common.vm.Event
 import ru.redmadrobot.core.network.SchedulersProvider
 import ru.redmadrobot.core.network.scheduleIoToUi
 import ru.redmadrobot.profile.data.ProfileUseCase
+import timber.log.Timber
 import javax.inject.Inject
 
 class ProfileViewModel @Inject constructor(
@@ -18,6 +19,18 @@ class ProfileViewModel @Inject constructor(
 
     val viewState = MutableLiveData(ProfileViewState())
     private var state: ProfileViewState by viewState.delegate()
+
+    fun fetchAccountDetails() {
+        profileRepo.getAccountDetails()
+            .subscribe(
+                {
+                    state = state.withAccountDetails(it)
+                }, {
+                    state = state.withAccountDetails(null)
+                    Timber.e(it)
+                }
+            ).disposeOnCleared()
+    }
 
     fun onLogoutButtonClicked() {
         profileRepo.logout()

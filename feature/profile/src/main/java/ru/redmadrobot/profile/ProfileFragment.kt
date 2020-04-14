@@ -5,6 +5,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import ru.redmadrobot.auth.AuthFragmentDirections
 import ru.redmadrobot.common.base.BaseFragment
+import ru.redmadrobot.common.data.profile.AccountDetails
 import ru.redmadrobot.common.extensions.observe
 import ru.redmadrobot.common.extensions.showLoading
 import ru.redmadrobot.common.extensions.viewBinding
@@ -37,6 +38,8 @@ class ProfileFragment : BaseFragment(R.layout.fragment_profile) {
         binding.btnLogout.setOnClickListener {
             viewModel.onLogoutButtonClicked()
         }
+
+        viewModel.fetchAccountDetails()
     }
 
     private fun initDagger() {
@@ -47,9 +50,16 @@ class ProfileFragment : BaseFragment(R.layout.fragment_profile) {
         observe(viewModel.viewState) {
             renderFetching(it.isFetching)
             renderLogoutButtonState(it.isLogoutButtonEnabled)
+            renderAccount(it.account)
         }
 
         observeEvents(viewModel.events, ::onEvent)
+    }
+
+    private fun renderAccount(account: AccountDetails?) {
+        account?.let { accountDetails ->
+            binding.tvFullName.text = accountDetails.username
+        }
     }
 
     private fun renderFetching(isFetching: Boolean) {
