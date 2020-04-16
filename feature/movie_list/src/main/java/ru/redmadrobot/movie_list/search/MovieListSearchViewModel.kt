@@ -1,7 +1,6 @@
 package ru.redmadrobot.movie_list.search
 
 import androidx.lifecycle.MutableLiveData
-import io.reactivex.Observable
 import ru.redmadrobot.common.base.BaseViewModel
 import ru.redmadrobot.common.data.movie.entity.Movie
 import ru.redmadrobot.common.extensions.delegate
@@ -39,7 +38,7 @@ class MovieListSearchViewModel @Inject constructor(
             .flattenAsObservable { it }
             .flatMap { movie: Movie ->
                 searchUseCase.fetchMovieDetails(movie.id)
-                    .map { movie.copy(runtime = it.runtime) }
+                    .map { movieDetailWithRuntime -> movie.copy(runtime = movieDetailWithRuntime.runtime) }
                     .onErrorReturnItem(movie) // при возникновении ошибки пропускаем и идем альше
             }
             .toList()
@@ -48,15 +47,11 @@ class MovieListSearchViewModel @Inject constructor(
                 { movies ->
                     state = if (movies.isEmpty()) ScreenState.Empty else ScreenState.Content(movies)
                 },
-                {
-                    Timber.e(it)
-                    offerErrorEvent(it)
+                { error ->
+                    Timber.e(error)
+                    offerErrorEvent(error)
                 }
             ).disposeOnCleared()
     }
-}
-
-private fun <T> Observable<T>.scheduleIoToUi(schedulers: SchedulersProvider): Observable<T> {
-    return subscribeOn(schedulers.io()).observeOn(schedulers.ui())
 }
 

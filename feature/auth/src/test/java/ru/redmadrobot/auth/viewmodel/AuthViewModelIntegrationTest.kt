@@ -66,8 +66,8 @@ internal class AuthViewModelIntegrationTest : Spek({
         }
 
         Scenario("authorize user with entered credentials") {
-            networkEnvironment.dispatchResponses {
-                when (it) {
+            networkEnvironment.dispatchResponses { url ->
+                when (url) {
                     NetworkRouter.AUTH_TOKEN_NEW, NetworkRouter.AUTH_VALIDATE_TOKEN -> MockResponse()
                         .success(
                             moshi.toJson(TokenResponse(true, "10.10.2020", "request_token"))
