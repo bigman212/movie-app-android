@@ -1,9 +1,10 @@
 package ru.redmadrobot.profile
 
 import androidx.lifecycle.MutableLiveData
+import ru.redmadrobot.auth.AuthFragmentDirections
 import ru.redmadrobot.common.base.BaseViewModel
 import ru.redmadrobot.common.extensions.delegate
-import ru.redmadrobot.common.vm.Event
+import ru.redmadrobot.common.vm.NavigateToEvent
 import ru.redmadrobot.core.network.SchedulersProvider
 import ru.redmadrobot.core.network.scheduleIoToUi
 import ru.redmadrobot.profile.data.ProfileUseCase
@@ -15,12 +16,10 @@ class ProfileViewModel @Inject constructor(
     private val profileRepo: ProfileUseCase
 ) : BaseViewModel() {
 
-    object LogoutEvent : Event
-
     val viewState = MutableLiveData(ProfileViewState())
     private var state: ProfileViewState by viewState.delegate()
 
-    fun fetchAccountDetails() {
+    fun loadAccountDetails() {
         profileRepo.getAccountDetails()
             .subscribe(
                 {
@@ -34,15 +33,14 @@ class ProfileViewModel @Inject constructor(
 
     fun onLogoutButtonClicked() {
         profileRepo.logout()
-            .doOnSubscribe {
-                state = state.fetchingState()
-            }
+            .doOnSubscribe { state = state.fetchingState() }
             .scheduleIoToUi(schedulersProvider)
             .doOnEvent { state = state.fetchingFinishedState() }
             .subscribe(
                 {
-                    events.offer(LogoutEvent)
-                }, this::offerErrorEvent
+                    events.offer(NavigateToEvent(AuthFragmentDirections.toAuthFragmentGlobal()))
+                },
+                this::offerErrorEvent
             ).disposeOnCleared()
     }
 }
