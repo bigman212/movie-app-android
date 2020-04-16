@@ -6,7 +6,6 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.ProgressBar
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.viewbinding.ViewBinding
 import com.google.android.material.textfield.TextInputEditText
 
 fun ProgressBar.showLoading(loading: Boolean) {
@@ -26,6 +25,4 @@ fun Fragment.showKeyboard() {
 }
 
 fun TextInputEditText.fieldValue(): String = text.toString()
-
-fun ViewBinding.context(): Context = root.context
 
