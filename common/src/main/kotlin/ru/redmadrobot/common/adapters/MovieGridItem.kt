@@ -7,6 +7,8 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import ru.redmadrobot.common.R
 import ru.redmadrobot.common.data.movie.entity.Movie
 import ru.redmadrobot.common.databinding.ItemMovieAsGridBinding
+import ru.redmadrobot.common.extensions.context
+import ru.redmadrobot.common.extensions.resources
 import ru.redmadrobot.core.network.NetworkRouter
 
 data class MovieGridItem(private val movie: Movie, private val onClickListener: (item: Movie) -> Unit) :

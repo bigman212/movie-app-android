@@ -63,7 +63,7 @@ class MovieDetailFragment : BaseFragment(R.layout.fragment_movie_detail) {
             setNavigationIcon(R.drawable.ic_arrow_back)
 
             setOnMenuItemClickListener { item ->
-                if (item.itemId == R.id.action_ff) {
+                if (item.itemId == R.id.action_mark_movie_favorite) {
                     item.setIcon(R.drawable.ic_favorite_checked)
                 }
                 true
@@ -89,10 +89,9 @@ class MovieDetailFragment : BaseFragment(R.layout.fragment_movie_detail) {
         if (state is MovieDetailViewModel.ScreenState.Content) {
             val section = Section()
             section.setHeader(MovieDetailHeaderItem(state.data))
+
             section.add(
-                MovieDetailBodyItem(
-                    state.data.overview ?: "No overview found"
-                )
+                MovieDetailBodyItem(state.data.overview)
             )
             contentAdapter.add(section)
         }

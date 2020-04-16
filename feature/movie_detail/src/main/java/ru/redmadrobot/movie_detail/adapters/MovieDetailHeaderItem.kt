@@ -7,6 +7,8 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import ru.redmadrobot.common.adapters.MovieItem
 import ru.redmadrobot.common.data.movie.entity.MovieDetail
+import ru.redmadrobot.common.extensions.context
+import ru.redmadrobot.common.extensions.resources
 import ru.redmadrobot.core.network.NetworkRouter
 import ru.redmadrobot.movie_detail.R
 import ru.redmadrobot.movie_detail.databinding.ItemDetailedMovieHeaderBinding

@@ -39,7 +39,7 @@ class MovieListSearchViewModel @Inject constructor(
             .flattenAsObservable { it }
             .flatMap { movie: Movie ->
                 searchUseCase.fetchMovieDetails(movie.id)
-                    .map { movie.copy(runtime = it.runtime ?: 0) }
+                    .map { movie.copy(runtime = it.runtime) }
                     .onErrorReturnItem(movie) // при возникновении ошибки пропускаем и идем альше
             }
             .toList()

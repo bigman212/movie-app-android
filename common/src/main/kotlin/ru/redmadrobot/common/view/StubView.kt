@@ -34,7 +34,7 @@ class StubView @JvmOverloads constructor(context: Context, attrs: AttributeSet? 
         }
 
     /***/
-    fun setOnAddClickListener(listener: () -> Unit) {
+    fun setOnButtonClickListener(listener: () -> Unit) {
         view_stub_button_add.setOnClickListener { listener() }
     }
 

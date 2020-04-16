@@ -30,16 +30,10 @@ abstract class MovieItem<T : ViewBinding> : BindableItem<T>() {
             ?: context.getString(R.string.genres_not_loaded)
     }
 
-    open protected fun generateDurationString(context: Context, duration: Int): String {
+    protected open fun generateDurationString(context: Context, duration: Int): String {
         if (duration == 0) {
             return context.getString(R.string.item_movie_duration_unknown)
         }
         return context.getString(R.string.item_movie_duration_format, duration)
     }
-
-    protected val ViewBinding.context: Context
-        get() = root.context
-
-    protected val ViewBinding.resources: Resources
-        get() = context.resources
 }
