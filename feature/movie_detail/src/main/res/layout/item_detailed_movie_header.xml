@@ -56,7 +56,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:text="Время"
+        android:text="@string/item_detailed_movie_duration_title"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/img_movie_poster" />
 
@@ -66,7 +66,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:text="Рейтинг фильма"
+        android:text="@string/item_detailed_movie_rating_title"
         app:layout_constraintBaseline_toBaselineOf="@+id/tv_movie_duration_header"
         app:layout_constraintStart_toEndOf="@+id/img_movie_poster" />
 
