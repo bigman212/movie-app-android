@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/img_movie_poster"
+        android:layout_width="170dp"
+        android:layout_height="208dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_movie_list_background_girl" />
+
+    <TextView
+        android:id="@+id/tv_movie_title"
+        style="@style/TextAppearance.App.Headline6"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:singleLine="true"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/img_movie_poster"
+
+        tools:text="Очень большой заголовок фильма который не помещается на одну строку" />
+
+    <TextView
+        android:id="@+id/tv_movie_title_small"
+        style="@style/TextAppearance.App.Caption"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_movie_title"
+
+        tools:text="DoLittle (2018)" />
+
+    <TextView
+        android:id="@+id/tv_movie_genre"
+        style="@style/TextAppearance.App.Body3"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:lines="2"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_movie_title_small"
+
+        tools:text="фэнтези, комедия, боевик, драма, экшн, сериал" />
+
+    <TextView
+        android:id="@+id/tv_movie_rating"
+        style="@style/TextAppearance.App.Headline6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_movie_genre"
+
+        tools:text="5.9" />
+
+    <TextView
+        android:id="@+id/tv_movie_vote_count"
+        style="@style/TextAppearance.App.Caption"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+
+        app:layout_constraintBaseline_toBaselineOf="@+id/tv_movie_rating"
+        app:layout_constraintStart_toEndOf="@+id/tv_movie_rating"
+
+        tools:text="2409" />
+
+    <TextView
+        android:id="@+id/tv_movie_duration"
+        style="@style/TextAppearance.App.MovieDurationText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+
+        tools:text="101" />
+</androidx.constraintlayout.widget.ConstraintLayout>

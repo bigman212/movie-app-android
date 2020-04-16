@@ -35,8 +35,8 @@ class ViewBindingDelegate<T : ViewBinding> @PublishedApi internal constructor(
     private var binding: T? = null
 
     init {
-        fragment.viewLifecycleOwnerLiveData.observe(fragment, Observer {
-            it.lifecycle.addObserver(
+        fragment.viewLifecycleOwnerLiveData.observe(fragment, Observer { lifecycleOwner ->
+            lifecycleOwner.lifecycle.addObserver(
                 LifecycleEventObserver { _, event ->
                     if (event == Lifecycle.Event.ON_DESTROY) binding = null
                 })

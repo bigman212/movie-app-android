@@ -1,10 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="common_error_invalid_api_key">Неправильный API ключ</string>
-    <string name="error_no_internet">Отсутствует интернет соединение</string>
+    <string name="common_error_no_internet">Отсутствует интернет соединение</string>
     <string name="common_error_session_denied">Сессия больше не валидна. Пожалуйста перезайдите.</string>
     <string name="common_error_unknown">Неизвестная ошибка</string>
     <string name="common_invalid_credentials">Неправильный логин или пароль</string>
     <string name="common_error_auth_gone_wrong">Сбой при авторизации, попробуйте позднее</string>
     <string name="common_error_unauthorized">Отсутствует доступ к ресурсу</string>
+
+    <string name="genres_not_loaded">Жанры отсутствуют</string>
+
+    <string name="item_movie_duration_unknown">Продол. неизв.</string>
+    <string name="item_movie_duration_format">%d мин.</string>
+    <string name="item_movie_original_title">%s (%d)</string>
+    <string name="item_movie_original_title_unknown">%s (год неизв.)</string>
+
+    <string name="view_stub_try_again">Попробовать еще раз</string>
 </resources>

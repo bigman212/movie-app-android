@@ -41,6 +41,7 @@ dependencies {
 
     implementation project(":feature:auth")
     implementation project(':feature:movie_list')
+    implementation project(":feature:movie_detail")
     implementation project(':feature:profile')
 
     implementation(
@@ -62,7 +63,10 @@ dependencies {
             Dependencies.Retrofit,
     )
 
+    compileOnly(Dependencies.Dagger.AssistedInject)
+
     kapt(
-            Dependencies.Dagger.Processor
+            Dependencies.Dagger.Processor,
+            Dependencies.Dagger.AssistedInjectProcessor,
     )
 }

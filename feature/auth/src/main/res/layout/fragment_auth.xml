@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
-    android:theme="@style/AuthFragmentTheme"
     tools:context=".AuthFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -14,22 +13,24 @@
 
         <TextView
             android:id="@+id/tv_welcome_title"
+            style="?attr/textAppearanceHeadline4"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="116dp"
             android:text="@string/info_welcome_title"
-            android:textSize="32sp"
+
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/guideline_left"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/text_welcome_body"
+            style="@style/TextAppearance.App.Body1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="25dp"
             android:text="@string/info_welcome_body"
-            android:textSize="16sp"
+
             app:layout_constraintEnd_toStartOf="@+id/guideline_right"
             app:layout_constraintStart_toStartOf="@+id/guideline_left"
             app:layout_constraintTop_toBottomOf="@+id/tv_welcome_title" />
@@ -39,6 +40,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="25dp"
+
             app:layout_constraintEnd_toStartOf="@+id/guideline_right"
             app:layout_constraintStart_toStartOf="@+id/guideline_left"
             app:layout_constraintTop_toBottomOf="@+id/text_welcome_body">
@@ -47,9 +49,9 @@
                 android:id="@+id/et_login"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:alpha="6"
                 android:hint="@string/text_input_hint_login"
                 android:inputType="text"
-                android:textColor="#ffffff"
                 android:textSize="16sp" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -59,6 +61,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="25dp"
             app:endIconMode="password_toggle"
+
             app:layout_constraintEnd_toStartOf="@+id/guideline_right"
             app:layout_constraintStart_toStartOf="@+id/guideline_left"
             app:layout_constraintTop_toBottomOf="@+id/txt_input_login">
@@ -75,23 +78,26 @@
 
         <TextView
             android:id="@+id/tv_error"
+            style="@style/TextAppearance.App.Error"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="25dp"
             android:text="@string/common_error_unknown"
-            android:textColor="@color/colorError"
             android:visibility="invisible"
+
             app:layout_constraintEnd_toStartOf="@+id/guideline_right"
             app:layout_constraintStart_toStartOf="@+id/guideline_left"
-            app:layout_constraintTop_toBottomOf="@+id/txt_input_password" />
+            app:layout_constraintTop_toBottomOf="@+id/txt_input_password"
+            tools:visibility="visible" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_submit"
+            style="@style/Widget.Auth.Button"
             android:layout_width="0dp"
-            android:layout_height="48dp"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
-            android:enabled="false"
-            android:text="@string/btn_enter"
+            android:text="@string/btn_login"
+
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/guideline_right"
             app:layout_constraintStart_toStartOf="@+id/guideline_left"
@@ -104,6 +110,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
+
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"

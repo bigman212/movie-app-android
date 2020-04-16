@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">@color/colorBackground</color>
-    <color name="colorAccent">#FE4E27</color>
-    <color name="colorBackground">#191A25</color>
+    <color name="purpure">#6C63FF</color>
 
-    <color name="white">#ffffff</color>
-    <color name="black">#000000</color>
+    <color name="light_bg_black">#E6282C3F</color>
 
-    <color name="colorIcons">#DADADA</color>
+    <color name="dark_light">#DADADA</color>
 
-    <color name="colorError">#E1172F</color>
+    <color name="light">#E7EDFF</color>
 
-    <color name="mainTextColor">#E7EDFF</color>
+    <color name="orange">#FE4E27</color>
 
+    <color name="gray">#656D8A</color>
+
+    <color name="bg_black">#191A25</color>
+
+    <color name="red">#E1172F</color>
+    <color name="dark_blue">#2A2E42</color>
 </resources>

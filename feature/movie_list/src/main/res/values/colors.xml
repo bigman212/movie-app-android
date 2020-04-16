@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="movieSearchInputBackground">#E6282C3F</color>
-    <color name="movieSearchInputIcon">#DADADA</color>
-    <color name="additionalInfo">#656D8A</color>
+    <color name="movieSearchInputBackground">#E5282C3F</color>
 </resources>

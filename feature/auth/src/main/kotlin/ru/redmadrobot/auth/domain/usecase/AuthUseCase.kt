@@ -4,7 +4,7 @@ import android.annotation.SuppressLint
 import io.reactivex.Single
 import ru.redmadrobot.auth.data.entities.response.SessionIdResponse
 import ru.redmadrobot.auth.data.repository.AuthRepository
-import ru.redmadrobot.common.data.GenresRepository
+import ru.redmadrobot.common.data.genre.GenresRepository
 import ru.redmadrobot.core.network.SessionIdRepository
 import timber.log.Timber
 import javax.inject.Inject

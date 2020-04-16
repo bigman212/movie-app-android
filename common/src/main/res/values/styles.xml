@@ -1,10 +1,30 @@
 <resources>
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:colorBackground">@color/colorBackground</item>
-        <item name="android:textColor">@color/mainTextColor</item>
-        <item name="android:textColorPrimary">@color/mainTextColor</item>
+    <style name="ShapeAppearance.App.SmallComponent" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+        <item name="cornerSize">8dp</item>
+    </style>
+
+    <style name="Widget.App.Button" parent="Widget.MaterialComponents.Button">
+        <item name="textAllCaps">false</item>
+        <item name="android:padding">15dp</item>
+        <item name="android:textColor">?attr/colorPrimary</item>
+    </style>
+
+    <style name="Widget.App.TextInputLayout.OutlinedBox" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxStrokeWidth">2dp</item>
+        <item name="hintTextColor">?attr/colorOnSurface</item>
+        <item name="android:textColor">?attr/colorAccent</item>
+    </style>
+
+    <style name="TextAppearance.App.Body3" parent="TextAppearance.App.Body2">
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="TextAppearance.App.MovieDurationText" parent="TextAppearance.App.Body2">
+        <item name="android:drawableStart">@drawable/ic_movie_duration</item>
+        <item name="android:drawablePadding">2dp</item>
+    </style>
+
+    <style name="TextAppearance.App.Error" parent="TextAppearance.App.Body2">
+        <item name="android:textColor">@color/red</item>
     </style>
 </resources>

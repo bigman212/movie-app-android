@@ -29,14 +29,14 @@ dependencies {
 
             Dependencies.Moshi.Moshi,
             Dependencies.Retrofit,
+
+            Dependencies.Tools.RxBinding
     )
 
     kapt(
             Dependencies.Dagger.Processor,
             Dependencies.Moshi.KotlinCodeGen
     )
-
-    implementation 'com.jakewharton.rxbinding3:rxbinding:3.1.0'
 
     testImplementation project(":test_tools")
 }

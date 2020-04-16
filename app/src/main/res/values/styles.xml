@@ -2,9 +2,9 @@
 <resources>
 
     <style name="BottomNavigationMenuStyle" parent="Widget.MaterialComponents.BottomNavigationView">
-        <item name="android:background">#282C3F</item>
-        <item name="itemIconTint">@color/icons_menu_color</item>
-        <item name="itemTextColor">@color/icons_menu_color</item>
+        <item name="android:background">@color/light_bg_black</item>
+        <item name="itemIconTint">@color/color_bottom_bar</item>
+        <item name="itemTextColor">@color/color_bottom_bar</item>
     </style>
 
 </resources>

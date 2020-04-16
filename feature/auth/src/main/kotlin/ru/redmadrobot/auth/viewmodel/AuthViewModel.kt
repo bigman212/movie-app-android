@@ -59,12 +59,12 @@ class AuthViewModel
                 {
                     dispatch(AuthAction.Authorize)
                 },
-                {
-                    Timber.e(it)
-                    if (it is NetworkException.NoNetworkConnection) {
-                        offerErrorEvent(it)
+                { error ->
+                    Timber.e(error)
+                    if (error is NetworkException.NoNetworkConnection) {
+                        offerErrorEvent(error)
                     } else {
-                        val stateError = it.message ?: "Неизвестная ошибка"
+                        val stateError = error.message ?: "Неизвестная ошибка"
                         dispatch(AuthAction.Error(stateError))
                     }
                 }
