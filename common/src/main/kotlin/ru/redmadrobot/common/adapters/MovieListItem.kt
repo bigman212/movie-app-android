@@ -8,7 +8,7 @@ import ru.redmadrobot.common.R
 import ru.redmadrobot.common.data.movie.entity.Movie
 import ru.redmadrobot.common.databinding.ItemMovieAsListBinding
 import ru.redmadrobot.common.extensions.context
-import ru.redmadrobot.common.extensions.year
+import ru.redmadrobot.common.extensions.resources
 import ru.redmadrobot.core.network.NetworkRouter
 
 data class MovieListItem(private val movie: Movie, val onClickListener: (item: Movie) -> Unit) :
@@ -22,23 +22,25 @@ data class MovieListItem(private val movie: Movie, val onClickListener: (item: M
 
     @SuppressLint("SetTextI18n") // originalText не переводится
     override fun bind(viewBinding: ItemMovieAsListBinding, position: Int) {
+        val posterCorners = RoundedCorners(getPosterCornerRadius(viewBinding.resources))
         Glide.with(viewBinding.root.context)
             .load(NetworkRouter.IMAGES + movie.posterPath)
             .placeholder(R.drawable.ic_movie_list_background_girl)
-            .transform(RoundedCorners(POSTER_CORNERS_RADIUS))
+            .transform(posterCorners)
             .into(viewBinding.imgMoviePoster)
 
 
         viewBinding.tvMovieTitle.text = movie.title
-        viewBinding.tvMovieTitleSmall.text = "${movie.originalTitle} (${movie.releaseDate.year()})"
+        viewBinding.tvMovieTitleSmall.text = generateOriginalTitleString(
+            viewBinding.context, movie.originalTitle, movie.releaseDate
+        )
 
-        val defaultGenresNotFound = viewBinding.context().getString(R.string.genres_not_loaded)
-        viewBinding.tvMovieGenre.text = generateGenresString(movie.genres, defaultGenresNotFound)
+        viewBinding.tvMovieGenre.text = generateGenresString(viewBinding.context, movie.genres)
 
         viewBinding.tvMovieRating.text = movie.voteAverage.toString()
         viewBinding.tvMovieVoteCount.text = movie.voteCount.toString()
 
-        viewBinding.tvMovieDuration.text = generateDurationString(viewBinding.context(), movie.runtime)
+        viewBinding.tvMovieDuration.text = generateDurationString(viewBinding.context, movie.runtime)
 
         viewBinding.root.setOnClickListener { onClickListener(movie) }
     }

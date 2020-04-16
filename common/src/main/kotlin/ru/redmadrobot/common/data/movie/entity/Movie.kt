@@ -3,7 +3,7 @@ package ru.redmadrobot.common.data.movie.entity
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 import ru.redmadrobot.common.data.genre.Genre
-import ru.redmadrobot.common.utils.DateUtils
+import ru.redmadrobot.core.network.adapters.AsCalendar
 import java.util.Calendar
 
 @JsonClass(generateAdapter = true)
@@ -17,8 +17,9 @@ data class Movie(
     @field:Json(name = "overview")
     val overview: String,
 
+    @AsCalendar
     @field:Json(name = "release_date")
-    internal val releaseDateAsStr: String,
+    val releaseDate: Calendar?,
 
     @field:Json(name = "genre_ids")
     val genreIds: List<Int>,
@@ -55,6 +56,4 @@ data class Movie(
 
     @Transient
     val runtime: Int = 0
-) {
-    val releaseDate: Calendar = DateUtils.dateStrToCalendar(releaseDateAsStr)
-}
+)

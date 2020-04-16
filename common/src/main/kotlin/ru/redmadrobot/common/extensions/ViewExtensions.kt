@@ -1,6 +1,7 @@
 package ru.redmadrobot.common.extensions
 
 import android.content.Context
+import android.content.res.Resources
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.ProgressBar
@@ -27,5 +28,9 @@ fun Fragment.showKeyboard() {
 
 fun TextInputEditText.fieldValue(): String = text.toString()
 
-fun ViewBinding.context(): Context = root.context
+val ViewBinding.context: Context
+    get() = root.context
+
+val ViewBinding.resources: Resources
+    get() = context.resources
 

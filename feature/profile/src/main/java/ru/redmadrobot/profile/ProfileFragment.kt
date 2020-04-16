@@ -47,10 +47,10 @@ class ProfileFragment : BaseFragment(R.layout.fragment_profile) {
     }
 
     private fun initViewModel() {
-        observe(viewModel.viewState) {
-            renderFetching(it.isFetching)
-            renderLogoutButtonState(it.isLogoutButtonEnabled)
-            renderAccount(it.account)
+        observe(viewModel.viewState) { state ->
+            renderFetching(state.isFetching)
+            renderLogoutButtonState(state.isLogoutButtonEnabled)
+            renderAccount(state.account)
         }
 
         observeEvents(viewModel.events, ::onEvent)

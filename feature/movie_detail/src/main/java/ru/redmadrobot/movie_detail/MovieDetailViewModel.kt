@@ -35,10 +35,10 @@ class MovieDetailViewModel @Inject constructor(
             .scheduleIoToUi(schedulersProvider)
             .subscribe(
                 { movie -> state = ScreenState.Content(movie) },
-                {
+                { error ->
                     state = ScreenState.Empty
-                    Timber.e(it)
-                    offerErrorEvent(it)
+                    Timber.e(error)
+                    offerErrorEvent(error)
                 }
             ).disposeOnCleared()
     }

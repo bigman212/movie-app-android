@@ -9,6 +9,7 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
 import ru.redmadrobot.core.network.NetworkRouter
+import ru.redmadrobot.core.network.adapters.MovieReleaseDateAdapter
 import ru.redmadrobot.core.network.interceptors.ErrorInterceptor
 import ru.redmadrobot.core.network.interceptors.HeaderInterceptor
 import ru.redmadrobot.core.network.interceptors.MockInterceptor
@@ -63,7 +64,9 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideMoshi(): Moshi = Moshi.Builder().build()
+    fun provideMoshi(): Moshi = Moshi.Builder()
+        .add(MovieReleaseDateAdapter())
+        .build()
 
     @Provides
     @Singleton

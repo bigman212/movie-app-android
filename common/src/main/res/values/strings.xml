@@ -10,15 +10,10 @@
 
     <string name="genres_not_loaded">Жанры отсутствуют</string>
 
-    <string name="item_movie_duration_unknown">неизв.</string>
+    <string name="item_movie_duration_unknown">Продол. неизв.</string>
     <string name="item_movie_duration_format">%d мин.</string>
+    <string name="item_movie_original_title">%s (%d)</string>
+    <string name="item_movie_original_title_unknown">%s (год неизв.)</string>
 
     <string name="view_stub_try_again">Попробовать еще раз</string>
-
-    <string name="sample_movie_large_title">Очень большой заголовок фильма который не помещается на одну строку</string>
-    <string name="sample_movie_original_title">DoLittle (2018)</string>
-    <string name="sample_movie_genres">фэнтези, комедия, боевик пук пук</string>
-    <string name="sample_movie_rating">6.1</string>
-    <string name="sample_movie_votes">4 832</string>
-    <string name="sample_movie_duration">91 мин</string>
 </resources>

@@ -28,7 +28,7 @@ class ViewModelFactory @Inject constructor(
 
     private fun <T : ViewModel> findViewModelByClass(modelClassToInit: Class<T>): @JvmSuppressWildcards ViewModelProviderByName? {
         return providers.asIterable()
-            .find { modelClassToInit.isAssignableFrom(it.key) }
+            .find { vmProvider -> modelClassToInit.isAssignableFrom(vmProvider.key) }
             ?.value
     }
 }

@@ -16,8 +16,8 @@ class GenresRepository @Inject constructor(
 
     fun fetchGenresAndSave(): Completable {
         return genreService.allMovieGenres()
-            .flatMapCompletable {
-                Completable.fromAction { this.saveGenres(it.result) }
+            .flatMapCompletable { genreResponse ->
+                Completable.fromAction { this.saveGenres(genreResponse.result) }
             }
     }
 

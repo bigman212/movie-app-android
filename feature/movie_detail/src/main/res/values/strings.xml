@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="movie_detail_duration_suffix">мин.</string>
+
+    <string name="item_detailed_movie_duration_title">Время</string>
+    <string name="item_detailed_movie_rating_title">Рейтинг фильма</string>
+    <string name="item_detailed_movie_no_overview">Описание фильма отсутствует</string>
 </resources>

@@ -39,10 +39,10 @@ class AuthFragment : BaseFragment(R.layout.fragment_auth) {
     }
 
     private fun initViewModel() {
-        observe(viewModel.viewState) {
-            renderLoading(it.isFetching)
-            renderButtonChanged(it.isButtonEnabled)
-            renderErrorView(it.errorMessage)
+        observe(viewModel.viewState) { state ->
+            renderLoading(state.isFetching)
+            renderButtonChanged(state.isButtonEnabled)
+            renderErrorView(state.errorMessage)
         }
         observeEvents(viewModel.events, ::onEvent)
     }
