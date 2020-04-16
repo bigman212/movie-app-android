@@ -7,7 +7,6 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import ru.redmadrobot.common.R
 import ru.redmadrobot.common.data.movie.entity.Movie
 import ru.redmadrobot.common.databinding.ItemMovieAsListBinding
-import ru.redmadrobot.common.extensions.year
 import ru.redmadrobot.core.network.NetworkRouter
 
 data class MovieListItem(private val movie: Movie, val onClickListener: (item: Movie) -> Unit) :
@@ -30,10 +29,11 @@ data class MovieListItem(private val movie: Movie, val onClickListener: (item: M
 
 
         viewBinding.tvMovieTitle.text = movie.title
-        viewBinding.tvMovieTitleSmall.text = "${movie.originalTitle} (${movie.releaseDate.year()})"
+        viewBinding.tvMovieTitleSmall.text = generateOriginalTitleString(
+            viewBinding.context, movie.originalTitle, movie.releaseDate
+        )
 
-        val defaultGenresNotFound = viewBinding.context.getString(R.string.genres_not_loaded)
-        viewBinding.tvMovieGenre.text = generateGenresString(movie.genres, defaultGenresNotFound)
+        viewBinding.tvMovieGenre.text = generateGenresString(viewBinding.context, movie.genres)
 
         viewBinding.tvMovieRating.text = movie.voteAverage.toString()
         viewBinding.tvMovieVoteCount.text = movie.voteCount.toString()

@@ -10,8 +10,10 @@
 
     <string name="genres_not_loaded">Жанры отсутствуют</string>
 
-    <string name="item_movie_duration_unknown">неизв.</string>
+    <string name="item_movie_duration_unknown">Продол. неизв.</string>
     <string name="item_movie_duration_format">%d мин.</string>
+    <string name="item_movie_original_title">%s (%d)</string>
+    <string name="item_movie_original_title_unknown">%s (год неизв.)</string>
 
     <string name="view_stub_try_again">Попробовать еще раз</string>
 

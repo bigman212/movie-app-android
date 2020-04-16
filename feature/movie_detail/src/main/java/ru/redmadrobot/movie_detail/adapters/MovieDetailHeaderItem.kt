@@ -1,6 +1,7 @@
 package ru.redmadrobot.movie_detail.adapters
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.view.View
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
@@ -28,15 +29,25 @@ data class MovieDetailHeaderItem(private val movie: MovieDetail) : MovieItem<Ite
 
 
         viewBinding.tvMovieTitle.text = movie.title
-        viewBinding.tvMovieOriginalTitle.text = "${movie.originalTitle} (${movie.releaseDate})"
+        viewBinding.tvMovieOriginalTitle.text = generateOriginalTitleString(
+            viewBinding.context, movie.originalTitle, movie.releaseDate
+        )
 
-        val defaultGenresNotFound = viewBinding.context.getString(R.string.genres_not_loaded)
-        viewBinding.tvMovieGenres.text = generateGenresString(movie.genres, defaultGenresNotFound)
+        viewBinding.tvMovieGenres.text = generateGenresString(viewBinding.context, movie.genres)
 
         viewBinding.tvMovieRatingValue.text = movie.voteAverage.toString()
         viewBinding.tvMovieRatingVotes.text = movie.voteCount.toString()
 
-        viewBinding.tvMovieDurationValue.text = movie.runtime?.toString() ?: "0"
+        viewBinding.tvMovieDurationValue.text = generateDurationString(viewBinding.context, movie.runtime)
+    }
+
+    // на экране "мин." используется как отдельное view, поэтому добавлять еще одно не нужно
+    override fun generateDurationString(context: Context, duration: Int): String {
+        return if (duration == 0) {
+            super.generateDurationString(context, duration)
+        } else {
+            duration.toString()
+        }
     }
 
     override fun getLayout(): Int = R.layout.item_detailed_movie_header

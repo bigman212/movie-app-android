@@ -19,7 +19,7 @@ data class Movie(
 
     @AsCalendar
     @field:Json(name = "release_date")
-    val releaseDate: Calendar,
+    val releaseDate: Calendar?,
 
     @field:Json(name = "genre_ids")
     val genreIds: List<Int>,

@@ -55,13 +55,13 @@ data class MovieDetail(
 
     @AsCalendar
     @field:Json(name = "release_date")
-    val releaseDate: Calendar,
+    val releaseDate: Calendar?, // если null - дата выпуска неизвестна
 
     @field:Json(name = "revenue")
     val revenue: Int,
 
     @field:Json(name = "runtime")
-    val runtime: Int?,
+    val runtime: Int = 0,
 
     @field:Json(name = "spoken_languages")
     val spokenLanguages: List<SpokenLanguage>,

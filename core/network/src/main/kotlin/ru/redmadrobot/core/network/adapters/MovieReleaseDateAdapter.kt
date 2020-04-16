@@ -5,6 +5,7 @@ import com.squareup.moshi.JsonQualifier
 import com.squareup.moshi.JsonReader
 import com.squareup.moshi.JsonWriter
 import com.squareup.moshi.ToJson
+import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
@@ -35,15 +36,17 @@ class MovieReleaseDateAdapter {
 
     @AsCalendar
     @FromJson
-    fun fromJson(reader: JsonReader): Calendar {
+    fun fromJson(reader: JsonReader): Calendar? {
         val date = reader.nextString()
         return dateStringToCalendar(date)
     }
 
-    private fun dateStringToCalendar(date: String): Calendar {
-        val parsedDate = dateFormat.parse(date)
-
-        return Calendar.getInstance()
-            .apply { time = parsedDate ?: Date() }
+    private fun dateStringToCalendar(date: String): Calendar? {
+        return try {
+            val parsedDate = dateFormat.parse(date) ?: Date()
+            Calendar.getInstance().apply { time = parsedDate }
+        } catch (wrongDate: ParseException) {
+            return null
+        }
     }
 }
