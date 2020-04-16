@@ -9,13 +9,13 @@ import retrofit2.http.Query
 import ru.redmadrobot.common.data.movie.entity.MarkMovieFavoriteRequest
 import ru.redmadrobot.common.data.movie.entity.Movie
 import ru.redmadrobot.common.data.movie.entity.MovieDetail
-import ru.redmadrobot.core.network.ErrorResponse
+import ru.redmadrobot.core.network.DefaultResponse
 import ru.redmadrobot.core.network.NetworkRouter
 import ru.redmadrobot.core.network.entities.WithPages
 
 interface MovieApi {
     @GET(NetworkRouter.SEARCH_MOVIE)
-    fun moviesByQuery(@Query("query") movieTitle: CharSequence): Single<WithPages<Movie>>
+    fun moviesByTitle(@Query("query") movieTitle: CharSequence): Single<WithPages<Movie>>
 
     @GET(NetworkRouter.MOVIE_DETAILS)
     fun movieDetail(@Path("movie_id") movieId: Int): Single<MovieDetail>
@@ -31,5 +31,5 @@ interface MovieApi {
         @Path("account_id") accountId: Int,
         @Query("session_id") sessionId: CharSequence,
         @Body body: MarkMovieFavoriteRequest
-    ): Single<ErrorResponse>
+    ): Single<DefaultResponse>
 }

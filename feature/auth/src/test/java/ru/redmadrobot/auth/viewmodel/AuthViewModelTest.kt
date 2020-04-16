@@ -9,7 +9,7 @@ import org.mockito.ArgumentMatchers.anyString
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.gherkin.Feature
 import ru.redmadrobot.auth.domain.usecase.AuthUseCase
-import ru.redmadrobot.core.network.ErrorResponse
+import ru.redmadrobot.core.network.DefaultResponse
 import ru.redmadrobot.core.network.NetworkException
 import ru.redmadrobot.core.network.TestSchedulersProvider
 import ru.redmadrobot.test_tools.LiveDataExecutionManager
@@ -126,7 +126,7 @@ internal class AuthViewModelTest : Spek({
         }
 
         Scenario("enter wrong credentials and authorize") {
-            val expectedWrongCredentialsError = ErrorResponse("Неправильные логин или пароль", 7)
+            val expectedWrongCredentialsError = DefaultResponse("Неправильные логин или пароль", 7)
 
             val authUseCase = mock<AuthUseCase> {
                 on { login(anyString(), anyString()) }

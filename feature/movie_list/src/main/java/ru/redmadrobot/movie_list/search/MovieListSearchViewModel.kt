@@ -35,13 +35,6 @@ class MovieListSearchViewModel @Inject constructor(
         }
         searchUseCase.searchMovie(movieTitle)
             .doOnSubscribe { state = ScreenState.Loading }
-            .flattenAsObservable { it }
-            .flatMap { movie: Movie ->
-                searchUseCase.fetchMovieDetails(movie.id)
-                    .map { movieDetailWithRuntime -> movie.copy(runtime = movieDetailWithRuntime.runtime) }
-                    .onErrorReturnItem(movie) // при возникновении ошибки пропускаем и идем альше
-            }
-            .toList()
             .scheduleIoToUi(schedulersProvider)
             .subscribe(
                 { movies ->

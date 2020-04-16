@@ -32,7 +32,7 @@ object NetworkRouter {
     const val ACCOUNT_DETAILS = account
 
     private const val favorite = "$account/{account_id}/favorite"
-    const val FAVORITE = "$favorite/"
+    const val FAVORITE = favorite
     const val FAVORITE_MOVIES = "$favorite/movies"
 
     const val IMAGES = "https://image.tmdb.org/t/p/w500"

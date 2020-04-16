@@ -61,7 +61,7 @@ data class MovieDetail(
     val revenue: Int,
 
     @field:Json(name = "runtime")
-    val runtime: Int = 0,
+    val runtime: Int?,
 
     @field:Json(name = "spoken_languages")
     val spokenLanguages: List<SpokenLanguage>,
@@ -94,7 +94,6 @@ data class MovieDetail(
             isForAdults = isAdult,
             overview = overview ?: "",
             releaseDate = releaseDate,
-//            releaseDateAsStr = releaseDateAsStr,
             genreIds = genres.map(Genre::id),
             genres = genres,
             id = id,
@@ -106,7 +105,7 @@ data class MovieDetail(
             voteCount = voteCount,
             isVideo = false,
             voteAverage = voteAverage,
-            runtime = runtime!!
+            runtime = runtime ?: 0
         )
     }
 }

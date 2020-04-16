@@ -13,7 +13,7 @@ import ru.redmadrobot.auth.data.entities.response.SessionIdResponse
 import ru.redmadrobot.auth.data.entities.response.TokenResponse
 import ru.redmadrobot.auth.data.repository.AuthRepository
 import ru.redmadrobot.auth.domain.usecase.AuthUseCase
-import ru.redmadrobot.core.network.ErrorResponse
+import ru.redmadrobot.core.network.DefaultResponse
 import ru.redmadrobot.core.network.NetworkErrorHandler
 import ru.redmadrobot.core.network.NetworkRouter
 import ru.redmadrobot.core.network.R
@@ -98,7 +98,7 @@ internal class AuthViewModelIntegrationTest : Spek({
 
         Scenario("fail to authorize user with entered credentials") {
             Given("invalid_credentials error from server") {
-                val errorResponse = ErrorResponse("invalid_credentials", 30)
+                val errorResponse = DefaultResponse("invalid_credentials", 30)
                 networkEnvironment.dispatchResponses { path ->
                     when (path) {
                         NetworkRouter.AUTH_TOKEN_NEW -> MockResponse()

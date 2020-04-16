@@ -5,8 +5,9 @@ import dagger.Provides
 import dagger.Reusable
 import retrofit2.Retrofit
 import ru.redmadrobot.common.data.movie.MovieApi
+import ru.redmadrobot.common.di.genre.GenreApiModule
 
-@Module
+@Module(includes = [GenreApiModule::class])
 object MovieApiModule {
     @Provides
     @Reusable

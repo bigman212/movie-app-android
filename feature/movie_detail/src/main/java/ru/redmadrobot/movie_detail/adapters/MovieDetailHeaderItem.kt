@@ -15,8 +15,9 @@ import ru.redmadrobot.movie_detail.databinding.ItemDetailedMovieHeaderBinding
 
 data class MovieDetailHeaderItem(private val movie: MovieDetail) : MovieItem<ItemDetailedMovieHeaderBinding>() {
 
-    override fun initializeViewBinding(view: View): ItemDetailedMovieHeaderBinding =
-        ItemDetailedMovieHeaderBinding.bind(view)
+    override fun initializeViewBinding(view: View): ItemDetailedMovieHeaderBinding {
+        return ItemDetailedMovieHeaderBinding.bind(view)
+    }
 
     override fun getId(): Long = movie.id.toLong()
 
@@ -29,7 +30,6 @@ data class MovieDetailHeaderItem(private val movie: MovieDetail) : MovieItem<Ite
             .transform(posterCorners)
             .into(viewBinding.imgMoviePoster)
 
-
         viewBinding.tvMovieTitle.text = movie.title
         viewBinding.tvMovieOriginalTitle.text = generateOriginalTitleString(
             viewBinding.context, movie.originalTitle, movie.releaseDate
@@ -40,7 +40,7 @@ data class MovieDetailHeaderItem(private val movie: MovieDetail) : MovieItem<Ite
         viewBinding.tvMovieRatingValue.text = movie.voteAverage.toString()
         viewBinding.tvMovieRatingVotes.text = movie.voteCount.toString()
 
-        viewBinding.tvMovieDurationValue.text = generateDurationString(viewBinding.context, movie.runtime)
+        viewBinding.tvMovieDurationValue.text = generateDurationString(viewBinding.context, movie.runtime ?: 0)
     }
 
     // на экране "мин." используется как отдельное view, поэтому добавлять еще одно не нужно

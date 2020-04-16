@@ -31,7 +31,7 @@ class NetworkErrorHandler @Inject constructor(context: Context, val moshi: Moshi
     private val contextString: (resId: Int) -> String = context::getString
 
     private val unknownErrorResponse
-        get() = ErrorResponse(
+        get() = DefaultResponse(
             statusCode = ErrorStatusCode.UNKNOWN_ERROR,
             statusMessage = statusCodeToContextString(ErrorStatusCode.UNKNOWN_ERROR)
         )
@@ -48,11 +48,11 @@ class NetworkErrorHandler @Inject constructor(context: Context, val moshi: Moshi
         }
     }
 
-    private fun parseErrorBody(body: ResponseBody?): ErrorResponse {
+    private fun parseErrorBody(body: ResponseBody?): DefaultResponse {
         return if (body != null) {
             val bodyAsJson = body.string()
             try {
-                val rawErrorFromServer = moshi.fromJsonOrThrow(ErrorResponse::class, bodyAsJson)
+                val rawErrorFromServer = moshi.fromJsonOrThrow(DefaultResponse::class, bodyAsJson)
                 return rawErrorFromServer.toErrorWithContextString()
             } catch (nonValidJsonOrNull: IOException) {
                 Timber.e(nonValidJsonOrNull)
@@ -75,7 +75,7 @@ class NetworkErrorHandler @Inject constructor(context: Context, val moshi: Moshi
         }
     }
 
-    private fun ErrorResponse.toErrorWithContextString() = copy(statusMessage = statusCodeToContextString(statusCode))
+    private fun DefaultResponse.toErrorWithContextString() = copy(statusMessage = statusCodeToContextString(statusCode))
 
     private fun Response.bodyCopy(): ResponseBody? = body?.let { peekBody(it.contentLength()) }
 

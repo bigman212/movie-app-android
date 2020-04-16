@@ -4,12 +4,12 @@ import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 /**
- * Класс-обертка над ошибками от сервера.
+ * Класс-обертка над сообщениями и ошибками от сервера.
  * При http code != 200, сервер формирует JSON { status_message: "...", status_code: <code> }
  * [ErrorInterceptor] при получении ошибки формирует эту обертку и передает дальше в UI слой
  */
 @JsonClass(generateAdapter = true)
-data class ErrorResponse(
+data class DefaultResponse(
     /**
      * Сообщение от сервера о причине провала запроса в ENG
      */
