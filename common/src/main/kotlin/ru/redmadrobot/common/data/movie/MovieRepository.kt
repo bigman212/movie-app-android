@@ -20,7 +20,7 @@ class MovieRepository @Inject constructor(
             .flatMap(this::fillMoviesWithInformation)
     }
 
-    fun movieDetailsById(movieId: Int, sessionId: CharSequence? = null): Single<MovieDetail> {
+    fun movieDetailsById(movieId: Long, sessionId: CharSequence? = null): Single<MovieDetail> {
         return api.movieDetail(movieId)
             .flatMap { movieDetailWithoutFavoriteField ->
                 isMovieInFavorites(movieId, sessionId)
@@ -30,14 +30,14 @@ class MovieRepository @Inject constructor(
     }
 
     fun markMovieAsFavorite(
-        accountId: Int,
+        accountId: Long,
         sessionId: String,
         body: MarkMediaFavoriteRequest
     ): Single<DefaultResponse> {
         return api.markMovieAsFavorite(accountId, sessionId, body)
     }
 
-    fun favoriteMovies(accountId: Int, sessionId: CharSequence): Single<WithPages<Movie>> {
+    fun favoriteMovies(accountId: Long, sessionId: CharSequence): Single<WithPages<Movie>> {
         return api.favoriteMovies(accountId, sessionId)
             .flatMap(this::fillMoviesWithInformation)
     }
@@ -62,7 +62,7 @@ class MovieRepository @Inject constructor(
     }
 
     @Throws(IllegalArgumentException::class) // if sessionId пустой или отсутствует
-    private fun isMovieInFavorites(movieId: Int, sessionId: CharSequence?): Single<Boolean> {
+    private fun isMovieInFavorites(movieId: Long, sessionId: CharSequence?): Single<Boolean> {
         return if (sessionId.isNullOrBlank()) {
             Single.error(IllegalArgumentException("session_id is null"))
         } else {

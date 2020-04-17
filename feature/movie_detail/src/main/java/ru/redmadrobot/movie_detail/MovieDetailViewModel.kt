@@ -34,7 +34,7 @@ class MovieDetailViewModel @Inject constructor(
     val viewState: MutableLiveData<ScreenState> = MutableLiveData(ScreenState.initial())
     private var state: ScreenState by viewState.delegate()
 
-    fun fetchMovie(id: Int) {
+    fun fetchMovie(id: Long) {
         movieDetailUseCase.movieDetailsById(id)
             .doOnSubscribe { state = ScreenState.Loading }
             .scheduleIoToUi(schedulersProvider)
@@ -48,7 +48,7 @@ class MovieDetailViewModel @Inject constructor(
             ).disposeOnCleared()
     }
 
-    fun onFavoriteButtonClicked(currentMovieId: Int) {
+    fun onFavoriteButtonClicked(currentMovieId: Long) {
         val oldState = state
         if (oldState is ScreenState.Content) {
             val oldMovieDetail = oldState.data

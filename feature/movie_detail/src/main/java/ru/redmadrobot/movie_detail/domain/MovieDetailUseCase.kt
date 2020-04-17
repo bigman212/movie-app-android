@@ -3,7 +3,7 @@ package ru.redmadrobot.movie_detail.domain
 import io.reactivex.Completable
 import io.reactivex.Single
 import ru.redmadrobot.common.data.movie.MovieRepository
-import ru.redmadrobot.common.data.movie.entity.MarkMovieFavoriteRequest
+import ru.redmadrobot.common.data.movie.entity.MarkMediaFavoriteRequest
 import ru.redmadrobot.common.data.movie.entity.MovieDetail
 import ru.redmadrobot.common.data.profile.AccountRepository
 import ru.redmadrobot.core.network.SessionIdRepository
@@ -15,15 +15,15 @@ class MovieDetailUseCase @Inject constructor(
     private val accountRepository: AccountRepository
 ) {
 
-    fun movieDetailsById(movieId: Int): Single<MovieDetail> {
+    fun movieDetailsById(movieId: Long): Single<MovieDetail> {
         return movieRepository.movieDetailsById(movieId, getSessionId())
     }
 
-    fun addMovieToFavorites(movieId: Int): Completable = markMovieAsFavorite(movieId, markFavorite = true)
+    fun addMovieToFavorites(movieId: Long): Completable = markMovieAsFavorite(movieId, markFavorite = true)
 
-    fun removeMovieFromFavorites(movieId: Int): Completable = markMovieAsFavorite(movieId, markFavorite = false)
+    fun removeMovieFromFavorites(movieId: Long): Completable = markMovieAsFavorite(movieId, markFavorite = false)
 
-    private fun markMovieAsFavorite(movieId: Int, markFavorite: Boolean): Completable {
+    private fun markMovieAsFavorite(movieId: Long, markFavorite: Boolean): Completable {
         return try {
             val accountId = getAccountId()
             val sessionId = getSessionId()
@@ -38,7 +38,7 @@ class MovieDetailUseCase @Inject constructor(
     }
 
     @Throws(IllegalArgumentException::class)
-    private fun getAccountId(): Int {
+    private fun getAccountId(): Long {
         return accountRepository.currentAccount()?.id ?: throw IllegalArgumentException("Account is null")
     }
 

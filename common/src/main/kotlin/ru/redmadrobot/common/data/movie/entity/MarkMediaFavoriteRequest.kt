@@ -6,7 +6,7 @@ import com.squareup.moshi.JsonClass
 @JsonClass(generateAdapter = true)
 data class MarkMediaFavoriteRequest(
     @field:Json(name = "media_id")
-    val mediaId: Int,
+    val mediaId: Long,
 
     @field:Json(name = "media_type")
     val mediaType: MediaType = MediaType.MOVIE,

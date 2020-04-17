@@ -22,13 +22,13 @@ data class Movie(
     val releaseDate: Calendar?,
 
     @field:Json(name = "genre_ids")
-    val genreIds: List<Int>,
+    val genreIds: List<Long>,
 
     @Transient
     val genres: List<Genre> = mutableListOf(),
 
     @field:Json(name = "id")
-    val id: Int,
+    val id: Long,
 
     @field:Json(name = "original_title")
     val originalTitle: String,

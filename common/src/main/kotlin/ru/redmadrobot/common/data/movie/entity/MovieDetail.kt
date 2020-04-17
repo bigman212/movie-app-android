@@ -27,7 +27,7 @@ data class MovieDetail(
     val homepage: String?,
 
     @field:Json(name = "id")
-    val id: Int,
+    val id: Long,
 
     @field:Json(name = "imdb_id")
     val imdbId: String?,

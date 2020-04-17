@@ -8,7 +8,7 @@ data class AccountDetailsResponse(
     @field:Json(name = "avatar")
     val avatar: AccountAvatar,
     @field:Json(name = "id")
-    val id: Int,
+    val id: Long,
     @field:Json(name = "iso_639_1")
     val iso639_1: String,
     @field:Json(name = "iso_3166_1")

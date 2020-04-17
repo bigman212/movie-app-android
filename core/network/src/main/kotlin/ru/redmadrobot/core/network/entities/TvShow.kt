@@ -11,6 +11,6 @@ data class TvShow(
     @field:Json(name = "origin_country") val originCountries: List<String>,
     @field:Json(name = "vote_count") val voteCount: Int,
     @field:Json(name = "first_air_date") val firstAirDate: String,
-    @field:Json(name = "id") val id: Int,
+    @field:Json(name = "id") val id: Long,
     @field:Json(name = "overview") val overview: String
 )

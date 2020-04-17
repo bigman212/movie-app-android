@@ -12,7 +12,7 @@ class GenresRepository @Inject constructor(
     private val sharedPrefs: SharedPreferences,
     private val genreService: GenreApi
 ) {
-    private fun prefsKeyFromId(genreId: Int) = "genre_$genreId"
+    private fun prefsKeyFromId(genreId: Long) = "genre_$genreId"
 
     fun fetchGenresAndSave(): Completable {
         return genreService.allMovieGenres()
@@ -36,7 +36,7 @@ class GenresRepository @Inject constructor(
         }
     }
 
-    fun genreById(id: Int): Genre? {
+    fun genreById(id: Long): Genre? {
         val prefsKey = prefsKeyFromId(id)
         val genreName: String? = sharedPrefs.getString(prefsKey, null)
 

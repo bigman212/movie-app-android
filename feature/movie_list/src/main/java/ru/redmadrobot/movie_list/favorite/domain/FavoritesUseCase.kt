@@ -23,12 +23,12 @@ class FavoritesUseCase @Inject constructor(
             .map(WithPages<Movie>::results)
     }
 
-    private fun createRequestBody(): Pair<Int, CharSequence> {
+    private fun createRequestBody(): Pair<Long, CharSequence> {
         return Pair(accountIdOrException(), sessionIdOrException())
     }
 
     @Throws(IllegalArgumentException::class)
-    private fun accountIdOrException(): Int {
+    private fun accountIdOrException(): Long {
         return accountRepository.currentAccount()
             ?.id
             ?: throw IllegalArgumentException("account_id is null")
