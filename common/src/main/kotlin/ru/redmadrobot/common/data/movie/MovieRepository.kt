@@ -8,6 +8,7 @@ import ru.redmadrobot.common.data.movie.entity.Movie
 import ru.redmadrobot.common.data.movie.entity.MovieDetail
 import ru.redmadrobot.core.network.DefaultResponse
 import ru.redmadrobot.core.network.entities.WithPages
+import timber.log.Timber
 import javax.inject.Inject
 
 class MovieRepository @Inject constructor(
@@ -19,9 +20,21 @@ class MovieRepository @Inject constructor(
             .flatMap(this::fillMoviesWithInformation)
     }
 
-    fun movieDetailsById(movieId: Int): Single<MovieDetail> = api.movieDetail(movieId)
+    fun movieDetailsById(movieId: Int, sessionId: CharSequence? = null): Single<MovieDetail> {
+        return api.movieDetail(movieId)
+            .flatMap { movieDetailWithoutFavoriteField ->
+                isMovieInFavorites(movieId, sessionId)
+                    .map { movieDetailWithoutFavoriteField.copy(isFavorite = it) }
+                    .doOnError { Timber.e(it) }
+                    .onErrorReturnItem(movieDetailWithoutFavoriteField)
+            }
+    }
 
-    fun addMovieToFavorite(accountId: Int, sessionId: String, body: MarkMovieFavoriteRequest): Single<DefaultResponse> {
+    fun markMovieAsFavorite(
+        accountId: Int,
+        sessionId: String,
+        body: MarkMovieFavoriteRequest
+    ): Single<DefaultResponse> {
         return api.markMovieAsFavorite(accountId, sessionId, body)
     }
 
@@ -48,4 +61,15 @@ class MovieRepository @Inject constructor(
         val movieGenres = movie.genreIds.mapNotNull(genresRepository::genreById)
         return movie.copy(genres = movieGenres)
     }
+
+    @Throws(IllegalArgumentException::class) // if sessionId пустой или отсутствует
+    private fun isMovieInFavorites(movieId: Int, sessionId: CharSequence?): Single<Boolean> {
+        return if (sessionId.isNullOrBlank()) {
+            Single.error(IllegalArgumentException("session_id is null"))
+        } else {
+            api.movieAccountStates(movieId, sessionId)
+                .map { it.isInFavorites }
+        }
+    }
+
 }

@@ -32,4 +32,10 @@ interface MovieApi {
         @Query("session_id") sessionId: CharSequence,
         @Body body: MarkMovieFavoriteRequest
     ): Single<DefaultResponse>
+
+    @GET(NetworkRouter.MOVIE_ACCOUNT_STATE)
+    fun movieAccountStates(
+        @Path("movie_id") movieId: Int,
+        @Query("session_id") sessionId: CharSequence
+    ): Single<MovieAccountState>
 }

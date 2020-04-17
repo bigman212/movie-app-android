@@ -1,9 +1,11 @@
 package ru.redmadrobot.movie_detail
 
 import androidx.lifecycle.MutableLiveData
+import io.reactivex.Completable
 import ru.redmadrobot.common.base.BaseViewModel
 import ru.redmadrobot.common.data.movie.entity.MovieDetail
 import ru.redmadrobot.common.extensions.delegate
+import ru.redmadrobot.common.vm.Event
 import ru.redmadrobot.common.vm.MessageEvent
 import ru.redmadrobot.core.network.SchedulersProvider
 import ru.redmadrobot.core.network.scheduleIoToUi
@@ -15,6 +17,8 @@ class MovieDetailViewModel @Inject constructor(
     private val schedulersProvider: SchedulersProvider,
     private val movieDetailUseCase: MovieDetailUseCase
 ) : BaseViewModel() {
+
+    class ChangeMovieFavoriteStatusEvent(val movieIsFavorite: Boolean) : Event
 
     sealed class ScreenState {
         data class Content(val data: MovieDetail) : ScreenState()
@@ -32,6 +36,7 @@ class MovieDetailViewModel @Inject constructor(
 
     fun fetchMovie(id: Int) {
         movieDetailUseCase.movieDetailsById(id)
+            .doOnSubscribe { state = ScreenState.Loading }
             .scheduleIoToUi(schedulersProvider)
             .subscribe(
                 { movie -> state = ScreenState.Content(movie) },
@@ -44,15 +49,34 @@ class MovieDetailViewModel @Inject constructor(
     }
 
     fun onFavoriteButtonClicked(currentMovieId: Int) {
-        movieDetailUseCase.markMovieFavorite(currentMovieId)
-            .scheduleIoToUi(schedulersProvider)
-            .subscribe(
-                { events.offer(MessageEvent("Фильм добавлен в избранное")) },
-                {
-                    Timber.e(it)
-                    offerErrorEvent(it)
-                }
-            ).disposeOnCleared()
+        val oldState = state
+        if (oldState is ScreenState.Content) {
+            val oldMovieDetail = oldState.data
+            val shouldBeAddedToFavorites = !oldMovieDetail.isFavorite
+
+            val addOrRemoveRequest: Completable = if (shouldBeAddedToFavorites) {
+                movieDetailUseCase.addMovieToFavorites(currentMovieId)
+            } else {
+                movieDetailUseCase.removeMovieFromFavorites(currentMovieId)
+            }
+
+            addOrRemoveRequest
+                .doOnSubscribe { state = ScreenState.Loading }
+                .scheduleIoToUi(schedulersProvider)
+                .subscribe(
+                    {
+                        // по завершении запроса меняем статус Избранное у фильма не противоположное
+                        val updatedMovieDetail = oldMovieDetail.copy(isFavorite = shouldBeAddedToFavorites)
+                        state = oldState.copy(data = updatedMovieDetail)
+
+                        events.offer(MessageEvent("Фильм добавлен в избранное"))
+                    },
+                    {
+                        Timber.e(it)
+                        offerErrorEvent(it)
+                    }
+                ).disposeOnCleared()
+        }
     }
 }
 

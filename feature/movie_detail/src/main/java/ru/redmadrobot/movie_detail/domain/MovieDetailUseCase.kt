@@ -16,27 +16,33 @@ class MovieDetailUseCase @Inject constructor(
 ) {
 
     fun movieDetailsById(movieId: Int): Single<MovieDetail> {
-        return movieRepository.movieDetailsById(movieId)
+        return movieRepository.movieDetailsById(movieId, getSessionId())
     }
 
-    fun markMovieFavorite(movieId: Int): Completable {
+    fun addMovieToFavorites(movieId: Int): Completable = markMovieAsFavorite(movieId, markFavorite = true)
+
+    fun removeMovieFromFavorites(movieId: Int): Completable = markMovieAsFavorite(movieId, markFavorite = false)
+
+    private fun markMovieAsFavorite(movieId: Int, markFavorite: Boolean): Completable {
         return try {
             val accountId = getAccountId()
             val sessionId = getSessionId()
 
-            val body = MarkMovieFavoriteRequest(movieId)
+            val body = MarkMovieFavoriteRequest(movieId, isFavorite = markFavorite)
             movieRepository
-                .addMovieToFavorite(accountId, sessionId, body)
+                .markMovieAsFavorite(accountId, sessionId, body)
                 .flatMapCompletable { Completable.complete() }
         } catch (someNull: IllegalArgumentException) {
             Completable.error(someNull)
         }
     }
 
+    @Throws(IllegalArgumentException::class)
     private fun getAccountId(): Int {
         return accountRepository.currentAccount()?.id ?: throw IllegalArgumentException("Account is null")
     }
 
+    @Throws(IllegalArgumentException::class)
     private fun getSessionId(): String {
         return sessionIdRepository.getSessionId() ?: throw IllegalArgumentException("session_id is null")
     }

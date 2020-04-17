@@ -82,7 +82,10 @@ data class MovieDetail(
     val voteAverage: Double,
 
     @field:Json(name = "vote_count")
-    val voteCount: Int
+    val voteCount: Int,
+
+    @Transient
+    val isFavorite: Boolean = false // заполняем на моменте получения информации о фильме
 ) {
     enum class Status {
         Rumored, Planned, In_Production, Post_Production, Released, Canceled

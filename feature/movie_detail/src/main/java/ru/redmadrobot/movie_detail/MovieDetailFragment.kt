@@ -2,6 +2,7 @@ package ru.redmadrobot.movie_detail
 
 import android.content.Context
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
@@ -64,7 +65,6 @@ class MovieDetailFragment : BaseFragment(R.layout.fragment_movie_detail) {
             setOnMenuItemClickListener { item ->
                 if (item.itemId == R.id.action_mark_movie_favorite) { // вынести как ивент
                     viewModel.onFavoriteButtonClicked(args.movieId)
-                    item.setIcon(R.drawable.ic_favorite_checked)
                 }
                 true
             }
@@ -87,11 +87,22 @@ class MovieDetailFragment : BaseFragment(R.layout.fragment_movie_detail) {
         binding.progressBar.isVisible = state is MovieDetailViewModel.ScreenState.Loading
 
         if (state is MovieDetailViewModel.ScreenState.Content) {
+            val movieDetail = state.data
+            binding.toolbarMovieDetail.menu.run {
+                val favoriteActionItem = findItem(R.id.action_mark_movie_favorite)
+                favoriteActionItem.setFavoriteIcon(movieDetail.isFavorite)
+            }
+
             val section = Section()
             section.setHeader(MovieDetailHeaderItem(state.data))
             section.add(MovieDetailBodyItem(state.data.overview))
-            contentAdapter.add(section)
+            contentAdapter.update(listOf(section))
         }
+    }
+
+    private fun MenuItem.setFavoriteIcon(movieIsFavorite: Boolean) {
+        val icon = if (movieIsFavorite) R.drawable.ic_favorite_checked else R.drawable.ic_favorite
+        setIcon(icon)
     }
 }
 
