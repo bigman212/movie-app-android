@@ -25,7 +25,6 @@ class MovieRepository @Inject constructor(
             .flatMap { movieDetailWithoutFavoriteField ->
                 isMovieInFavorites(movieId, sessionId)
                     .map { movieDetailWithoutFavoriteField.copy(isFavorite = it) }
-                    .doOnError { Timber.e(it) }
                     .onErrorReturnItem(movieDetailWithoutFavoriteField)
             }
     }
@@ -69,6 +68,7 @@ class MovieRepository @Inject constructor(
         } else {
             api.movieAccountStates(movieId, sessionId)
                 .map { it.isInFavorites }
+                .doOnError { Timber.e(it) }
         }
     }
 

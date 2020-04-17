@@ -3,6 +3,7 @@ package ru.redmadrobot.core.network.di.module
 import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
+import okhttp3.CertificatePinner
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -27,9 +28,10 @@ object NetworkModule {
         moshiFactory: MoshiConverterFactory,
         rxJava2Adapter: RxJava2CallAdapterFactory
     ): Retrofit {
+        val baseUrl = "https://" + NetworkRouter.BASE_HOSTNAME
         return Retrofit.Builder()
             .client(okHttpClient)
-            .baseUrl(NetworkRouter.BASE_URL)
+            .baseUrl(baseUrl)
             .addConverterFactory(moshiFactory)
             .addCallAdapterFactory(rxJava2Adapter)
             .build()
@@ -41,17 +43,32 @@ object NetworkModule {
         headerInterceptor: HeaderInterceptor,
         errorInterceptor: ErrorInterceptor,
         loggingInterceptor: HttpLoggingInterceptor,
-        mockInterceptor: MockInterceptor
+        mockInterceptor: MockInterceptor,
+
+        certificatePinner: CertificatePinner
     ): OkHttpClient {
         return OkHttpClient.Builder()
             .addInterceptor(headerInterceptor)
             .addInterceptor(errorInterceptor)
             .addInterceptor(loggingInterceptor)
             .addInterceptor(mockInterceptor)
+            .certificatePinner(certificatePinner)
             .callTimeout(HTTP_CLIENT_TIMEOUT, TimeUnit.SECONDS)
             .connectTimeout(HTTP_CLIENT_TIMEOUT, TimeUnit.SECONDS)
             .readTimeout(HTTP_CLIENT_TIMEOUT, TimeUnit.SECONDS)
             .writeTimeout(HTTP_CLIENT_TIMEOUT, TimeUnit.SECONDS)
+            .build()
+    }
+
+    @Provides
+    fun provideCertificatePinner(): CertificatePinner {
+        val serverDns = NetworkRouter.BASE_HOSTNAME
+        return CertificatePinner.Builder()
+            .add(
+                serverDns,
+                "sha256/HkCBucsA3Tgiby96X7vjb/ojHaE1BrjvZ2+LRdJJd0E=",
+                "sha256/nKWcsYrc+y5I8vLf1VGByjbt+Hnasjl+9h8lNKJytoE="
+            )
             .build()
     }
 

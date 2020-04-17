@@ -4,7 +4,7 @@ package ru.redmadrobot.core.network
  * Класс содержащий константы - URL для спецификации [MoviesService]
  */
 object NetworkRouter {
-    const val BASE_URL = "https://api.themoviedb.org"
+    const val BASE_HOSTNAME = "api.themoviedb.org"
 
     private const val api_number = "/3"
 
