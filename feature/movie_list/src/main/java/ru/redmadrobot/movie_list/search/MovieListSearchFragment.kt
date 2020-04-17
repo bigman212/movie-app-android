@@ -1,6 +1,8 @@
 package ru.redmadrobot.movie_list.search
 
+import android.content.Context
 import android.os.Bundle
+import android.view.View
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
@@ -28,14 +30,11 @@ import javax.inject.Inject
 
 class MovieListSearchFragment : BaseFragment(R.layout.fragment_movie_search_list) {
     companion object {
-        fun newInstance() = MovieListSearchFragment()
-
         private const val USER_INPUT_DEBOUNCE = 500L
     }
 
     @Inject
     internal lateinit var viewModelFactory: ViewModelProvider.Factory
-
     private val viewModel: MovieListSearchViewModel by viewModels { viewModelFactory }
 
     private val binding: FragmentMovieSearchListBinding by viewBinding()
@@ -45,10 +44,14 @@ class MovieListSearchFragment : BaseFragment(R.layout.fragment_movie_search_list
 
     private lateinit var searchTextObserver: Disposable
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
         initDagger()
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
         initMovieList()
         initViewModel()
         initViews()
@@ -126,8 +129,13 @@ class MovieListSearchFragment : BaseFragment(R.layout.fragment_movie_search_list
         binding.rvMoviesList.adapter = adapterList
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        searchTextObserver.dispose()
+    }
+
     override fun onDestroy() {
         super.onDestroy()
-        searchTextObserver.dispose()
+
     }
 }

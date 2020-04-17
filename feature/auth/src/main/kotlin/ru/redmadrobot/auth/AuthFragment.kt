@@ -1,6 +1,8 @@
 package ru.redmadrobot.auth
 
+import android.content.Context
 import android.os.Bundle
+import android.view.View
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.viewModels
@@ -18,18 +20,19 @@ import ru.redmadrobot.common.vm.observeEvents
 import javax.inject.Inject
 
 class AuthFragment : BaseFragment(R.layout.fragment_auth) {
-    companion object {
-        fun newInstance() = AuthFragment()
-    }
 
     @Inject
     internal lateinit var viewModelFactory: ViewModelProvider.Factory
     private val viewModel: AuthViewModel by viewModels { viewModelFactory }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
         initDagger()
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
         initViewModel()
         initViews()
     }

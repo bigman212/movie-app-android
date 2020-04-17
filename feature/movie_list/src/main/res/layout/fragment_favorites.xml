@@ -10,21 +10,19 @@
         android:id="@+id/toolbar_favorites"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
+        android:theme="@style/Widget.App.Toolbar.Tinted"
 
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-
-
-        android:theme="@style/Widget.App.Toolbar.Tinted"
-        app:menu="@menu/menu_favorites_toolbar"
-        app:navigationIcon="@drawable/ic_arrow_back" />
+        app:menu="@menu/menu_favorites_toolbar" />
 
     <TextView
         android:id="@+id/textView2"
         style="@style/TextAppearance.App.Headline3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:text="@string/favorites_screen_title"
         app:layout_constraintStart_toStartOf="parent"
@@ -46,7 +44,6 @@
         tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         tools:listitem="@layout/item_movie_as_grid"
         tools:spanCount="2" />
-
 
     <include
         android:id="@+id/view_stub_no_favorites_found"

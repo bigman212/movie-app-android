@@ -1,7 +1,9 @@
 package ru.redmadrobot.movie_list.favorite
 
+import android.content.Context
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
@@ -24,13 +26,9 @@ import ru.redmadrobot.movie_list.di.component.MovieListComponent
 import javax.inject.Inject
 
 class FavoritesFragment : BaseFragment(R.layout.fragment_favorites) {
-    companion object {
-        fun newInstance() = FavoritesFragment()
-    }
 
     @Inject
     internal lateinit var viewModelFactory: ViewModelProvider.Factory
-
     private val viewModel: FavoritesViewModel by viewModels { viewModelFactory }
 
     private val binding: FragmentFavoritesBinding by viewBinding()
@@ -39,15 +37,17 @@ class FavoritesFragment : BaseFragment(R.layout.fragment_favorites) {
     private val adapterList = GroupAdapter<GroupieViewHolder>()
     private var contentStyleGrid = false
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
         initDagger()
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
         initMovieList()
         initViewModel()
         initViews()
-
-        viewModel.fetchFavorites()
     }
 
     private fun initDagger() {
@@ -99,8 +99,8 @@ class FavoritesFragment : BaseFragment(R.layout.fragment_favorites) {
         searchView.queryHint = getString(R.string.favorites_search_hint)
 
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String): Boolean = TODO()
-            override fun onQueryTextChange(newText: String): Boolean = TODO()
+            override fun onQueryTextSubmit(query: String): Boolean = true
+            override fun onQueryTextChange(newText: String): Boolean = true
         })
 
         val changeContentStyleItem: MenuItem = menu.findItem(R.id.action_change_content_style)

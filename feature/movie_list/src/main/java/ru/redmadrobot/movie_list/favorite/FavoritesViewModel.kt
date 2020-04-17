@@ -14,6 +14,10 @@ class FavoritesViewModel @Inject constructor(
     private val favoritesUseCase: FavoritesUseCase
 ) : BaseViewModel() {
 
+    init {
+        fetchFavorites()
+    }
+
     sealed class ScreenState {
         data class Content(val data: List<Movie>) : ScreenState()
         object Loading : ScreenState()

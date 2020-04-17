@@ -1,6 +1,8 @@
 package ru.redmadrobot.profile
 
+import android.content.Context
 import android.os.Bundle
+import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import ru.redmadrobot.common.base.BaseFragment
@@ -14,17 +16,21 @@ import ru.redmadrobot.profile.di.component.ProfileComponent
 import javax.inject.Inject
 
 class ProfileFragment : BaseFragment(R.layout.fragment_profile) {
+
     private val binding: FragmentProfileBinding by viewBinding()
 
     @Inject
     internal lateinit var viewModelFactory: ViewModelProvider.Factory
-
     private val viewModel: ProfileViewModel by viewModels { viewModelFactory }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
         initDagger()
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
         initViewModel()
 
         binding.btnLogout.setOnClickListener {

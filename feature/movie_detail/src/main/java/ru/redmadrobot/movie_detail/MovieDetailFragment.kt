@@ -1,7 +1,8 @@
 package ru.redmadrobot.movie_detail
 
+import android.content.Context
 import android.os.Bundle
-import androidx.core.os.bundleOf
+import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
@@ -24,12 +25,6 @@ import ru.redmadrobot.movie_detail.di.component.MovieDetailComponent
 import javax.inject.Inject
 
 class MovieDetailFragment : BaseFragment(R.layout.fragment_movie_detail) {
-    companion object {
-        private const val ARGS_PROFILE_ID = "ARGS_PROFILE_ID"
-        fun newInstance(movieId: String) = MovieDetailFragment().apply {
-            arguments = bundleOf(ARGS_PROFILE_ID to movieId)
-        }
-    }
 
     @Inject
     internal lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -41,10 +36,14 @@ class MovieDetailFragment : BaseFragment(R.layout.fragment_movie_detail) {
 
     private val contentAdapter = GroupAdapter<GroupieViewHolder>()
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
         initDagger()
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
         initViews()
         initViewModel()
     }
