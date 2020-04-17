@@ -3,7 +3,7 @@ package ru.redmadrobot.common.data.movie
 import io.reactivex.Observable
 import io.reactivex.Single
 import ru.redmadrobot.common.data.genre.GenresRepository
-import ru.redmadrobot.common.data.movie.entity.MarkMovieFavoriteRequest
+import ru.redmadrobot.common.data.movie.entity.MarkMediaFavoriteRequest
 import ru.redmadrobot.common.data.movie.entity.Movie
 import ru.redmadrobot.common.data.movie.entity.MovieDetail
 import ru.redmadrobot.core.network.DefaultResponse
@@ -32,7 +32,7 @@ class MovieRepository @Inject constructor(
     fun markMovieAsFavorite(
         accountId: Int,
         sessionId: String,
-        body: MarkMovieFavoriteRequest
+        body: MarkMediaFavoriteRequest
     ): Single<DefaultResponse> {
         return api.markMovieAsFavorite(accountId, sessionId, body)
     }

@@ -28,7 +28,7 @@ class MovieDetailUseCase @Inject constructor(
             val accountId = getAccountId()
             val sessionId = getSessionId()
 
-            val body = MarkMovieFavoriteRequest(movieId, isFavorite = markFavorite)
+            val body = MarkMediaFavoriteRequest(movieId, isFavorite = markFavorite)
             movieRepository
                 .markMovieAsFavorite(accountId, sessionId, body)
                 .flatMapCompletable { Completable.complete() }

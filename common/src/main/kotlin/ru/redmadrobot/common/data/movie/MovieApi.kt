@@ -5,8 +5,8 @@ import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
-import retrofit2.http.Query
-import ru.redmadrobot.common.data.movie.entity.MarkMovieFavoriteRequest
+import retrofit2.xhttp.Query
+import ru.redmadrobot.common.data.movie.entity.MarkMediaFavoriteRequest
 import ru.redmadrobot.common.data.movie.entity.Movie
 import ru.redmadrobot.common.data.movie.entity.MovieDetail
 import ru.redmadrobot.core.network.DefaultResponse
@@ -30,7 +30,7 @@ interface MovieApi {
     fun markMovieAsFavorite(
         @Path("account_id") accountId: Int,
         @Query("session_id") sessionId: CharSequence,
-        @Body body: MarkMovieFavoriteRequest
+        @Body body: MarkMediaFavoriteRequest
     ): Single<DefaultResponse>
 
     @GET(NetworkRouter.MOVIE_ACCOUNT_STATE)

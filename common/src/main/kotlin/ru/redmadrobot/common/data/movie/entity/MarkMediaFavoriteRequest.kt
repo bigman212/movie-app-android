@@ -4,13 +4,21 @@ import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
-data class MarkMovieFavoriteRequest(
+data class MarkMediaFavoriteRequest(
     @field:Json(name = "media_id")
     val mediaId: Int,
 
     @field:Json(name = "media_type")
-    val mediaType: String = "movie",
+    val mediaType: MediaType = MediaType.MOVIE,
 
     @field:Json(name = "favorite")
     val isFavorite: Boolean = true
-)
+) {
+    enum class MediaType {
+        @field:Json(name = "movie")
+        MOVIE,
+
+        @field:Json(name = "tv")
+        TV_SHOW
+    }
+}
