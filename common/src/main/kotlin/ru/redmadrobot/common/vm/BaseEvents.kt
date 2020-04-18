@@ -1,8 +1,13 @@
 package ru.redmadrobot.common.vm
 
+import androidx.annotation.StringRes
 import androidx.navigation.NavDirections
 
-data class MessageEvent(val message: CharSequence) : Event
+/**
+ * Используется для показа информационных сообщений пользователю
+ * Можно передать строку, можно id строки из strings.xml
+ */
+data class MessageEvent(val message: CharSequence? = null, @StringRes val stringId: Int? = null) : Event
 data class ErrorEvent(val errorMessage: CharSequence) : Event
 
 interface NavigationEvent : Event

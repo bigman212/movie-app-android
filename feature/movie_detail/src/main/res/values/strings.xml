@@ -5,4 +5,6 @@
     <string name="item_detailed_movie_duration_title">Время</string>
     <string name="item_detailed_movie_rating_title">Рейтинг фильма</string>
     <string name="item_detailed_movie_no_overview">Описание фильма отсутствует</string>
+    <string name="movie_detail_added_fav">Фильм добавлен в избранное</string>
+    <string name="movie_detail_removed_fav">Фильм убран из избранного</string>
 </resources>

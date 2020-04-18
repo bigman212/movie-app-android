@@ -5,7 +5,6 @@ import io.reactivex.Completable
 import ru.redmadrobot.common.base.BaseViewModel
 import ru.redmadrobot.common.data.movie.entity.MovieDetail
 import ru.redmadrobot.common.extensions.delegate
-import ru.redmadrobot.common.vm.Event
 import ru.redmadrobot.common.vm.MessageEvent
 import ru.redmadrobot.core.network.SchedulersProvider
 import ru.redmadrobot.core.network.scheduleIoToUi
@@ -17,8 +16,6 @@ class MovieDetailViewModel @Inject constructor(
     private val schedulersProvider: SchedulersProvider,
     private val movieDetailUseCase: MovieDetailUseCase
 ) : BaseViewModel() {
-
-    class ChangeMovieFavoriteStatusEvent(val movieIsFavorite: Boolean) : Event
 
     sealed class ScreenState {
         data class Content(val data: MovieDetail) : ScreenState()
@@ -68,15 +65,23 @@ class MovieDetailViewModel @Inject constructor(
                         // по завершении запроса меняем статус Избранное у фильма не противоположное
                         val updatedMovieDetail = oldMovieDetail.copy(isFavorite = shouldBeAddedToFavorites)
                         state = oldState.copy(data = updatedMovieDetail)
-
-                        events.offer(MessageEvent("Фильм добавлен в избранное"))
+                        showFavoriteActionFinished(shouldBeAddedToFavorites)
                     },
-                    {
-                        Timber.e(it)
-                        offerErrorEvent(it)
+                    { error ->
+                        Timber.e(error)
+                        offerErrorEvent(error)
                     }
                 ).disposeOnCleared()
         }
+    }
+
+    private fun showFavoriteActionFinished(addedToFavorite: Boolean) {
+        val stringToShow = if (addedToFavorite) {
+            R.string.movie_detail_added_fav
+        } else {
+            R.string.movie_detail_removed_fav
+        }
+        events.offer(MessageEvent(stringId = stringToShow))
     }
 }
 

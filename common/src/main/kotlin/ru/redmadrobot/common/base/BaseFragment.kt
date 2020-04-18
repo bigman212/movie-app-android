@@ -4,6 +4,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.annotation.CallSuper
 import androidx.annotation.LayoutRes
+import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavDirections
 import androidx.navigation.NavOptions
@@ -37,13 +38,21 @@ open class BaseFragment : Fragment {
     @CallSuper
     protected open fun onEvent(event: Event) {
         when (event) {
-            is MessageEvent -> showMessage(event.message)
+            is MessageEvent -> {
+                if (event.message != null) {
+                    showMessage(event.message)
+                } else if (event.stringId != null) {
+                    showMessage(event.stringId)
+                }
+            }
             is ErrorEvent -> showError(event.errorMessage)
             is NavigateToEvent -> {
                 findNavController().navigate(event.direction)
             }
         }
     }
+
+    private fun showMessage(@StringRes stringId: Int) = showMessage(getString(stringId))
 
     private fun showMessage(message: CharSequence) {
         Toast.makeText(context, message, Toast.LENGTH_LONG).show()

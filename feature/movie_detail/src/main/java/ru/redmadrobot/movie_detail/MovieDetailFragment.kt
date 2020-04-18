@@ -63,7 +63,7 @@ class MovieDetailFragment : BaseFragment(R.layout.fragment_movie_detail) {
             setNavigationIcon(R.drawable.ic_arrow_back)
 
             setOnMenuItemClickListener { item ->
-                if (item.itemId == R.id.action_mark_movie_favorite) { // вынести как ивент
+                if (item.itemId == R.id.action_mark_movie_favorite) {
                     viewModel.onFavoriteButtonClicked(args.movieId)
                 }
                 true
@@ -88,10 +88,10 @@ class MovieDetailFragment : BaseFragment(R.layout.fragment_movie_detail) {
 
         if (state is MovieDetailViewModel.ScreenState.Content) {
             val movieDetail = state.data
-            binding.toolbarMovieDetail.menu.run {
-                val favoriteActionItem = findItem(R.id.action_mark_movie_favorite)
-                favoriteActionItem.setFavoriteIcon(movieDetail.isFavorite)
-            }
+            binding.toolbarMovieDetail
+                .menu
+                .findItem(R.id.action_mark_movie_favorite)
+                .setFavoriteIcon(movieDetail.isFavorite)
 
             val section = Section()
             section.setHeader(MovieDetailHeaderItem(state.data))
