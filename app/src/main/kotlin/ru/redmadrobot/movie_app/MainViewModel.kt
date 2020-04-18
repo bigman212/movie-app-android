@@ -1,14 +1,14 @@
 package ru.redmadrobot.movie_app
 
-import ru.redmadrobot.auth.AuthFragmentDirections
+import ru.redmadrobot.auth.login.LoginFragmentDirections
 import ru.redmadrobot.common.base.BaseViewModel
 import ru.redmadrobot.common.vm.NavigateToEvent
 import ru.redmadrobot.core.network.SessionIdRepository
 import javax.inject.Inject
 
 class MainViewModel @Inject constructor(private val repository: SessionIdRepository) : BaseViewModel() {
-    private val authLocation = AuthFragmentDirections.toAuthFragmentGlobal()
-    private val defaultLocation = AuthFragmentDirections.toMovieListMainFragment()
+    private val authLocation = LoginFragmentDirections.toLoginFragmentGlobal()
+    private val defaultLocation = LoginFragmentDirections.toMovieListMainFragment()
 
     fun requestStartLocationEvent() {
         events.offer(

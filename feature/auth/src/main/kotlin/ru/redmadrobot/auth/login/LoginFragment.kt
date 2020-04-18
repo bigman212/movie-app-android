@@ -1,4 +1,4 @@
-package ru.redmadrobot.auth
+package ru.redmadrobot.auth.login
 
 import android.content.Context
 import android.os.Bundle
@@ -7,9 +7,10 @@ import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
-import kotlinx.android.synthetic.main.fragment_auth.*
+import kotlinx.android.synthetic.main.fragment_login.*
+import ru.redmadrobot.auth.R
 import ru.redmadrobot.auth.di.component.AuthComponent
-import ru.redmadrobot.auth.viewmodel.AuthViewModel
+import ru.redmadrobot.auth.login.viewmodel.LoginViewModel
 import ru.redmadrobot.common.base.BaseFragment
 import ru.redmadrobot.common.extensions.fieldValue
 import ru.redmadrobot.common.extensions.hideKeyboard
@@ -19,11 +20,11 @@ import ru.redmadrobot.common.vm.Event
 import ru.redmadrobot.common.vm.observeEvents
 import javax.inject.Inject
 
-class AuthFragment : BaseFragment(R.layout.fragment_auth) {
+class LoginFragment : BaseFragment(R.layout.fragment_login) {
 
     @Inject
     internal lateinit var viewModelFactory: ViewModelProvider.Factory
-    private val viewModel: AuthViewModel by viewModels { viewModelFactory }
+    private val viewModel: LoginViewModel by viewModels { viewModelFactory }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -85,8 +86,8 @@ class AuthFragment : BaseFragment(R.layout.fragment_auth) {
 
     override fun onEvent(event: Event) {
         super.onEvent(event)
-        if (event is AuthViewModel.AuthorizedEvent) {
-            navigateTo(AuthFragmentDirections.toMovieListMainFragment())
+        if (event is LoginViewModel.AuthorizedEvent) {
+            navigateTo(LoginFragmentDirections.toMovieListMainFragment())
         }
     }
 }

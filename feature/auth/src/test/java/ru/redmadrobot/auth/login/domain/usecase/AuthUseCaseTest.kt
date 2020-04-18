@@ -1,4 +1,4 @@
-package ru.redmadrobot.auth.domain.usecase
+package ru.redmadrobot.auth.login.domain.usecase
 
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.mock
@@ -25,7 +25,7 @@ internal class AuthUseCaseTest : Spek({
                 on { loginWith(anyString(), anyString()) }.doReturn(Single.just(session))
             }
 
-            val authUseCase = AuthUseCase(sessionIdRepository, repo)
+            val authUseCase = LoginUseCase(sessionIdRepository, repo)
 
             lateinit var sessionRequest: TestObserver<SessionIdResponse>
             When("pass valid login and password") {

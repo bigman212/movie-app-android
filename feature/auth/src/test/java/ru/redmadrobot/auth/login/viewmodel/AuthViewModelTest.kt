@@ -1,4 +1,4 @@
-package ru.redmadrobot.auth.viewmodel
+package ru.redmadrobot.auth.login.viewmodel
 
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.mock
@@ -8,7 +8,7 @@ import org.assertj.core.api.Assertions.assertThat
 import org.mockito.ArgumentMatchers.anyString
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.gherkin.Feature
-import ru.redmadrobot.auth.domain.usecase.AuthUseCase
+import ru.redmadrobot.auth.login.domain.usecase.LoginUseCase
 import ru.redmadrobot.core.network.DefaultResponse
 import ru.redmadrobot.core.network.NetworkException
 import ru.redmadrobot.core.network.TestSchedulersProvider
@@ -25,13 +25,13 @@ internal class AuthViewModelTest : Spek({
         }
 
         Scenario("enter no login and password or spaces") {
-            val authViewModel = AuthViewModel(mock(), mock())
+            val authViewModel = LoginViewModel(mock(), mock())
 
             When("enter blank as credentials") {
                 authViewModel.checkValuesAreValid("", "")
             }
             Then("state changes to buttonChangedState = false") {
-                val expectedState = AuthViewState().buttonChangedState(false)
+                val expectedState = LoginViewState().buttonChangedState(false)
 
                 authViewModel.assertStateIs(expectedState)
             }
@@ -40,7 +40,7 @@ internal class AuthViewModelTest : Spek({
                 authViewModel.checkValuesAreValid("  ", "  ")
             }
             Then("state changes to buttonChangedState = false") {
-                val expectedState = AuthViewState().buttonChangedState(false)
+                val expectedState = LoginViewState().buttonChangedState(false)
 
                 authViewModel.assertStateIs(expectedState)
             }
@@ -49,7 +49,7 @@ internal class AuthViewModelTest : Spek({
                 authViewModel.checkValuesAreValid("login", "")
             }
             Then("keep state buttonChangedState = false") {
-                val expectedState = AuthViewState().buttonChangedState(false)
+                val expectedState = LoginViewState().buttonChangedState(false)
 
                 authViewModel.assertStateIs(expectedState)
             }
@@ -58,20 +58,20 @@ internal class AuthViewModelTest : Spek({
                 authViewModel.checkValuesAreValid("login", "")
             }
             Then("keep state buttonChangedState = false") {
-                val expectedState = AuthViewState().buttonChangedState(false)
+                val expectedState = LoginViewState().buttonChangedState(false)
 
                 authViewModel.assertStateIs(expectedState)
             }
         }
 
         Scenario("enter all credentials") {
-            val authViewModel = AuthViewModel(mock(), mock())
+            val authViewModel = LoginViewModel(mock(), mock())
 
             When("pass login and password") {
                 authViewModel.checkValuesAreValid("login", "password")
             }
             Then("state changes to buttonChangedState = true") {
-                val expectedState = AuthViewState().buttonChangedState(true)
+                val expectedState = LoginViewState().buttonChangedState(true)
 
                 authViewModel.assertStateIs(expectedState)
             }
@@ -80,17 +80,17 @@ internal class AuthViewModelTest : Spek({
         Scenario("authorizing process is started") {
             val testScheduler = TestScheduler()
 
-            val authUseCase = mock<AuthUseCase> {
+            val authUseCase = mock<LoginUseCase> {
                 on { login(anyString(), anyString()) }.doReturn(Single.just(mock()))
             }
-            val authViewModel = AuthViewModel(TestSchedulersProvider(backgroundScheduler = testScheduler), authUseCase)
+            val authViewModel = LoginViewModel(TestSchedulersProvider(backgroundScheduler = testScheduler), authUseCase)
 
             When("useCase starts authorizing, but not finishes") {
                 authViewModel.checkValuesAreValid("login", "password")
                 authViewModel.onAuthorizeButtonClick("login", "password")
             }
             Then("state becomes Fetching") {
-                val expectedState = AuthViewState().fetchingState()
+                val expectedState = LoginViewState().fetchingState()
                 authViewModel.assertStateIs(expectedState)
             }
 
@@ -98,16 +98,16 @@ internal class AuthViewModelTest : Spek({
                 testScheduler.triggerActions()
             }
             Then("state becomes not Fetching") {
-                val expectedState = AuthViewState().authorizedState()
+                val expectedState = LoginViewState().authorizedState()
                 assertThat(expectedState).isNotEqualTo(authViewModel.viewState.value!!)
             }
         }
 
         Scenario("enter valid credentials and authorize") {
-            val authUseCase = mock<AuthUseCase> {
+            val authUseCase = mock<LoginUseCase> {
                 on { login(anyString(), anyString()) }.doReturn(Single.just(mock()))
             }
-            val authViewModel = AuthViewModel(TestSchedulersProvider(), authUseCase)
+            val authViewModel = LoginViewModel(TestSchedulersProvider(), authUseCase)
 
             When("valid credentials are entered and button is clicked") {
                 val validLogin = "login"
@@ -117,7 +117,7 @@ internal class AuthViewModelTest : Spek({
             }
 
             Then("state becomes Authorized") {
-                val expectedState = AuthViewState()
+                val expectedState = LoginViewState()
                     .authorizedState()
                     .buttonChangedState(true)
 
@@ -128,12 +128,12 @@ internal class AuthViewModelTest : Spek({
         Scenario("enter wrong credentials and authorize") {
             val expectedWrongCredentialsError = DefaultResponse("Неправильные логин или пароль", 7)
 
-            val authUseCase = mock<AuthUseCase> {
+            val authUseCase = mock<LoginUseCase> {
                 on { login(anyString(), anyString()) }
                     .doReturn(Single.error { NetworkException.BadRequest(expectedWrongCredentialsError) })
             }
 
-            val authViewModel = AuthViewModel(TestSchedulersProvider(), authUseCase)
+            val authViewModel = LoginViewModel(TestSchedulersProvider(), authUseCase)
             When("wrong credentials are entered and authorize button clicked") {
                 val notValidLogin = "login_bad"
                 val notValidPassword = "password_bad"
@@ -141,7 +141,7 @@ internal class AuthViewModelTest : Spek({
                 authViewModel.onAuthorizeButtonClick(notValidLogin, notValidPassword)
             }
             Then("state receives error state with invalid_credentials") {
-                val expectedState = AuthViewState()
+                val expectedState = LoginViewState()
                     .buttonChangedState(isEnabled = true)
                     .errorState(expectedWrongCredentialsError.statusMessage)
 
@@ -151,7 +151,7 @@ internal class AuthViewModelTest : Spek({
     }
 })
 
-private fun AuthViewModel.assertStateIs(expected: AuthViewState) {
+private fun LoginViewModel.assertStateIs(expected: LoginViewState) {
     assertThat(expected).isEqualTo(viewState.value!!)
 }
 

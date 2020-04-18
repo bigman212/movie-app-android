@@ -1,4 +1,4 @@
-package ru.redmadrobot.auth.viewmodel
+package ru.redmadrobot.auth.login.viewmodel
 
 import android.content.Context
 import com.nhaarman.mockitokotlin2.doReturn
@@ -12,7 +12,7 @@ import ru.redmadrobot.auth.data.AuthApi
 import ru.redmadrobot.auth.data.entities.response.SessionIdResponse
 import ru.redmadrobot.auth.data.entities.response.TokenResponse
 import ru.redmadrobot.auth.data.repository.AuthRepository
-import ru.redmadrobot.auth.domain.usecase.AuthUseCase
+import ru.redmadrobot.auth.login.domain.usecase.LoginUseCase
 import ru.redmadrobot.core.network.DefaultResponse
 import ru.redmadrobot.core.network.NetworkErrorHandler
 import ru.redmadrobot.core.network.NetworkRouter
@@ -49,7 +49,7 @@ internal class AuthViewModelIntegrationTest : Spek({
     val sessionIdRepo = SessionIdRepository(
         SharedPreferencesMock(mapOf("session_id_key" to "session_id")).sharedPrefs
     )
-    val authUseCase = AuthUseCase(sessionIdRepo, authRepository)
+    val authUseCase = LoginUseCase(sessionIdRepo, authRepository)
     //endregion
 
     Feature("Login") {
@@ -62,7 +62,7 @@ internal class AuthViewModelIntegrationTest : Spek({
         }
 
         val authViewModel by memoized {
-            AuthViewModel(TestSchedulersProvider(), authUseCase)
+            LoginViewModel(TestSchedulersProvider(), authUseCase)
         }
 
         Scenario("authorize user with entered credentials") {

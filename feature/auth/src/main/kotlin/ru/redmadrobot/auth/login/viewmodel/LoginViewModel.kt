@@ -1,8 +1,8 @@
-package ru.redmadrobot.auth.viewmodel
+package ru.redmadrobot.auth.login.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import io.reactivex.functions.BiFunction
-import ru.redmadrobot.auth.domain.usecase.AuthUseCase
+import ru.redmadrobot.auth.login.domain.usecase.LoginUseCase
 import ru.redmadrobot.common.base.BaseViewModel
 import ru.redmadrobot.common.vm.Event
 import ru.redmadrobot.core.network.NetworkException
@@ -11,32 +11,32 @@ import ru.redmadrobot.core.network.scheduleIoToUi
 import timber.log.Timber
 import javax.inject.Inject
 
-class AuthViewModel
-@Inject constructor(private val schedulers: SchedulersProvider, private val useCase: AuthUseCase) : BaseViewModel() {
+class LoginViewModel
+@Inject constructor(private val schedulers: SchedulersProvider, private val useCase: LoginUseCase) : BaseViewModel() {
 
     object AuthorizedEvent : Event
 
-    val viewState = MutableLiveData(AuthViewState())
+    val viewState = MutableLiveData(LoginViewState())
 
-    private val reducer = BiFunction { previousState: AuthViewState, action: AuthAction ->
+    private val reducer = BiFunction { previousState: LoginViewState, action: LoginAction ->
         when (action) {
-            is AuthAction.Fetching -> previousState.fetchingState()
-            is AuthAction.Authorize -> {
+            is LoginAction.Fetching -> previousState.fetchingState()
+            is LoginAction.Authorize -> {
                 events.offer(AuthorizedEvent)
                 previousState.authorizedState()
             }
-            is AuthAction.EnableButton -> previousState.buttonChangedState(action.shouldBeEnabled)
+            is LoginAction.EnableButton -> previousState.buttonChangedState(action.shouldBeEnabled)
 
-            is AuthAction.Error -> {
+            is LoginAction.Error -> {
                 previousState.errorState(action.uxError)
             }
         }
     }
 
-    private val currentState: AuthViewState
+    private val currentState: LoginViewState
         get() = viewState.value!!
 
-    private fun dispatch(action: AuthAction) =
+    private fun dispatch(action: LoginAction) =
         reducer.apply(currentState, action)
             .also {
                 viewState.postValue(it)
@@ -44,20 +44,20 @@ class AuthViewModel
 
     fun checkValuesAreValid(loginFieldValue: String, passwordFieldValue: String) {
         val valuesAreValid = loginFieldValue.isNotBlank() and passwordFieldValue.isNotBlank()
-        dispatch(AuthAction.EnableButton(valuesAreValid))
+        dispatch(LoginAction.EnableButton(valuesAreValid))
     }
 
     fun onAuthorizeButtonClick(loginFieldValue: String, passwordFieldValue: String) {
         useCase.login(loginFieldValue, passwordFieldValue)
             .scheduleIoToUi(schedulers)
             .doOnSubscribe {
-                dispatch(AuthAction.EnableButton(false))
-                dispatch(AuthAction.Fetching)
+                dispatch(LoginAction.EnableButton(false))
+                dispatch(LoginAction.Fetching)
             }
-            .doOnEvent { _, _ -> dispatch(AuthAction.EnableButton(true)) }
+            .doOnEvent { _, _ -> dispatch(LoginAction.EnableButton(true)) }
             .subscribe(
                 {
-                    dispatch(AuthAction.Authorize)
+                    dispatch(LoginAction.Authorize)
                 },
                 { error ->
                     Timber.e(error)
@@ -65,7 +65,7 @@ class AuthViewModel
                         offerErrorEvent(error)
                     } else {
                         val stateError = error.message ?: "Неизвестная ошибка"
-                        dispatch(AuthAction.Error(stateError))
+                        dispatch(LoginAction.Error(stateError))
                     }
                 }
             )

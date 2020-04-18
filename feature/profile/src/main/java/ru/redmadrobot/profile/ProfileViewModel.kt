@@ -1,7 +1,7 @@
 package ru.redmadrobot.profile
 
 import androidx.lifecycle.MutableLiveData
-import ru.redmadrobot.auth.AuthFragmentDirections
+import ru.redmadrobot.auth.login.LoginFragmentDirections
 import ru.redmadrobot.common.base.BaseViewModel
 import ru.redmadrobot.common.extensions.delegate
 import ru.redmadrobot.common.vm.NavigateToEvent
@@ -38,7 +38,7 @@ class ProfileViewModel @Inject constructor(
             .doOnEvent { state = state.fetchingFinishedState() }
             .subscribe(
                 {
-                    events.offer(NavigateToEvent(AuthFragmentDirections.toAuthFragmentGlobal()))
+                    events.offer(NavigateToEvent(LoginFragmentDirections.toLoginFragmentGlobal()))
                 },
                 this::offerErrorEvent
             ).disposeOnCleared()

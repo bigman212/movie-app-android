@@ -1,9 +1,9 @@
 package ru.redmadrobot.auth.di.component
 
 import dagger.Component
-import ru.redmadrobot.auth.AuthFragment
 import ru.redmadrobot.auth.di.module.AuthApiModule
 import ru.redmadrobot.auth.di.module.AuthViewModelModule
+import ru.redmadrobot.auth.login.LoginFragment
 import ru.redmadrobot.common.di.AppProvider
 import ru.redmadrobot.common.di.genre.GenreApiModule
 import ru.redmadrobot.core.android.AndroidToolsProvider
@@ -21,7 +21,7 @@ import ru.redmadrobot.core.network.di.NetworkProvider
     ]
 )
 interface AuthComponent {
-    fun inject(obj: AuthFragment)
+    fun inject(obj: LoginFragment)
 
     @Component.Factory
     interface Factory {

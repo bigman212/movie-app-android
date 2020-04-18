@@ -1,4 +1,4 @@
-package ru.redmadrobot.auth.domain.usecase
+package ru.redmadrobot.auth.login.domain.usecase
 
 import android.annotation.SuppressLint
 import io.reactivex.Single
@@ -12,7 +12,7 @@ import ru.redmadrobot.core.network.SessionIdRepository
 import timber.log.Timber
 import javax.inject.Inject
 
-class AuthUseCase @Inject constructor(
+class LoginUseCase @Inject constructor(
     private val authRepo: AuthRepository,
     private val sessionRepo: SessionIdRepository,
     private val genresRepo: GenresRepository,
