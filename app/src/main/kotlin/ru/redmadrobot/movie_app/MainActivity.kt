@@ -45,7 +45,10 @@ class MainActivity : BaseActivity(R.layout.activity_main) {
     private fun setupBottomNavigationBarVisibility(navController: NavController) {
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
-                R.id.nav_login_fragment -> menu_navigation.isVisible = false
+                R.id.nav_login_fragment,
+                R.id.nav_pin_create_fragment -> {
+                    menu_navigation.isVisible = false
+                }
                 else -> menu_navigation.isVisible = true
             }
         }

@@ -80,6 +80,11 @@ class LoginFragment : BaseFragment(R.layout.fragment_login) {
         tv_error.isVisible = errorMessage != null
     }
 
+    override fun onResume() {
+        super.onResume()
+        et_password.setText("")
+    }
+
     private fun renderButtonChanged(isEnabled: Boolean) {
         btn_submit.isEnabled = isEnabled
     }
@@ -87,7 +92,7 @@ class LoginFragment : BaseFragment(R.layout.fragment_login) {
     override fun onEvent(event: Event) {
         super.onEvent(event)
         if (event is LoginViewModel.AuthorizedEvent) {
-            navigateTo(LoginFragmentDirections.toMovieListMainFragment())
+            navigateTo(LoginFragmentDirections.toPinCreateFragment())
         }
     }
 }

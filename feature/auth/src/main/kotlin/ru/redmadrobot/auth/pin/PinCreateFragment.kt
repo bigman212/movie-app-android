@@ -5,6 +5,9 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupWithNavController
 import ru.redmadrobot.auth.R
 import ru.redmadrobot.auth.databinding.FragmentPincodeBinding
 import ru.redmadrobot.auth.di.component.AuthComponent
@@ -33,6 +36,10 @@ class PinCreateFragment : BaseFragment(R.layout.fragment_pincode) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val navController = findNavController()
+        val appBarConfiguration = AppBarConfiguration(navController.graph)
+        binding.toolbar.setupWithNavController(navController, appBarConfiguration)
 
         binding.pincodeKeyboard.setOnInputFilledListener(viewModel::onPinFullyEntered)
         observeEvents(viewModel.events, ::onEvent)

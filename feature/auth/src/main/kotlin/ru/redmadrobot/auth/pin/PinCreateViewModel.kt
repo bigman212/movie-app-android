@@ -5,6 +5,7 @@ import ru.redmadrobot.auth.pin.data.PinValueRepository
 import ru.redmadrobot.common.base.BaseViewModel
 import ru.redmadrobot.common.vm.Event
 import ru.redmadrobot.common.vm.MessageEvent
+import ru.redmadrobot.common.vm.NavigateToEvent
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -39,8 +40,9 @@ class PinCreateViewModel @Inject constructor(
             .subscribe(
                 {
                     events.offer(MessageEvent(stringId = R.string.pin_pin_created))
-//                events.offer(NavigateToEvent())
-                }, { error ->
+                    events.offer(NavigateToEvent(PinCreateFragmentDirections.toMovieListMainFragment()))
+                },
+                { error ->
                     Timber.e(error)
                     offerErrorEvent(error)
                 })
