@@ -1,7 +1,7 @@
 package ru.redmadrobot.auth.pin
 
 import ru.redmadrobot.auth.R
-import ru.redmadrobot.auth.pin.data.PinValueRepository
+import ru.redmadrobot.common.data.profile.PinValueRepository
 import ru.redmadrobot.common.base.BaseViewModel
 import ru.redmadrobot.common.vm.Event
 import ru.redmadrobot.common.vm.MessageEvent

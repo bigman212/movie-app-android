@@ -4,6 +4,7 @@ import io.reactivex.Completable
 import io.reactivex.Single
 import ru.redmadrobot.common.data.profile.AccountDetails
 import ru.redmadrobot.common.data.profile.AccountRepository
+import ru.redmadrobot.common.data.profile.PinValueRepository
 import ru.redmadrobot.common.extensions.flatMapCompletableAction
 import ru.redmadrobot.core.network.SessionIdRepository
 import ru.redmadrobot.profile.data.entities.DeleteSessionRequest
@@ -13,6 +14,7 @@ import javax.inject.Inject
 class ProfileUseCase @Inject constructor(
     private val sessionIdRepository: SessionIdRepository,
     private val accountRepository: AccountRepository,
+    private val pinRepository: PinValueRepository,
     private val profileService: ProfileApi
 ) {
     fun logout(): Completable {
@@ -27,11 +29,15 @@ class ProfileUseCase @Inject constructor(
 
     fun getAccountDetails(): Single<AccountDetails> {
         return Single.fromCallable {
-            accountRepository.currentAccount() ?: throw Throwable("Current account is null")
+            accountRepository.currentAccount() ?: throw IllegalArgumentException("Данные об аккаунте не загружены")
         }
     }
 
     private fun deleteLocalSessionId(response: DeleteSessionResponse) {
-        if (response.sessionIsDeleted) sessionIdRepository.clear()
+        if (response.sessionIsDeleted) {
+            sessionIdRepository.clear()
+            accountRepository.deleteCurrentAccount()
+            pinRepository.deletePin()
+        }
     }
 }

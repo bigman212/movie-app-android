@@ -29,4 +29,11 @@ class AccountRepository @Inject constructor(
         val accountAsJson = sharedPrefs.getString(KEY_ACCOUNT, null)
         return accountAsJson?.let(jsonAdapter::fromJson)
     }
+
+    fun deleteCurrentAccount() {
+        sharedPrefs.edit {
+            remove(KEY_ACCOUNT)
+            apply()
+        }
+    }
 }

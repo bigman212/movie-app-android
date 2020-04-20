@@ -1,4 +1,4 @@
-package ru.redmadrobot.auth.pin.data
+package ru.redmadrobot.common.data.profile
 
 import android.content.SharedPreferences
 import androidx.core.content.edit
