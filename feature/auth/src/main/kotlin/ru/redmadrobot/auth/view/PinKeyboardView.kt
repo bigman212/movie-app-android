@@ -1,6 +1,7 @@
 package ru.redmadrobot.auth.view
 
 import android.content.Context
+import android.content.res.TypedArray
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -9,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import com.xwray.groupie.viewbinding.BindableItem
+import ru.redmadrobot.auth.R
 import ru.redmadrobot.auth.databinding.ViewPinKeyboardBinding
 
 class PinKeyboardView @JvmOverloads constructor(
@@ -23,11 +25,10 @@ class PinKeyboardView @JvmOverloads constructor(
         private const val KEYBOARD_PIN_NUMBER_COLUMNS = 3
     }
 
-    private var isExitEnabled: Boolean = false
     private var numberClickListener: ((Int) -> Unit)? = null
     private var backspaceClickListener: (() -> Unit)? = null
     private var exitClickListener: (() -> Unit)? = null
-    private var inputsFilledListener: (() -> Unit)? = null
+    private var inputsFilledListener: ((List<Int>) -> Unit)? = null
 
     private val enteredPinNumbers: MutableList<Int> = mutableListOf()
 
@@ -45,10 +46,19 @@ class PinKeyboardView @JvmOverloads constructor(
         val layoutInflater = LayoutInflater.from(context)
         val viewBinding = ViewPinKeyboardBinding.inflate(layoutInflater, this, true)
 
-        initRecyclerViews(viewBinding)
+        var exitButtonEnabled = false
+        lateinit var attrsArray: TypedArray
+        try {
+            attrsArray = context.obtainStyledAttributes(attrs, R.styleable.PinKeyboardView)
+            exitButtonEnabled = attrsArray.getBoolean(R.styleable.PinKeyboardView_withExitButton, false)
+        } finally {
+            attrsArray.recycle()
+        }
+
+        initRecyclerViews(viewBinding, exitButtonEnabled)
     }
 
-    fun setOnInputFilledListener(callback: () -> Unit) {
+    fun setOnInputFilledListener(callback: (values: List<Int>) -> Unit) {
         inputsFilledListener = callback
     }
 
@@ -64,7 +74,14 @@ class PinKeyboardView @JvmOverloads constructor(
         backspaceClickListener = callback
     }
 
-    private fun initRecyclerViews(viewBinding: ViewPinKeyboardBinding) {
+    fun setErrorIndicators(value: Boolean) = updateIndicatorItems(value)
+
+    fun clearInputValues() {
+        enteredPinNumbers.clear()
+        updateIndicatorItems()
+    }
+
+    private fun initRecyclerViews(viewBinding: ViewPinKeyboardBinding, exitButtonEnabled: Boolean) {
         viewBinding.rvPinIndicators.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             adapter = groupAdapterIndicators
@@ -75,15 +92,15 @@ class PinKeyboardView @JvmOverloads constructor(
             adapter = groupAdapter
         }
         groupAdapterIndicators.update(indicatorsItems)
-        groupAdapter.update(genKeyboardItems())
+        groupAdapter.update(genKeyboardItems(exitButtonEnabled))
     }
 
-    private fun genKeyboardItems(): List<BindableItem<*>> {
+    private fun genKeyboardItems(isExitButtonEnabled: Boolean): List<BindableItem<*>> {
         return MutableList<BindableItem<*>>(PIN_NUMBER_ITEMS_COUNT) {
             PinNumberItem(it + 1, ::onNumberClicked)
         }
             .also {
-                it += PinExitItem(visibility = isExitEnabled, onExitClicked = ::onExitClicked)
+                it += PinExitItem(visibility = isExitButtonEnabled, onExitClicked = ::onExitClicked)
                 it += PinNumberItem(0, ::onNumberClicked)
                 it += PinBackspaceItem(::onBackspaceClicked)
             }
@@ -109,8 +126,9 @@ class PinKeyboardView @JvmOverloads constructor(
             enteredPinNumbers += number
             updateIndicatorItems()
             numberClickListener?.invoke(number)
-        } else if (enteredPinNumbers.size == PIN_REQUIRED_INPUTS_COUNT) {
-            inputsFilledListener?.invoke()
+        }
+        if (enteredPinNumbers.size == PIN_REQUIRED_INPUTS_COUNT) {
+            inputsFilledListener?.invoke(enteredPinNumbers)
         }
     }
 

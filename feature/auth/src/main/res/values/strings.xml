@@ -8,4 +8,8 @@
 
     <string name="btn_login">Войти</string>
     <string name="auth_pin_exit_item_name">Выйти</string>
+    <string name="pin_create_code_title">Придумайте пин-код для быстрого входа</string>
+    <string name="pin_pin_created">ПИН-код успешно создан</string>
+    <string name="pin_repeated_wrong">ПИН-ы не совпадают. Давайте еще раз по новой</string>
+    <string name="pin_enter_pin_again">Введите пин еще раз</string>
 </resources>

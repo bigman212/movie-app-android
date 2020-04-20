@@ -4,6 +4,7 @@ import dagger.Component
 import ru.redmadrobot.auth.di.module.AuthApiModule
 import ru.redmadrobot.auth.di.module.AuthViewModelModule
 import ru.redmadrobot.auth.login.LoginFragment
+import ru.redmadrobot.auth.pin.PinCreateFragment
 import ru.redmadrobot.common.di.AppProvider
 import ru.redmadrobot.common.di.genre.GenreApiModule
 import ru.redmadrobot.core.android.AndroidToolsProvider
@@ -22,6 +23,7 @@ import ru.redmadrobot.core.network.di.NetworkProvider
 )
 interface AuthComponent {
     fun inject(obj: LoginFragment)
+    fun inject(obj: PinCreateFragment)
 
     @Component.Factory
     interface Factory {

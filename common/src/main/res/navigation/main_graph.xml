@@ -27,7 +27,7 @@
 
     <fragment
         android:id="@+id/nav_pin_create_fragment"
-        android:name="ru.redmadrobot.auth.pin.CreatePinFragment"
+        android:name="ru.redmadrobot.auth.pin.PinCreateFragment"
         android:label="PinFragment"
         tools:layout="@layout/fragment_pincode"></fragment>
 

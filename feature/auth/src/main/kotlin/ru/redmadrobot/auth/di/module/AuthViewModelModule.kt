@@ -5,6 +5,7 @@ import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
 import ru.redmadrobot.auth.login.viewmodel.LoginViewModel
+import ru.redmadrobot.auth.pin.PinCreateViewModel
 import ru.redmadrobot.common.di.vm.ViewModelFactoryModule
 import ru.redmadrobot.common.di.vm.ViewModelKey
 
@@ -15,4 +16,10 @@ abstract class AuthViewModelModule {
     @IntoMap
     @ViewModelKey(LoginViewModel::class)
     internal abstract fun bindLoginViewModel(viewModel: LoginViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(PinCreateViewModel::class)
+    internal abstract fun bindPinCreateViewModel(viewModel: PinCreateViewModel): ViewModel
+
 }

@@ -4,53 +4,59 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline4"
+        android:id="@+id/guideline_right"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+
         app:layout_constraintGuide_end="25dp" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline3"
+        android:id="@+id/guideline_left"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+
         app:layout_constraintGuide_begin="25dp" />
 
     <com.google.android.material.appbar.MaterialToolbar
-        android:id="@+id/materialToolbar"
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-
         android:theme="@style/Widget.App.Toolbar.Tinted"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:navigationIcon="@drawable/ic_arrow_back" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/tv_pin_title"
         style="@style/TextAppearance.App.Headline5"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="64dp"
         android:gravity="center"
-        android:text="Придумайте пин-код  для быстрого входа"
-        app:layout_constraintEnd_toStartOf="@+id/guideline4"
+        android:lines="2"
+        android:text="@string/pin_create_code_title"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_right"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/guideline3"
-        app:layout_constraintTop_toBottomOf="@+id/materialToolbar" />
-
+        app:layout_constraintStart_toStartOf="@+id/guideline_left"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
     <ru.redmadrobot.auth.view.PinKeyboardView
+        android:id="@+id/pincodeKeyboard"
         android:layout_width="0dp"
         android:layout_height="0dp"
+
+        android:layout_marginTop="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/guideline4"
-        app:layout_constraintStart_toStartOf="@+id/guideline3"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintEnd_toStartOf="@+id/guideline_right"
+        app:layout_constraintStart_toStartOf="@+id/guideline_left"
+
+        app:layout_constraintTop_toBottomOf="@+id/tv_pin_title"
+        app:withExitButton="false" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
