@@ -5,6 +5,8 @@ import android.content.res.Resources
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.ProgressBar
+import androidx.annotation.ColorRes
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
@@ -34,3 +36,6 @@ val ViewBinding.context: Context
 val ViewBinding.resources: Resources
     get() = context.resources
 
+fun Context.getCompatColor(@ColorRes id: Int): Int {
+    return ContextCompat.getColor(this, id)
+}

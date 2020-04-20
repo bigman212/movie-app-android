@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
+    <color name="pin_indicator_filled">@color/purpure</color>
+    <color name="pin_indicator_empty">@color/dark_blue</color>
+    <color name="pin_indicator_error">@color/red</color>
 </resources>

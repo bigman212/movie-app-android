@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/pin_exit_item_root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/tv_pin_exit_title"
+        style="@style/Widget.Auth.Pin.KeyboardItem"
+        android:layout_width="@dimen/pin_keyboard_item_size"
+        android:layout_height="@dimen/pin_keyboard_item_size"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="@string/auth_pin_exit_item_name"
+        android:textAppearance="@style/TextAppearance.App.Body2" />
+
+</FrameLayout>

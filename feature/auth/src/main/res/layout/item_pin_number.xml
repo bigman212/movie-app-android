@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/pin_number_item_root"
+    android:padding="10dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <Button
+        android:id="@+id/btn_pin_number"
+        style="@style/Button.Rounded.Pin"
+        android:layout_width="@dimen/pin_keyboard_item_size"
+        android:layout_height="@dimen/pin_keyboard_item_size"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:textAppearance="@style/TextAppearance.App.Headline5"
+        tools:text="1" />
+
+</FrameLayout>

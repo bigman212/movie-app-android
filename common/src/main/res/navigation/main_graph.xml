@@ -14,11 +14,22 @@
             android:id="@+id/to_movie_list_main_fragment"
             app:destination="@id/nav_movie_list_main_fragment"
             app:popUpTo="@id/nav_login_fragment" />
+
+        <action
+            android:id="@+id/to_create_pin_fragment"
+            app:destination="@id/nav_pin_create_fragment"
+            app:popUpTo="@id/nav_login_fragment" />
     </fragment>
 
     <action
         android:id="@+id/to_login_fragment_global"
         app:destination="@id/nav_login_fragment" />
+
+    <fragment
+        android:id="@+id/nav_pin_create_fragment"
+        android:name="ru.redmadrobot.auth.pin.CreatePinFragment"
+        android:label="PinFragment"
+        tools:layout="@layout/fragment_pincode"></fragment>
 
     <fragment
         android:id="@+id/nav_movie_list_main_fragment"

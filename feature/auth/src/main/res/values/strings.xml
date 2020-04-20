@@ -7,4 +7,5 @@
     <string name="text_input_hint_password">Пароль</string>
 
     <string name="btn_login">Войти</string>
+    <string name="auth_pin_exit_item_name">Выйти</string>
 </resources>

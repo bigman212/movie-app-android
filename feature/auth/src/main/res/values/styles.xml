@@ -1,5 +1,32 @@
 <resources>
+
     <style name="Widget.Auth.Button" parent="Widget.MaterialComponents.Button">
         <item name="backgroundTint">@color/auth_button_background_color</item>
     </style>
+
+    <style name="Widget.Auth.PinButton" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="android:textColor">@color/light</item>
+        <item name="backgroundTint">@color/bg_black</item>
+        <item name="android:textSize">36sp</item>
+        <item name="colorControlHighlight">@color/orange</item>
+    </style>
+
+    <style name="Button.Rounded.Pin" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="backgroundTint">@color/btn_pin_background_color</item>
+        <item name="rippleColor">@color/btn_pin_color</item>
+        <item name="android:padding">0dp</item>
+    </style>
+
+    <style name="Button.Outlined.Pin" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="backgroundTint">@color/btn_pin_background_color</item>
+        <item name="colorSecondary">@color/btn_pin_color</item>
+        <item name="android:padding">0dp</item>
+    </style>
+
+    <style name="Widget.Auth.Pin.KeyboardItem" parent="">
+        <item name="android:textColor">@color/gray</item>
+        <item name="android:background">?selectableItemBackground</item>
+        <item name="tint">@color/gray</item>
+    </style>
+
 </resources>
