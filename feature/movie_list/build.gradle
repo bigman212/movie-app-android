@@ -6,8 +6,10 @@ apply from: rootProject.file('common-android-library.gradle')
 
 dependencies {
     implementation project(":common")
+
     implementation project(":core:android")
     implementation project(":core:network")
+    implementation project(":core:persist")
 
     implementation(
             Dependencies.Kotlin,

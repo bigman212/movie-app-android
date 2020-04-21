@@ -9,7 +9,10 @@ dependencies {
             Dependencies.Kotlin,
             Dependencies.Lifecycle,
             Dependencies.Dagger.Dagger,
-            Dependencies.RxJava,
+            Dependencies.RxJava
+    )
+
+    api(
             Dependencies.Room.Runtime
     )
 

@@ -6,4 +6,5 @@ import ru.redmadrobot.persist.dao.MovieDao
 interface PersistenceProvider {
     fun movieDao(): MovieDao
     fun genreDao(): GenreDao
+    fun movieWithGenresDao(): GenreDao
 }

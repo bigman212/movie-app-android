@@ -8,13 +8,15 @@ import ru.redmadrobot.core.android.AndroidToolsProvider
 import ru.redmadrobot.core.network.di.NetworkProvider
 import ru.redmadrobot.core.network.di.component.NetworkComponent
 import ru.redmadrobot.movie_app.MainActivity
+import ru.redmadrobot.persist.di.RoomModule
 import javax.inject.Singleton
 
 @Singleton
 @Component(
     dependencies = [NetworkProvider::class, AndroidToolsProvider::class],
     modules = [
-        MainViewModelModule::class
+        MainViewModelModule::class,
+        RoomModule::class
     ]
 )
 interface AppComponent : AppProvider {
