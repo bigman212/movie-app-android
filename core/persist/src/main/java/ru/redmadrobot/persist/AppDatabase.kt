@@ -24,6 +24,7 @@ import ru.redmadrobot.persist.entities.MovieToGenreCrossRef
 abstract class AppDatabase : RoomDatabase() {
     companion object {
         const val DB_VERSION = 1
+        const val DB_NAME = "movie_app.db"
     }
 
     abstract fun movieDao(): FavoriteMovieDao

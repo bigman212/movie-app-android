@@ -21,7 +21,7 @@ interface FavoriteMovieDao {
     @Query("SELECT * FROM favorite_movies")
     fun loadAllWithGenres(): Single<List<FavoriteMovieWithGenres>>
 
-    @Query("SELECT * FROM favorite_movies WHERE movie_id LIKE :movieId LIMIT 1")
+    @Query("SELECT * FROM favorite_movies WHERE id LIKE :movieId LIMIT 1")
     fun findById(movieId: Long): Maybe<FavoriteMovieDb>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

@@ -12,9 +12,6 @@ import javax.inject.Singleton
 
 @Module
 class RoomModule {
-    companion object {
-        private const val DB_NAME = "movie_app.db"
-    }
 
     @Singleton
     @Provides
@@ -22,7 +19,7 @@ class RoomModule {
         return Room.databaseBuilder(
             context.applicationContext,
             AppDatabase::class.java,
-            DB_NAME
+            AppDatabase.DB_NAME
         )
             .build()
     }

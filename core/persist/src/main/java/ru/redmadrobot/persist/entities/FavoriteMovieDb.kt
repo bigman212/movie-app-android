@@ -4,15 +4,11 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import java.util.Calendar
-import java.util.UUID
 
 @Entity(tableName = "favorite_movies")
 data class FavoriteMovieDb(
     @PrimaryKey
     @ColumnInfo(name = "id")
-    val id: String = UUID.randomUUID().toString(),
-
-    @ColumnInfo(name = "movie_id") // from server
     val movieId: Long,
 
     @ColumnInfo(name = "poster_path")
