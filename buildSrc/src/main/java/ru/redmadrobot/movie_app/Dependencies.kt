@@ -26,6 +26,8 @@ object TestDependencies {
 
     private const val assertj_version = "3.15.0"
 
+    private const val room_testing_version = Dependencies.room_version
+
     val MockitoWebServer = "com.squareup.okhttp3:mockwebserver:$mockwebserver_version"
 
     val testImpl = listOf(
@@ -48,7 +50,9 @@ object TestDependencies {
         "org.assertj:assertj-core:$assertj_version",
 
         "org.jetbrains.kotlin:kotlin-reflect:${Dependencies.kotlin_version}",
-        "org.jetbrains.kotlin:kotlin-test:${Dependencies.kotlin_version}"
+        "org.jetbrains.kotlin:kotlin-test:${Dependencies.kotlin_version}",
+
+        "androidx.room:room-testing:$room_testing_version"
     )
 
     val testRuntime = listOf(
@@ -94,6 +98,8 @@ object Dependencies {
     private const val moshi_version = "1.9.2"
     private const val retrofit_version = "2.7.1"
     private const val okhttp_logging_version = "4.4.0"
+
+    internal const val room_version = "2.2.5"
 
     private const val timber_version = "4.7.1"
     private const val glide_version = "4.11.0"
@@ -149,6 +155,16 @@ object Dependencies {
 
         "com.squareup.okhttp3:logging-interceptor:$okhttp_logging_version"
     )
+
+    object Room {
+        val Runtime = listOf(
+            "androidx.room:room-runtime:$room_version",
+            "androidx.room:room-ktx:$room_version",
+            "androidx.room:room-rxjava2:$room_version"
+        )
+
+        const val Processor = "androidx.room:room-compiler:$room_version"
+    }
 
     object Tools {
         const val Timber = "com.jakewharton.timber:timber:$timber_version"
