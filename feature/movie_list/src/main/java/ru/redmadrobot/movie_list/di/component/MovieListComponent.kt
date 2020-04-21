@@ -11,9 +11,10 @@ import ru.redmadrobot.movie_list.MovieListMainFragment
 import ru.redmadrobot.movie_list.di.module.MovieListViewModelModule
 import ru.redmadrobot.movie_list.favorite.FavoritesFragment
 import ru.redmadrobot.movie_list.search.MovieListSearchFragment
+import ru.redmadrobot.persist.di.PersistenceProvider
 
 @Component(
-    dependencies = [NetworkProvider::class, AndroidToolsProvider::class],
+    dependencies = [NetworkProvider::class, AndroidToolsProvider::class, PersistenceProvider::class],
     modules = [
         MovieApiModule::class,
         MovieListViewModelModule::class,
@@ -32,14 +33,15 @@ interface MovieListComponent {
     interface Factory {
         fun create(
             networkProvider: NetworkProvider,
-            androidToolsProvider: AndroidToolsProvider
+            androidToolsProvider: AndroidToolsProvider,
+            persistenceProvider: PersistenceProvider
         ): MovieListComponent
     }
 
     companion object {
         fun init(appProvider: AppProvider): MovieListComponent {
             return DaggerMovieListComponent.factory()
-                .create(appProvider, appProvider)
+                .create(appProvider, appProvider, appProvider)
         }
     }
 }

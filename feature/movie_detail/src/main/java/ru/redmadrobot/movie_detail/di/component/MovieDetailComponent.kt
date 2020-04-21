@@ -8,9 +8,10 @@ import ru.redmadrobot.core.android.AndroidToolsProvider
 import ru.redmadrobot.core.network.di.NetworkProvider
 import ru.redmadrobot.movie_detail.MovieDetailFragment
 import ru.redmadrobot.movie_detail.di.module.MovieDetailViewModelModule
+import ru.redmadrobot.persist.di.PersistenceProvider
 
 @Component(
-    dependencies = [NetworkProvider::class, AndroidToolsProvider::class],
+    dependencies = [NetworkProvider::class, AndroidToolsProvider::class, PersistenceProvider::class],
     modules = [
         MovieApiModule::class,
 
@@ -25,14 +26,15 @@ interface MovieDetailComponent {
     interface Factory {
         fun create(
             networkProvider: NetworkProvider,
-            androidToolsProvider: AndroidToolsProvider
+            androidToolsProvider: AndroidToolsProvider,
+            persistenceProvider: PersistenceProvider
         ): MovieDetailComponent
     }
 
     companion object {
         fun init(appProvider: AppProvider): MovieDetailComponent {
             return DaggerMovieDetailComponent.factory()
-                .create(appProvider, appProvider)
+                .create(appProvider, appProvider, appProvider)
         }
     }
 }

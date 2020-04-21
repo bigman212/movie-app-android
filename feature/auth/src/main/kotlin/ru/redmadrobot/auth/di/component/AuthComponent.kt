@@ -9,11 +9,13 @@ import ru.redmadrobot.common.di.AppProvider
 import ru.redmadrobot.common.di.genre.GenreApiModule
 import ru.redmadrobot.core.android.AndroidToolsProvider
 import ru.redmadrobot.core.network.di.NetworkProvider
+import ru.redmadrobot.persist.di.PersistenceProvider
 
 @Component(
     dependencies = [
         NetworkProvider::class,
-        AndroidToolsProvider::class
+        AndroidToolsProvider::class,
+        PersistenceProvider::class
     ],
     modules = [
         AuthViewModelModule::class,
@@ -29,14 +31,15 @@ interface AuthComponent {
     interface Factory {
         fun create(
             networkProvider: NetworkProvider,
-            androidToolsProvider: AndroidToolsProvider
+            androidToolsProvider: AndroidToolsProvider,
+            persistenceProvider: PersistenceProvider
         ): AuthComponent
     }
 
     companion object {
         fun init(appProvider: AppProvider): AuthComponent {
             return DaggerAuthComponent.factory()
-                .create(appProvider, appProvider)
+                .create(appProvider, appProvider, appProvider)
         }
     }
 }
