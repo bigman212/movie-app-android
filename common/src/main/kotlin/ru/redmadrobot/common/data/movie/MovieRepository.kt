@@ -2,6 +2,7 @@ package ru.redmadrobot.common.data.movie
 
 import io.reactivex.Observable
 import io.reactivex.Single
+import ru.redmadrobot.common.data.genre.Genre
 import ru.redmadrobot.common.data.genre.GenresRepository
 import ru.redmadrobot.common.data.movie.entity.Movie
 import ru.redmadrobot.common.data.movie.entity.MovieDetail
@@ -31,12 +32,15 @@ class MovieRepository @Inject constructor(
     private fun fillMoviesWithRuntimeAndGenres(movieWithoutInfo: Movie): Single<Movie> {
         return movieDetailsById(movieWithoutInfo.id)
             .map { movieDetail -> movieWithoutInfo.copy(runtime = movieDetail.runtime ?: 0) }
-            .map(this::fillMoviesWithGenres)
+            .flatMap(this::fillMoviesWithGenres)
             .onErrorReturnItem(movieWithoutInfo)
     }
 
-    private fun fillMoviesWithGenres(movie: Movie): Movie {
-        val movieGenres = movie.genreIds.mapNotNull(genresRepository::genreById)
-        return movie.copy(genres = movieGenres)
+    private fun fillMoviesWithGenres(movie: Movie): Single<Movie> {
+        return genresRepository.allGenresByIds(movie.genreIds)
+            .flattenAsObservable { it }
+            .map(Genre.Companion::fromGenreDb)
+            .toList()
+            .map { movie.copy(genres = it) }
     }
 }

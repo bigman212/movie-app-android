@@ -48,6 +48,8 @@ class FavoritesFragment : BaseFragment(R.layout.fragment_favorites) {
         initMovieList()
         initViewModel()
         initViews()
+
+        viewModel.fetchFavorites()
     }
 
     private fun initDagger() {

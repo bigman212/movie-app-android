@@ -1,7 +1,7 @@
 package ru.redmadrobot.movie_list.favorite.domain
 
 import io.reactivex.Single
-import ru.redmadrobot.common.data.movie.MovieRepository
+import ru.redmadrobot.common.data.movie.FavoriteMovieRepository
 import ru.redmadrobot.common.data.movie.entity.Movie
 import ru.redmadrobot.common.data.profile.AccountRepository
 import ru.redmadrobot.core.network.SessionIdRepository
@@ -11,14 +11,16 @@ import javax.inject.Inject
 class FavoritesUseCase @Inject constructor(
     private val accountRepository: AccountRepository,
     private val sessionIdRepository: SessionIdRepository,
-    private val movieRepository: MovieRepository
+    private val favoriteMovieRepository: FavoriteMovieRepository
 ) {
-
     fun getFavoriteMovies(): Single<List<Movie>> {
         return Single
             .fromCallable(this::createRequestBody)
             .flatMap { accountAndSessionIds ->
-                movieRepository.favoriteMovies(accountAndSessionIds.first, accountAndSessionIds.second)
+                favoriteMovieRepository.favoriteMovies(
+                    accountAndSessionIds.first,
+                    accountAndSessionIds.second
+                )
             }
             .map(WithPages<Movie>::results)
     }

@@ -22,7 +22,7 @@ class MovieDetailUseCase @Inject constructor(
         return movieRepository.movieDetailsById(movieId)
             .flatMap { fetchedMovieDetail ->
                 favoriteMovieRepository
-                    .isMovieInFavorites(movieId, getSessionId())
+                    .isMovieInFavorites(movieId)
                     .doOnError { Timber.e(it) }
                     .map { fetchedMovieDetail.copy(isFavorite = it) }
                     .onErrorReturnItem(fetchedMovieDetail)

@@ -1,45 +1,40 @@
 package ru.redmadrobot.common.data.genre
 
-import android.content.SharedPreferences
-import androidx.core.content.edit
 import dagger.Reusable
 import io.reactivex.Completable
+import io.reactivex.Maybe
+import io.reactivex.Observable
+import io.reactivex.Single
+import ru.redmadrobot.persist.dao.GenreDao
+import ru.redmadrobot.persist.entities.GenreDb
 import timber.log.Timber
 import javax.inject.Inject
 
 @Reusable
 class GenresRepository @Inject constructor(
-    private val sharedPrefs: SharedPreferences,
+    private val genresDao: GenreDao,
     private val genreService: GenreApi
 ) {
-    private fun prefsKeyFromId(genreId: Long) = "genre_$genreId"
-
     fun fetchGenresAndSave(): Completable {
         return genreService.allMovieGenres()
-            .flatMapCompletable { genreResponse ->
-                Completable.fromAction { this.saveGenres(genreResponse.result) }
-            }
+            .map(GenreResponse::result)
+            .flatMapCompletable(this::saveGenres)
     }
 
-    private fun saveGenres(genres: List<Genre>) {
-        genres.forEach { genreToSave ->
-            val prefsKey = prefsKeyFromId(genreToSave.id)
-            val prefsValue = genreToSave.name
-
-            if (!sharedPrefs.contains(prefsKey)) {
-                sharedPrefs.edit {
-                    putString(prefsKey, prefsValue)
-                }
-
-                Timber.d("$genreToSave saved to sharedPrefs")
-            }
-        }
+    private fun saveGenres(genres: List<Genre>): Completable {
+        return Observable.fromIterable(genres)
+            .map(Genre::toGenreDb)
+            .toList()
+            .flatMapCompletable(genresDao::insertAll)
+            .doOnComplete { Timber.d("$genres saved!") }
     }
 
-    fun genreById(id: Long): Genre? {
-        val prefsKey = prefsKeyFromId(id)
-        val genreName: String? = sharedPrefs.getString(prefsKey, null)
+    fun genreById(genreId: Long): Maybe<Genre> { // todo: поправить правило зависимостей
+        return genresDao.findById(genreId).map(Genre.Companion::fromGenreDb)
+    }
 
-        return genreName?.let { name -> Genre(id, name) }
+    fun allGenresByIds(genresIds: List<Long>): Single<List<GenreDb>> {
+        return genresDao.findAllByIds(genresIds)
+            .switchIfEmpty(Single.just(listOf()))
     }
 }
