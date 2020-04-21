@@ -2,10 +2,10 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "1d93d4d4d7ed0f894c61332dc24f00c6",
+    "identityHash": "ce818362811de0037f360d267bd708af",
     "entities": [
       {
-        "tableName": "movies",
+        "tableName": "favorite_movies",
         "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `movie_id` INTEGER NOT NULL, `poster_path` TEXT, `is_for_adults` INTEGER NOT NULL, `overview` TEXT NOT NULL, `release_date` INTEGER, `original_title` TEXT NOT NULL, `original_language` TEXT NOT NULL, `title` TEXT NOT NULL, `backdrop_path` TEXT, `popularity` REAL NOT NULL, `vote_count` INTEGER NOT NULL, `is_video` INTEGER NOT NULL, `vote_average` REAL NOT NULL, `runtime` INTEGER NOT NULL, PRIMARY KEY(`id`))",
         "fields": [
           {
@@ -171,7 +171,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '1d93d4d4d7ed0f894c61332dc24f00c6')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'ce818362811de0037f360d267bd708af')"
     ]
   }
 }
