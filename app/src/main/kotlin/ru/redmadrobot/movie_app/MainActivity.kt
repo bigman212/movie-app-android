@@ -34,6 +34,14 @@ class MainActivity : BaseActivity(R.layout.activity_main) {
         viewModel.requestStartLocationEvent()
     }
 
+    override fun onBackPressed() {
+        when (findNavController(R.id.root_nav_host_fragment).currentDestination?.id) {
+            R.id.nav_pin_create_fragment, R.id.nav_movie_detail_fragment -> super.onBackPressed()
+            else -> {
+            }
+        }
+    }
+
     private fun onEvent(event: Event) {
         if (event is NavigateToEvent) {
             findNavController(R.id.root_nav_host_fragment).navigate(event.direction)
