@@ -7,6 +7,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Transaction
 import io.reactivex.Completable
+import io.reactivex.Maybe
 import io.reactivex.Single
 import ru.redmadrobot.persist.entities.FavoriteMovieDb
 import ru.redmadrobot.persist.junctions.FavoriteMovieWithGenres
@@ -21,7 +22,7 @@ interface FavoriteMovieDao {
     fun loadAllWithGenres(): Single<List<FavoriteMovieWithGenres>>
 
     @Query("SELECT * FROM favorite_movies WHERE movie_id LIKE :movieId LIMIT 1")
-    fun findById(movieId: Long): FavoriteMovieDb
+    fun findById(movieId: Long): Maybe<FavoriteMovieDb>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAll(vararg movies: FavoriteMovieDb): Completable

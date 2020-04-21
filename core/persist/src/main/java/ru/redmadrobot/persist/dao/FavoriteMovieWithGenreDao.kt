@@ -15,6 +15,9 @@ interface FavoriteMovieWithGenreDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insert(movieWithGenres: MovieToGenreCrossRef): Completable
 
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    fun insertAll(moviesWithGenres: List<MovieToGenreCrossRef>): Completable
+
     @Transaction
     @Query("SELECT * FROM favorite_movies")
     fun loadAll(): Single<List<FavoriteMovieWithGenres>>
