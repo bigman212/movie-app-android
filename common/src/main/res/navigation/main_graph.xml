@@ -12,7 +12,6 @@
     <fragment
         android:id="@+id/nav_login_fragment"
         android:name="ru.redmadrobot.auth.login.LoginFragment"
-        android:label="AuthFragment"
         tools:layout="@layout/fragment_login">
 
         <action
@@ -41,7 +40,6 @@
     <fragment
         android:id="@+id/nav_movie_list_main_fragment"
         android:name="ru.redmadrobot.movie_list.MovieListMainFragment"
-        android:label="MovieListMainFragment"
         tools:layout="@layout/fragment_movie_main_list">
         <action
             android:id="@+id/to_movie_list_search_fragment"
@@ -53,7 +51,6 @@
     <fragment
         android:id="@+id/nav_movie_list_search_fragment"
         android:name="ru.redmadrobot.movie_list.search.MovieListSearchFragment"
-        android:label="MovieListSearchFragment"
         tools:layout="@layout/fragment_movie_search_list">
         <action
             android:id="@+id/to_movie_detail_fragment"
@@ -90,7 +87,6 @@
     <fragment
         android:id="@+id/nav_profile_fragment"
         android:name="ru.redmadrobot.profile.ProfileFragment"
-        android:label="ProfileFragment"
         tools:layout="@layout/fragment_profile">
 
         <action

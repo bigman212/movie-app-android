@@ -35,6 +35,11 @@ class FavoriteMovieRepository @Inject constructor(
     fun favoriteMovies(accountId: Long, sessionId: CharSequence): Single<WithPages<Movie>> {
         return fetchAndSaveMovies(accountId, sessionId)
             .andThen(movieWithGenreDao.loadAll())
+            .onErrorResumeNext { errorOnSaveOrFetch ->
+                Timber.e(errorOnSaveOrFetch)
+                movieWithGenreDao.loadAll()
+                    .doOnSuccess { Timber.e("Getting from db") }
+            }
             .flattenAsObservable { it }
             .map(Movie.Companion::fromFavoriteMovieDb)
             .toList()
@@ -55,7 +60,7 @@ class FavoriteMovieRepository @Inject constructor(
 
         return favoriteMovieDao
             .insert(dbEntity)
-            .doOnComplete { Timber.d("${fetchedFavoriteMovie.id} saved!") }
+            .doOnComplete { Timber.d("${fetchedFavoriteMovie.id}-${fetchedFavoriteMovie.title} saved!") }
             .andThen(movieWithGenreDao.insertAll(crossRefs))
             .doOnComplete { Timber.d("$crossRefs cross refs saved!") }
     }
