@@ -3,13 +3,13 @@ package ru.redmadrobot.persist.junctions
 import androidx.room.Embedded
 import androidx.room.Junction
 import androidx.room.Relation
+import ru.redmadrobot.persist.entities.FavoriteMovieDb
 import ru.redmadrobot.persist.entities.GenreDb
-import ru.redmadrobot.persist.entities.MovieDb
 import ru.redmadrobot.persist.entities.MovieToGenreCrossRef
 
-data class MovieWithGenres(
+data class FavoriteMovieWithGenres(
     @Embedded
-    val movie: MovieDb,
+    val favoriteMovie: FavoriteMovieDb,
 
     @Relation(
         parentColumn = "movie_id",

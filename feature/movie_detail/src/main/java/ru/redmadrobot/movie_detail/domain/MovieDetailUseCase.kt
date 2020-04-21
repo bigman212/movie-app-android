@@ -2,21 +2,31 @@ package ru.redmadrobot.movie_detail.domain
 
 import io.reactivex.Completable
 import io.reactivex.Single
+import ru.redmadrobot.common.data.movie.FavoriteMovieRepository
 import ru.redmadrobot.common.data.movie.MovieRepository
 import ru.redmadrobot.common.data.movie.entity.MarkMediaFavoriteRequest
 import ru.redmadrobot.common.data.movie.entity.MovieDetail
 import ru.redmadrobot.common.data.profile.AccountRepository
 import ru.redmadrobot.core.network.SessionIdRepository
+import timber.log.Timber
 import javax.inject.Inject
 
 class MovieDetailUseCase @Inject constructor(
     private val movieRepository: MovieRepository,
+    private val favoriteMovieRepository: FavoriteMovieRepository,
     private val sessionIdRepository: SessionIdRepository,
     private val accountRepository: AccountRepository
 ) {
 
     fun movieDetailsById(movieId: Long): Single<MovieDetail> {
-        return movieRepository.movieDetailsById(movieId, getSessionId())
+        return movieRepository.movieDetailsById(movieId)
+            .flatMap { fetchedMovieDetail ->
+                favoriteMovieRepository
+                    .isMovieInFavorites(movieId, getSessionId())
+                    .doOnError { Timber.e(it) }
+                    .map { fetchedMovieDetail.copy(isFavorite = it) }
+                    .onErrorReturnItem(fetchedMovieDetail)
+            }
     }
 
     fun addMovieToFavorites(movieId: Long): Completable = markMovieAsFavorite(movieId, markFavorite = true)
@@ -29,11 +39,12 @@ class MovieDetailUseCase @Inject constructor(
             val sessionId = getSessionId()
 
             val body = MarkMediaFavoriteRequest(movieId, isFavorite = markFavorite)
-            movieRepository
+
+            favoriteMovieRepository
                 .markMovieAsFavorite(accountId, sessionId, body)
                 .flatMapCompletable { Completable.complete() }
-        } catch (someNull: IllegalArgumentException) {
-            Completable.error(someNull)
+        } catch (someOfVarsAreNull: IllegalArgumentException) {
+            Completable.error(someOfVarsAreNull)
         }
     }
 

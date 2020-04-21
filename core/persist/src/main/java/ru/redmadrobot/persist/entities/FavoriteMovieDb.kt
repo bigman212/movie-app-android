@@ -6,8 +6,8 @@ import androidx.room.PrimaryKey
 import java.util.Calendar
 import java.util.UUID
 
-@Entity(tableName = "movies")
-data class MovieDb(
+@Entity(tableName = "favorite_movies")
+data class FavoriteMovieDb(
     @PrimaryKey
     @ColumnInfo(name = "id")
     val id: String = UUID.randomUUID().toString(),

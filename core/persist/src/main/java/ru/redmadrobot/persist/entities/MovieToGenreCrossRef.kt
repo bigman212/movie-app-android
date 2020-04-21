@@ -4,8 +4,8 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 
 /**
- * @see ru.redmadrobot.persist.junctions.MovieWithGenres
- * @see ru.redmadrobot.persist.dao.MovieWithGenreDao
+ * @see ru.redmadrobot.persist.junctions.FavoriteMovieWithGenres
+ * @see ru.redmadrobot.persist.dao.FavoriteMovieWithGenreDao
  */
 @Entity(
     tableName = "movie_genre_cross_ref",

@@ -4,16 +4,16 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import ru.redmadrobot.persist.conventers.LongToCalendarConverter
+import ru.redmadrobot.persist.dao.FavoriteMovieDao
+import ru.redmadrobot.persist.dao.FavoriteMovieWithGenreDao
 import ru.redmadrobot.persist.dao.GenreDao
-import ru.redmadrobot.persist.dao.MovieDao
-import ru.redmadrobot.persist.dao.MovieWithGenreDao
+import ru.redmadrobot.persist.entities.FavoriteMovieDb
 import ru.redmadrobot.persist.entities.GenreDb
-import ru.redmadrobot.persist.entities.MovieDb
 import ru.redmadrobot.persist.entities.MovieToGenreCrossRef
 
 @Database(
     entities = [
-        MovieDb::class,
+        FavoriteMovieDb::class,
         GenreDb::class,
         MovieToGenreCrossRef::class
     ],
@@ -26,8 +26,8 @@ abstract class AppDatabase : RoomDatabase() {
         const val DB_VERSION = 1
     }
 
-    abstract fun movieDao(): MovieDao
+    abstract fun movieDao(): FavoriteMovieDao
     abstract fun genreDao(): GenreDao
-    abstract fun movieWithGenresDao(): MovieWithGenreDao
+    abstract fun movieWithGenresDao(): FavoriteMovieWithGenreDao
 }
 
