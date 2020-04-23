@@ -21,6 +21,12 @@ fun ContentValues.withRemoved(key: String): ContentValues {
     return this
 }
 
+fun ContentValues.withAdded(key: String, value: Boolean): ContentValues {
+    put(key, value)
+    return this
+}
+
+
 fun getMigratedRoomDatabase(
     helper: MigrationTestHelper,
     dbName: String = TEST_DB_NAME,

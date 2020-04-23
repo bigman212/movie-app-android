@@ -56,6 +56,45 @@ class MigrationsTests {
         var db = helper.createDatabase(TEST_DB_NAME, Migrations.VERSION_2)
         db = helper.runMigrationsAndValidate(TEST_DB_NAME, Migrations.VERSION_3, true, Migration2_3)
     }
+
+    @Test
+    @Throws(IOException::class)
+    fun migration_2_3_with_data_is_valid() {
+        val favoriteMovieWithAverage = EntityUtils.createFavoriteMovieDb(1).apply {
+            copy(voteAverage = 10.0)
+        }
+
+        val favoriteMovieWithoutAverage = EntityUtils.createFavoriteMovieDb(2).apply {
+            copy(voteAverage = 1.0)
+        }
+
+        var db = helper.createDatabase(TEST_DB_NAME, Migrations.VERSION_2)
+        db.doAndClose {
+            var contentValues = favoriteMovieWithAverage.asContentValues()
+                .withRemoved(FavoriteMovieDb.COLUMN_IS_WATCHED)
+                .withAdded("is_watched", favoriteMovieWithAverage.isWorthWatched)
+            insert(FavoriteMovieDb.TABLE_NAME, OnConflictStrategy.REPLACE, contentValues)
+
+            contentValues = favoriteMovieWithoutAverage.asContentValues()
+                .withRemoved(FavoriteMovieDb.COLUMN_IS_WATCHED)
+                .withAdded("is_watched", favoriteMovieWithoutAverage.isWorthWatched)
+            insert(FavoriteMovieDb.TABLE_NAME, OnConflictStrategy.REPLACE, contentValues)
+        }
+        db = helper.runMigrationsAndValidate(TEST_DB_NAME, Migrations.VERSION_3, true, Migration2_3)
+
+        val room = getMigratedRoomDatabase(helper)
+        room.movieDao()
+            .findById(favoriteMovieWithAverage.movieId)
+            .test()
+            .assertNoErrors()
+            .assertValue(favoriteMovieWithAverage)
+
+        room.movieDao()
+            .findById(favoriteMovieWithoutAverage.movieId)
+            .test()
+            .assertNoErrors()
+            .assertValue(favoriteMovieWithoutAverage)
+    }
 }
 
 

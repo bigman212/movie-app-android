@@ -52,7 +52,7 @@ data class FavoriteMovieDb(
     val runtime: Int,
 
     @ColumnInfo(name = COLUMN_IS_WATCHED)
-    val isWorthWatched: Boolean = false
+    val isWorthWatched: Boolean = voteAverage > 7
 ) {
     companion object {
         const val TABLE_NAME = "favorite_movies"
