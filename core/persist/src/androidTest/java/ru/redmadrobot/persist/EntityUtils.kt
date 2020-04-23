@@ -43,6 +43,6 @@ fun FavoriteMovieDb.asContentValues(): ContentValues {
         put(FavoriteMovieDb.COLUMN_IS_VIDEO, isVideo)
         put(FavoriteMovieDb.COLUMN_VOTE_AVERAGE, voteAverage)
         put(FavoriteMovieDb.COLUMN_RUNTIME, runtime)
-        put(FavoriteMovieDb.COLUMN_IS_WATCHED, isWatched)
+        put(FavoriteMovieDb.COLUMN_IS_WATCHED, isWorthWatched)
     }
 }

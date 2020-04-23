@@ -19,7 +19,7 @@ import ru.redmadrobot.persist.migrations.Migrations
         MovieToGenreCrossRef::class
     ],
     exportSchema = true,
-    version = Migrations.VERSION_2
+    version = Migrations.VERSION_3
 )
 @TypeConverters(LongToCalendarConverter::class)
 abstract class AppDatabase : RoomDatabase() {

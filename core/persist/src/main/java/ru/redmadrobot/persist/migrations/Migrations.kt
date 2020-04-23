@@ -6,7 +6,7 @@ object Migrations {
     const val VERSION_3 = 3
     const val VERSION_4 = 4
 
-    val ALL_MIGRATIONS = arrayOf(Migration1_2)
+    val ALL_MIGRATIONS = arrayOf(Migration1_2, Migration2_3)
 }
 
 

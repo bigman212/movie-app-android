@@ -3,9 +3,10 @@ package ru.redmadrobot.persist.entities
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import ru.redmadrobot.persist.entities.FavoriteMovieDb.Companion.TABLE_NAME
 import java.util.Calendar
 
-@Entity(tableName = FavoriteMovieDb.TABLE_NAME)
+@Entity(tableName = TABLE_NAME)
 data class FavoriteMovieDb(
     @PrimaryKey
     @ColumnInfo(name = COLUMN_ID)
@@ -51,7 +52,7 @@ data class FavoriteMovieDb(
     val runtime: Int,
 
     @ColumnInfo(name = COLUMN_IS_WATCHED)
-    val isWatched: Boolean = false
+    val isWorthWatched: Boolean = false
 ) {
     companion object {
         const val TABLE_NAME = "favorite_movies"
@@ -72,8 +73,8 @@ data class FavoriteMovieDb(
         const val COLUMN_VOTE_AVERAGE = "vote_average"
         const val COLUMN_RUNTIME = "runtime"
 
-        // version 2
-        const val COLUMN_IS_WATCHED = "is_watched"
+        // version 3
+        const val COLUMN_IS_WATCHED = "is_worth_watching"
     }
 }
 

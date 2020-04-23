@@ -10,6 +10,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import ru.redmadrobot.persist.entities.FavoriteMovieDb
 import ru.redmadrobot.persist.migrations.Migration1_2
+import ru.redmadrobot.persist.migrations.Migration2_3
 import ru.redmadrobot.persist.migrations.Migrations
 import java.io.IOException
 
@@ -41,10 +42,19 @@ class MigrationsTests {
         }
         db = helper.runMigrationsAndValidate(TEST_DB_NAME, Migrations.VERSION_2, true, Migration1_2)
 
-        getMigratedRoomDatabase(helper).movieDao().findById(favoriteMovieToTest.movieId)
+        getMigratedRoomDatabase(helper)
+            .movieDao()
+            .findById(favoriteMovieToTest.movieId)
             .test()
             .assertNoErrors()
             .assertValue(favoriteMovieToTest)
+    }
+
+    @Test
+    @Throws(IOException::class)
+    fun migration_2_3_is_valid_and_successful() {
+        var db = helper.createDatabase(TEST_DB_NAME, Migrations.VERSION_2)
+        db = helper.runMigrationsAndValidate(TEST_DB_NAME, Migrations.VERSION_3, true, Migration2_3)
     }
 }
 

@@ -2,6 +2,7 @@ package ru.redmadrobot.persist
 
 import android.content.ContentValues
 import androidx.room.Room
+import androidx.room.migration.Migration
 import androidx.room.testing.MigrationTestHelper
 import androidx.sqlite.db.SupportSQLiteDatabase
 import androidx.test.core.app.ApplicationProvider.getApplicationContext
@@ -20,13 +21,17 @@ fun ContentValues.withRemoved(key: String): ContentValues {
     return this
 }
 
-fun getMigratedRoomDatabase(helper: MigrationTestHelper, dbName: String = TEST_DB_NAME): AppDatabase {
+fun getMigratedRoomDatabase(
+    helper: MigrationTestHelper,
+    dbName: String = TEST_DB_NAME,
+    vararg migrationsToApply: Migration = Migrations.ALL_MIGRATIONS
+): AppDatabase {
     val database = Room.databaseBuilder(
         getApplicationContext(),
         AppDatabase::class.java,
         dbName
     )
-        .addMigrations(*Migrations.ALL_MIGRATIONS)
+        .addMigrations(*migrationsToApply)
         .build()
     // close the database and release any stream resources when the test finishes
     helper.closeWhenFinished(database)
