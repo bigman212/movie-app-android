@@ -8,12 +8,19 @@ import androidx.room.Entity
  * @see ru.redmadrobot.persist.dao.FavoriteMovieWithGenreDao
  */
 @Entity(
-    tableName = "movie_genre_cross_ref",
+    tableName = MovieToGenreCrossRef.TABLE_NAME,
     primaryKeys = ["ref_movie_id", "ref_genre_id"]
 )
 data class MovieToGenreCrossRef(
-    @ColumnInfo(name = "ref_movie_id")
+    @ColumnInfo(name = COLUMN_REF_MOVIE_ID)
     val movieId: Long,
-    @ColumnInfo(name = "ref_genre_id")
+    @ColumnInfo(name = COLUMN_REF_GENRE_ID)
     val genreId: Long
-)
+) {
+    companion object {
+        const val TABLE_NAME = "movie_genre_cross_ref"
+
+        const val COLUMN_REF_MOVIE_ID = "ref_movie_id"
+        const val COLUMN_REF_GENRE_ID = "ref_genre_id"
+    }
+}

@@ -8,16 +8,18 @@ import io.reactivex.Completable
 import io.reactivex.Maybe
 import io.reactivex.Single
 import ru.redmadrobot.persist.entities.GenreDb
+import ru.redmadrobot.persist.entities.GenreDb.Companion.COLUMN_ID
+import ru.redmadrobot.persist.entities.GenreDb.Companion.TABLE_NAME
 
 @Dao
 interface GenreDao {
-    @Query("SELECT * FROM genres")
+    @Query("SELECT * FROM $TABLE_NAME")
     fun loadAll(): Single<List<GenreDb>>
 
-    @Query("SELECT * FROM genres WHERE id LIKE :genreId LIMIT 1")
+    @Query("SELECT * FROM $TABLE_NAME WHERE $COLUMN_ID LIKE :genreId LIMIT 1")
     fun findById(genreId: Long): Maybe<GenreDb>
 
-    @Query("SELECT * FROM genres WHERE id IN (:genreIds)")
+    @Query("SELECT * FROM $TABLE_NAME WHERE $COLUMN_ID IN (:genreIds)")
     fun findAllByIds(genreIds: List<Long>): Maybe<List<GenreDb>>
 
     @Insert

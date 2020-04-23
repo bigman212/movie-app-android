@@ -12,13 +12,13 @@ data class FavoriteMovieWithGenres(
     val favoriteMovie: FavoriteMovieDb,
 
     @Relation(
-        parentColumn = "id",
+        parentColumn = FavoriteMovieDb.COLUMN_ID,
         entity = GenreDb::class,
-        entityColumn = "id",
+        entityColumn = GenreDb.COLUMN_ID,
         associateBy = Junction(
             value = MovieToGenreCrossRef::class,
-            parentColumn = "ref_movie_id",
-            entityColumn = "ref_genre_id"
+            parentColumn = MovieToGenreCrossRef.COLUMN_REF_MOVIE_ID,
+            entityColumn = MovieToGenreCrossRef.COLUMN_REF_GENRE_ID
         )
     )
     val genres: List<GenreDb>
