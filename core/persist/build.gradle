@@ -20,4 +20,6 @@ dependencies {
             Dependencies.Room.Processor,
             Dependencies.Dagger.Processor
     )
+
+    testImplementation project(":test_tools")
 }

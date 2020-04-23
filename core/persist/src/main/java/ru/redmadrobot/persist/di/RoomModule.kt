@@ -8,6 +8,7 @@ import ru.redmadrobot.persist.AppDatabase
 import ru.redmadrobot.persist.dao.FavoriteMovieDao
 import ru.redmadrobot.persist.dao.FavoriteMovieWithGenreDao
 import ru.redmadrobot.persist.dao.GenreDao
+import ru.redmadrobot.persist.migrations.Migrations
 import javax.inject.Singleton
 
 @Module
@@ -21,6 +22,7 @@ class RoomModule {
             AppDatabase::class.java,
             AppDatabase.DB_NAME
         )
+            .addMigrations(*Migrations.ALL_MIGRATIONS)
             .build()
     }
 
