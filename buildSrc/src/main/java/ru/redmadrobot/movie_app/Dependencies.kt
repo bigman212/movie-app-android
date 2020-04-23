@@ -15,7 +15,7 @@ object Versions {
 object TestDependencies {
     // Не нужно выносить версии наружу, все зависимости подлючаются двумя переменными
     private const val junit5_version = "5.6.0"
-    private const val junit4_version = "4.13"
+    private const val junit4_version = "4.12"
 
     private const val mockito_core_version = "2.18.0"
     private const val mockito_kotlin_version = "2.2.0"
@@ -50,9 +50,7 @@ object TestDependencies {
         "org.assertj:assertj-core:$assertj_version",
 
         "org.jetbrains.kotlin:kotlin-reflect:${Dependencies.kotlin_version}",
-        "org.jetbrains.kotlin:kotlin-test:${Dependencies.kotlin_version}",
-
-        "androidx.room:room-testing:$room_testing_version"
+        "org.jetbrains.kotlin:kotlin-test:${Dependencies.kotlin_version}"
     )
 
     val testRuntime = listOf(
@@ -63,20 +61,21 @@ object TestDependencies {
     )
 
     private const val junit5_android_version = "1.0.0"
+    private const val android_test_version = "1.1.0"
     private const val test_runner_version = "1.0.2"
     private const val espresso_core_version = "3.0.2"
 
     val androidTestImpl = listOf(
-        "de.mannodermaus.junit5:android-test-core:$junit5_android_version"
-    )
+        "androidx.test:core:$junit5_android_version",
+        "androidx.test.ext:junit:$junit5_android_version",
 
-    val androidTestRuntime = listOf(
-        "de.mannodermaus.junit5:android-test-runner:$junit5_android_version"
-    )
+        "androidx.test:rules:$android_test_version",
+        "androidx.test:runner:$android_test_version",
 
-    val androidTest = listOf(
         "com.android.support.test:runner:$test_runner_version",
-        "com.android.support.test.espresso:espresso-core:$espresso_core_version"
+        "com.android.support.test.espresso:espresso-core:$espresso_core_version",
+
+        "androidx.room:room-testing:$room_testing_version"
     )
 }
 
