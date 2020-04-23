@@ -16,8 +16,7 @@ android {
     defaultConfig {
         minSdkVersion Versions.minSdk
 
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        testInstrumentationRunnerArgument "runnerBuilder", "de.mannodermaus.junit5.AndroidJUnit5Builder"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         vectorDrawables.useSupportLibrary = true
 
@@ -59,6 +58,10 @@ android {
         }
     }
 
+    packagingOptions {
+            exclude "META-INF/LICENSE*"
+    }
+
     sourceSets {
         androidTest.assets.srcDirs += files("$projectDir/schemas".toString())
     }
@@ -77,5 +80,4 @@ dependencies {
     testRuntimeOnly(TestDependencies.testRuntime)
 
     androidTestImplementation(TestDependencies.androidTestImpl)
-    androidTestRuntimeOnly(TestDependencies.androidTestRuntime)
 }
