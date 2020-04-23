@@ -12,6 +12,7 @@ import io.reactivex.Single
 import ru.redmadrobot.persist.entities.FavoriteMovieDb
 import ru.redmadrobot.persist.entities.FavoriteMovieDb.Companion.COLUMN_ID
 import ru.redmadrobot.persist.entities.FavoriteMovieDb.Companion.TABLE_NAME
+import ru.redmadrobot.persist.entities.MovieToGenreCrossRef
 import ru.redmadrobot.persist.junctions.FavoriteMovieWithGenres
 
 @Dao
@@ -26,12 +27,20 @@ interface FavoriteMovieDao {
     @Query("SELECT * FROM $TABLE_NAME WHERE $COLUMN_ID LIKE :movieId LIMIT 1")
     fun findById(movieId: Long): Maybe<FavoriteMovieDb>
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll(vararg movies: FavoriteMovieDb): Completable
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(movie: FavoriteMovieDb): Completable
-
     @Delete
     fun delete(movie: FavoriteMovieDb): Completable
+
+    @Transaction
+    fun insertInTransaction(movie: FavoriteMovieDb, genreIds: List<Long>) {
+        insert(movie)
+        genreIds
+            .map { MovieToGenreCrossRef(movie.movieId, it) }
+            .forEach(::insertCrossRef)
+    }
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    fun insertCrossRef(movieWithGenres: MovieToGenreCrossRef)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insert(movie: FavoriteMovieDb)
 }

@@ -12,7 +12,7 @@ import ru.redmadrobot.core.network.DefaultResponse
 import ru.redmadrobot.core.network.entities.WithPages
 import ru.redmadrobot.persist.dao.FavoriteMovieDao
 import ru.redmadrobot.persist.dao.FavoriteMovieWithGenreDao
-import ru.redmadrobot.persist.entities.MovieToGenreCrossRef
+import ru.redmadrobot.persist.entities.FavoriteMovieDb
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -38,7 +38,7 @@ class FavoriteMovieRepository @Inject constructor(
             .onErrorResumeNext { errorOnSaveOrFetch ->
                 Timber.e(errorOnSaveOrFetch)
                 movieWithGenreDao.loadAll()
-                    .doOnSuccess { Timber.e("Getting from db") }
+                    .doOnSuccess { Timber.e("Network Error, Getting from movies from db") }
             }
             .flattenAsObservable { it }
             .map(Movie.Companion::fromFavoriteMovieDb)
@@ -51,18 +51,14 @@ class FavoriteMovieRepository @Inject constructor(
             .flatMap(this::fillMoviesWithInformation)
             .map { it.results }
             .flattenAsObservable { it }
-            .flatMapCompletable { movie -> saveFavoriteMovies(movie, movie.genreIds) }
+            .flatMapCompletable { movie -> saveFavoriteMovies(movie.toFavoriteMovieDb(), movie.genreIds) }
     }
 
-    private fun saveFavoriteMovies(fetchedFavoriteMovie: Movie, genreIds: List<Long>): Completable {
-        val crossRefs = genreIds.map { genreId -> MovieToGenreCrossRef(fetchedFavoriteMovie.id, genreId) }
-        val dbEntity = fetchedFavoriteMovie.toFavoriteMovieDb()
-
-        return favoriteMovieDao
-            .insert(dbEntity)
-            .doOnComplete { Timber.d("${fetchedFavoriteMovie.id}-${fetchedFavoriteMovie.title} saved!") }
-            .andThen(movieWithGenreDao.insertAll(crossRefs))
-            .doOnComplete { Timber.d("$crossRefs cross refs saved!") }
+    private fun saveFavoriteMovies(fetchedFavoriteMovie: FavoriteMovieDb, genreIds: List<Long>): Completable {
+        return Completable.fromCallable {
+            favoriteMovieDao.insertInTransaction(fetchedFavoriteMovie, genreIds)
+        }
+            .doOnComplete { Timber.d("${fetchedFavoriteMovie.movieId}-${fetchedFavoriteMovie.title} saved!") }
     }
 
     private fun fillMoviesWithInformation(response: WithPages<Movie>): Single<WithPages<Movie>> {
