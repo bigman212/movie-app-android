@@ -44,6 +44,7 @@ class NetworkErrorHandler @Inject constructor(context: Context, val moshi: Moshi
         return when (responseWithError.code) {
             HttpsURLConnection.HTTP_BAD_REQUEST -> NetworkException.BadRequest(error)
             HttpsURLConnection.HTTP_UNAUTHORIZED -> NetworkException.Unauthorized(error)
+            HttpsURLConnection.HTTP_NOT_FOUND -> NetworkException.BadRequest(error)
             else -> NetworkException.Unknown(error)
         }
     }

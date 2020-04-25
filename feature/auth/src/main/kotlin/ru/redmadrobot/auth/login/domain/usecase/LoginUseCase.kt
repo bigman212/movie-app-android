@@ -29,7 +29,7 @@ class LoginUseCase @Inject constructor(
 
     private fun fetchAccount(sessionIdResponse: SessionIdResponse): Single<SessionIdResponse> {
         return authRepo.fetchAccountDetails(sessionIdResponse.sessionId)
-            .doOnSuccess(this::saveAccountDetails)
+            .doOnSuccess { this.saveAccountDetails(it) }
             .doOnError { Timber.e(it) }
             .map { sessionIdResponse }
     }

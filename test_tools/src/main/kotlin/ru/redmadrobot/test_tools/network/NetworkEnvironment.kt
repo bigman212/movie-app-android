@@ -11,7 +11,7 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
 import kotlin.reflect.KClass
 
-class NetworkEnvironment<T : Any>(apiClass: KClass<T>, vararg interceptors: Interceptor = arrayOf()) {
+class NetworkEnvironment(vararg interceptors: Interceptor = arrayOf()) {
     private val mockServer = MockWebServer().apply { start() }
 
     private val mockWebServerUrl = mockServer.url("").toString().removeSuffix("/")
@@ -34,9 +34,7 @@ class NetworkEnvironment<T : Any>(apiClass: KClass<T>, vararg interceptors: Inte
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .build()
 
-    val api: T by lazy(LazyThreadSafetyMode.NONE) {
-        retrofit.create(apiClass.java)
-    }
+    fun <T : Any> createApi(apiClass: KClass<T>): T = retrofit.create(apiClass.java)
 
     fun dispatchResponses(pathHandler: (path: String) -> MockResponse) {
         mockServer.dispatcher = object : Dispatcher() {
