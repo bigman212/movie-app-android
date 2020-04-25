@@ -24,6 +24,16 @@ lintDebug:
   script:
     - ./gradlew -Pci --console=plain :app:lintDebug -PbuildDir=lint
 
+detektDebug:
+  stage: build
+  tags:
+    - android
+  script:
+    - ./gradlew detekt detektGrabSubprojectsReports
+  artifacts:
+    paths:
+      - reports/detekt/
+
 testDebug:
   stage: test
   tags:
