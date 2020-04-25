@@ -1,8 +1,13 @@
-image: jangrewe/gitlab-ci-android
-
 before_script:
   - export GRADLE_USER_HOME=$(pwd)/.gradle
   - chmod +x ./gradlew
+
+  # each cached job will download and extract the cache
+  # at the beginning and upload the cache at the end
+cache:
+  key: ${CI_PROJECT_ID}
+  paths:
+    - .gradle/
 
 stages:
   - build
@@ -31,8 +36,8 @@ testDebug:
   script:
     - ./gradlew -Pci --console=plain :app:testDebug
 
-build:
-  stage: build
+debugApk:
+  stage: release
   tags:
     - android
   script:
