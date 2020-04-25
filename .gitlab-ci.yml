@@ -1,0 +1,34 @@
+image: jangrewe/gitlab-ci-android
+
+before_script:
+  - export GRADLE_USER_HOME=$(pwd)/.gradle
+  - chmod +x ./gradlew
+
+stages:
+  - build
+  - test
+  - release
+  - deploy
+
+lintDebug:
+  stage: build
+  script:
+    - ./gradlew -Pci --console=plain :app:lintDebug -PbuildDir=lint
+
+assembleDebug:
+  stage: build
+  script:
+    - ./gradlew assembleDebug
+
+testDebug:
+  stage: test
+  script:
+    - ./gradlew -Pci --console=plain :app:testDebug
+
+build:
+  stage: build
+  script:
+    - ./gradlew assembleDebug
+  artifacts:
+    paths:
+      - app/build/outputs/apk/app-debug.apk
