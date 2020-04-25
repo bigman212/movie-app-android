@@ -12,23 +12,32 @@ stages:
 
 lintDebug:
   stage: build
+  tags:
+    - android
   script:
     - ./gradlew -Pci --console=plain :app:lintDebug -PbuildDir=lint
 
 assembleDebug:
   stage: build
+  tags:
+    - android
   script:
     - ./gradlew assembleDebug
 
 testDebug:
   stage: test
+  tags:
+    - android
   script:
     - ./gradlew -Pci --console=plain :app:testDebug
 
 build:
   stage: build
+  tags:
+    - android
   script:
     - ./gradlew assembleDebug
   artifacts:
+    expire_in: 4 hours
     paths:
       - app/build/outputs/apk/app-debug.apk
