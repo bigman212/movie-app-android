@@ -17,31 +17,32 @@ stages:
   - release
   - deploy
 
-lintDebug:
+build:lint:
   stage: build
   tags:
     - android
   script:
     - ./gradlew -Pci --console=plain :app:lintDebug -PbuildDir=lint
 
-detektDebug:
+build:detekt:
   stage: build
   tags:
     - android
   script:
-    - ./gradlew detekt detektGrabSubprojectsReports
+    - ./gradlew -Pci --console=plain detekt
+    - ./gradlew -Pci --console=plain detektGrabSubprojectsReports
   artifacts:
     paths:
       - reports/detekt/
 
-testDebug:
+test:unit:
   stage: test
   tags:
     - android
   script:
-    - ./gradlew -Pci --console=plain :app:testDebug
+    - ./gradlew -Pci --console=plain testDebug
 
-assembleDebug:
+release:debug:
   stage: release
   tags:
     - android
