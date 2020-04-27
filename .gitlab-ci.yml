@@ -15,7 +15,6 @@ stages:
   - build
   - test
   - release
-  - deploy
 
 build:lint:
   stage: build

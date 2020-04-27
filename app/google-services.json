@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "479475761195",
+    "firebase_url": "https://movie-app-20689.firebaseio.com",
+    "project_id": "movie-app-20689",
+    "storage_bucket": "movie-app-20689.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:479475761195:android:a3af882ebcfefb86b9ea6e",
+        "android_client_info": {
+          "package_name": "ru.redmadrobot.movie_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "479475761195-ikph0fsfc7vda3dbr3131v2qhoq5c679.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBa88t-jB8O7qE65GqWo2YUIzrfj5-ig5E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "479475761195-ikph0fsfc7vda3dbr3131v2qhoq5c679.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

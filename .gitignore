@@ -7,4 +7,10 @@
 /captures
 .externalNativeBuild
 .cxx
+
+# Detekt
 /reports
+
+# CI/CDE
+.env.*
+/ci/fastlane/*.md

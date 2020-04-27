@@ -3,6 +3,8 @@ import ru.redmadrobot.movie_app.Versions
 
 apply plugin: 'com.android.application'
 
+apply plugin: 'com.google.gms.google-services'
+
 apply from: rootProject.file('common-android-library.gradle')
 
 android {
@@ -19,7 +21,6 @@ android {
     buildTypes {
         debug {
             minifyEnabled false
-            applicationIdSuffix '.debug'
             versionNameSuffix '-DEBUG'
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }

@@ -1,0 +1,40 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+default_platform(:android)
+
+platform :android do
+
+  desc "Runs all the tests"
+  lane :test do
+    Dir.chdir ".." do
+      UI.message "Running unit tests"
+      gradle(task: 'testDebugUnitTest', flags: "--console=plain")
+    end
+  end
+
+  desc "Submit a new Beta Build to Firebase Beta"
+  lane :beta do
+    Dir.chdir ".." do
+      gradle(task: "clean assembleDebug")
+     # объяви app_id и firebase ci token в env.default как FIREBASEAPPDISTRO_APP и FIREBASE_TOKEN
+      firebase_app_distribution(
+        release_notes: "Text of release notes",
+        groups: "mentors",
+      )
+    end
+  end
+
+end
