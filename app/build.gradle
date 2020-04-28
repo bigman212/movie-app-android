@@ -1,5 +1,4 @@
 import ru.redmadrobot.movie_app.Dependencies
-import ru.redmadrobot.movie_app.Versions
 
 apply plugin: 'com.android.application'
 
@@ -9,26 +8,34 @@ apply from: rootProject.file('common-android-library.gradle')
 
 android {
     defaultConfig {
-        applicationId Versions.appId
-        minSdkVersion Versions.minSdk
-        targetSdkVersion Versions.targetSdk
-        versionCode Versions.versionCode
-        versionName Versions.versionName
+        applicationId build_versions.app_id
+        minSdkVersion build_versions.min_sdk
+        targetSdkVersion build_versions.target_sdk
+        versionCode build_versions.version_code
+        versionName build_versions.version_name
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
         debug {
+            versionNameSuffix '-debug'
+
+            debuggable true
+
             minifyEnabled false
-            versionNameSuffix '-DEBUG'
+            shrinkResources false
+
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
 
         release {
-            shrinkResources true
+            versionNameSuffix ""
             debuggable false
+
             minifyEnabled true
+            shrinkResources true
+
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }

@@ -1,0 +1,12 @@
+ext.build_versions = [
+    app_id : 'ru.redmadrobot.movie_app',
+
+    compile_sdk : 29,
+    build_tools : "29.0.3",
+
+    min_sdk : 21,
+    target_sdk : 29,
+
+    version_code : 1,
+    version_name : "0.0.1"
+]

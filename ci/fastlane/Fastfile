@@ -16,25 +16,27 @@
 default_platform(:android)
 
 platform :android do
-
-  desc "Runs all the tests"
-  lane :test do
+  desc "Define build type and assemble apk"
+  lane :beta do |options|
     Dir.chdir ".." do
-      UI.message "Running unit tests"
-      gradle(task: 'testDebugUnitTest', flags: "--console=plain")
+      if options[:build_type] == "DEBUG"
+        gradle(task: "assemble", build_type: "Debug")
+        distribute_firebase(firebase_group: "testers")
+      elsif options[:build_type] == "RELEASE"
+        gradle(task: "assemble", build_type: "Release")
+        distribute_firebase(firebase_group: "mentors")
+      end
     end
   end
 
-  desc "Submit a new Beta Build to Firebase Beta"
-  lane :beta do
-    Dir.chdir ".." do
-      gradle(task: "clean assembleDebug")
-     # объяви app_id и firebase ci token в env.default как FIREBASEAPPDISTRO_APP и FIREBASE_TOKEN
-      firebase_app_distribution(
-        release_notes: "Text of release notes",
-        groups: "mentors",
-      )
-    end
+  desc "Submit a new Build to Firebase"
+  private_lane :distribute_firebase do |options|
+    changelog_from_git_commits()
+    # объяви app_id и firebase ci token в env.default
+    # как FIREBASEAPPDISTRO_APP и FIREBASE_TOKEN
+    firebase_app_distribution(
+      release_notes: lane_context[SharedValues:FL_CHANGELOG],
+      groups: options[:firebase_group],
+    )
   end
-
 end

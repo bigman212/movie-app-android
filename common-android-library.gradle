@@ -1,6 +1,5 @@
 import ru.redmadrobot.movie_app.Dependencies
 import ru.redmadrobot.movie_app.TestDependencies
-import ru.redmadrobot.movie_app.Versions
 
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
@@ -10,13 +9,13 @@ apply plugin: "androidx.navigation.safeargs.kotlin"
 
 apply plugin: 'de.mannodermaus.android-junit5'
 
-android {
-    compileSdkVersion Versions.compileSdk
-    buildToolsVersion Versions.buildTools
-    defaultConfig {
-        minSdkVersion Versions.minSdk
+apply from: rootProject.file('versions.gradle')
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+android {
+    compileSdkVersion build_versions.compile_sdk
+    buildToolsVersion build_versions.build_tools
+    defaultConfig {
+        minSdkVersion build_versions.min_sdk
 
         vectorDrawables.useSupportLibrary = true
 

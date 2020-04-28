@@ -1,17 +1,5 @@
 package ru.redmadrobot.movie_app
 
-object Versions {
-    const val appId = "ru.redmadrobot.movie_app"
-    const val compileSdk = 29
-    const val buildTools = "29.0.2"
-
-    const val minSdk = 21
-    const val targetSdk = 29
-
-    const val versionCode = 1
-    const val versionName = "0.0.1"
-}
-
 object TestDependencies {
     // Не нужно выносить версии наружу, все зависимости подлючаются двумя переменными
     private const val junit5_version = "5.6.0"

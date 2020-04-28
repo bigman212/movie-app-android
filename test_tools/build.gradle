@@ -5,6 +5,12 @@ apply plugin: 'com.android.library'
 
 apply from: rootProject.file('common-android-library.gradle')
 
+
+android {
+    buildTypes{
+        // нужно чтобы test_tools собиралась в релизной сборке
+    }
+}
 dependencies {
     implementation(
             Dependencies.Kotlin,
