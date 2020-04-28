@@ -64,6 +64,7 @@ deploy:debug:
 deploy:release:
   stage: deploy
   script:
+    - cd ./ci
     - bundle exec fastlane start_build buildType:RELEASE
   artifacts:
     expire_in: 4 hours
