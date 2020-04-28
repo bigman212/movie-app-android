@@ -17,12 +17,12 @@ default_platform(:android)
 
 platform :android do
   desc "Define build type and assemble apk"
-  lane :beta do |options|
+  lane :start_build do |options|
     Dir.chdir ".." do
-      if options[:build_type] == "DEBUG"
+      if options[:buildType] == "DEBUG"
         gradle(task: "assemble", build_type: "Debug")
         distribute_firebase(firebase_group: "testers")
-      elsif options[:build_type] == "RELEASE"
+      elsif options[:buildType] == "RELEASE"
         gradle(task: "assemble", build_type: "Release")
         distribute_firebase(firebase_group: "mentors")
       end
