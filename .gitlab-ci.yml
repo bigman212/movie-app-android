@@ -1,9 +1,9 @@
-image: jangrewe/gitlab-ci-android
+image: mustafakhaled/android-fastlane-firebase:1.0
 
 before_script:
   - export GRADLE_USER_HOME=$(pwd)/.gradle
   - chmod +x ./gradlew
-  - cd ./ci/
+  - cd ./ci
   - bundle install
   - cd ..
 
