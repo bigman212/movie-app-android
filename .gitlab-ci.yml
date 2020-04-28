@@ -1,13 +1,10 @@
-image: mustafakhaled/android-fastlane-firebase:1.0
+image: unitedclassifiedsapps/gitlab-ci-android-fastlane
 
 before_script:
   - export GRADLE_USER_HOME=$(pwd)/.gradle
   - chmod +x ./gradlew
   - cd ./ci
-  - gem install bundler:1.17.3
   - bundle install
-  - cd ..
-
 variables:
   LC_ALL: "en_US.UTF-8"
   LANG: "en_US.UTF-8"
@@ -26,6 +23,7 @@ stages:
 test:lint:
   stage: test
   script:
+    - cd ..
     - ./gradlew -Pci --console=plain :app:lintDebug -PbuildDir=lint
   tags:
     - android
@@ -33,6 +31,7 @@ test:lint:
 test:detekt:
   stage: test
   script:
+    - cd ..
     - ./gradlew -Pci --console=plain detekt
     - ./gradlew -Pci --console=plain detektGrabSubprojectsReports
   artifacts:
@@ -44,6 +43,7 @@ test:detekt:
 test:unit:
   stage: test
   script:
+    - cd ..
     - ./gradlew -Pci --console=plain testDebugUnitTest
   tags:
     - android
@@ -64,7 +64,7 @@ deploy:debug:
 deploy:release:
   stage: deploy
   script:
-    - cd ./ci
+    - env
     - bundle exec fastlane start_build buildType:RELEASE
   artifacts:
     expire_in: 4 hours
