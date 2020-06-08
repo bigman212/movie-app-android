@@ -1,37 +1,41 @@
-# internship_android_levinkov
-### Зависимости
-Можно посмотреть [здесь](buildSrc/src/main/java/ru/redmadrobot/movie_app/Dependencies.kt)
+# movie-app (old from RMR Gitlab: internship_android_levinkov)
+### Dependencies
+[Here](buildSrc/src/main/java/ru/redmadrobot/movie_app/Dependencies.kt)
 
-### Структура проекта
-Проект разделен на подмодули:
-- **:app** главный модуль с Application классом;
-- **:common** содержит классы и интерфейсы которые используются в проекте почти везде. Например BaseViewModel;
+### Project structure
+Whole project consists of next modules:
+- **:app** main module with Application.
+- **:common** has common classes, interfaces that are used mainly everywhere in the project (e.g. BaseFragment or BaseViewModel).
 - **:core**
-  - :network логика для взаимодействия с сервером;
-  - :android логика инициализации и внедрения Android специфичных классов;
+  - :network code for communicating with the server;
+  - :android code for creating, injecting, and managing Android-specific logic (e.g. SharedPreferences);
+  - :persist code for persisting data using Room.
 - **:feature**
-  - :auth экран авторизации и все что с ним связано;
-- **...WIP... **
+  - :auth login with MovieDb credentials or using pin-code
+  - :movie_list list of movies fetched from server, favorite movies list
+  - :movie_detail more detailed info of clicked movie, movie can be added to favorites
+  - :profile logout, profile info
+- **:test_tools** mocks and common classes for testing
 
-Подмодули :feature в свою очередь структурированы согласно Clean Architecture *(UI -> ViewModel -> UseCase -> Repository -> Data source)*.
+Submodules of :feature is structured by Clean Architecture *(UI -> ViewModel -> UseCase -> Repository -> Data source)*.
 
-### Работа с Git
-Нейминг коммитов старается быть похожим на [Git Flow](https://danielkummer.github.io/git-flow-cheatsheet/index.ru_RU.html), но с небольшими изменениями.  
-Коммиты в заголовке пишутся по правилу
+### Git flow and commit naming
+Naming is more [Git Flow](https://danielkummer.github.io/git-flow-cheatsheet/index.ru_RU.html), but with a few changes from me.  
+Commit naming:
 ```bash
-(тип/<опционально_модуль_с_изменениями>) заголовок для коммита в 80 символов
+(type/<module_name_optional>) commit title in 80 symbols or less
 ```
-Возможные типы:
-- dev - разработка проекта без изменений касательно функционала "создан клиент для апи запросов";
-- feat - изменения которые реализуют функциональные требования, например "отправка запроса на авторизацию при нажатии на кнопку"
-- di - изменения касающиеся внедрения зависимостей, а именно изменения в компонентах, модулях и т.д.;
-- refactor - собсна сабж;
-- fix - исправление какой-либо ошибки, вылета;
-- docs - документация, комментарии к коду;
-- design - правки в верстке, стилях, дизайне;
+Possible types:
+- dev - coding without any big feature changes in the app for user (e.g. create api client);
+- feat - feature requirements complex implementation (e.g. auth user from credentials when login)
+- di - any dependency injection change or addition in modules or components;
+- refactor - refactor :D;
+- fix - any crash or bug fix;
+- docs - comments, docs;
+- design - changes in visual side of the app;
 
-В заголовке возможно может указан модуль в котором происходили изменения. Например:
+It is possible to write module name where changes were made:
 ```bash
-(feat/auth) авторизация используя пин-код
+(feat/auth) auth user using pin-code
 ```
 
