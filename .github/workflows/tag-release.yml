@@ -2,8 +2,10 @@ name: Android Release CI on Tag
 
 on:
   push:
-    branches:
-    - 'master'
+    branches:    
+      - master
+    tags:        
+      - v*
 
 jobs:
   release:
